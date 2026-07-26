@@ -100,15 +100,17 @@
         protonmail-bridge-gui
         signal-desktop
         sone
-        telegram-desktop
         thunderbird
         vscode.fhs
+        # citrix_workspace
       ];
     };
   };
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -122,6 +124,7 @@
       starship
       wget
       wl-clipboard
+      telegram-desktop
     ];
     variables = {
       SUDO_EDITOR = "nvim";
