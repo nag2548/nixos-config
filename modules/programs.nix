@@ -27,7 +27,6 @@
       customPkgs = [
         pkgs.nix-zsh-completions
       ];
-      theme = "agnoster";
     };
   };
 

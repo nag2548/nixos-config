@@ -107,7 +107,7 @@
         temurin-bin-25
         portfolio
         nextcloud-client
-        # citrix_workspace
+        citrix_workspace
       ];
     };
   };
@@ -115,6 +115,10 @@
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
+
+    permittedInsecurePackages = [
+      "libsoup-2.74.3"
+    ];
   };
 
   # List packages installed in system profile. To search, run:
