@@ -108,6 +108,7 @@
         portfolio
         nextcloud-client
         citrix_workspace
+        obsidian
       ];
     };
   };
@@ -135,6 +136,7 @@
       wget
       wl-clipboard
       telegram-desktop
+      cifs-utils
     ];
     variables = {
       SUDO_EDITOR = "nvim";
