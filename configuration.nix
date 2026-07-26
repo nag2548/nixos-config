@@ -102,6 +102,10 @@
         sone
         thunderbird
         vscode.fhs
+        nodejs
+        temurin-bin-25
+        portfolio
+        nextcloud-client
         # citrix_workspace
       ];
     };
@@ -116,6 +120,7 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
+      btop
       git
       neovim
       nil
@@ -142,6 +147,12 @@
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
+
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 14d";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
