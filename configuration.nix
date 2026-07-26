@@ -91,6 +91,7 @@
       extraGroups = [
         "networkmanager"
         "wheel"
+        "docker"
       ];
       packages = with pkgs; [
         kdePackages.kate
@@ -113,9 +114,18 @@
       git
       vscode.fhs
       nixfmt
+      protonmail-bridge-gui
     ];
     variables = {
       SUDO_EDITOR = "nvim";
+    };
+  };
+
+  virtualisation.docker = {
+    enable = true;  
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
     };
   };
 
