@@ -83,21 +83,22 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."nadine" = {
-    isNormalUser = true;
-    description = "nadine";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [
-      kdePackages.kate
-      thunderbird
-      discord-ptb
-    ];
+  users = {
+    defaultUserShell = pkgs.zsh;
+    users."nadine" = {
+      isNormalUser = true;
+      description = "nadine";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
+      packages = with pkgs; [
+        kdePackages.kate
+        thunderbird
+        discord-ptb
+      ];
+    };
   };
-
-  users.defaultUserShell = pkgs.zsh;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

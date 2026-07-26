@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+{
   # Install firefox.
   programs.firefox.enable = true;
 
