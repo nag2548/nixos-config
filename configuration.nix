@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -94,9 +94,15 @@
         "docker"
       ];
       packages = with pkgs; [
-        kdePackages.kate
-        thunderbird
         discord-ptb
+        jetbrains.idea
+        kdePackages.kate
+        protonmail-bridge-gui
+        signal-desktop
+        sone
+        telegram-desktop
+        thunderbird
+        vscode.fhs
       ];
     };
   };
@@ -108,13 +114,14 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
-      wget
-      neovim
-      wl-clipboard
       git
-      vscode.fhs
+      neovim
+      nil
+      nixd
       nixfmt
-      protonmail-bridge-gui
+      starship
+      wget
+      wl-clipboard
     ];
     variables = {
       SUDO_EDITOR = "nvim";
@@ -122,12 +129,16 @@
   };
 
   virtualisation.docker = {
-    enable = true;  
+    enable = true;
     rootless = {
       enable = true;
       setSocketVariable = true;
     };
   };
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
