@@ -109,6 +109,7 @@
         nextcloud-client
         citrix_workspace
         obsidian
+        kitty
       ];
     };
   };
@@ -127,7 +128,6 @@
   environment = {
     systemPackages = with pkgs; [
       btop
-      git
       neovim
       nil
       nixd
