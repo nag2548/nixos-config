@@ -73,6 +73,9 @@
         yank
         vim-tmux-navigator
       ];
+      extraConfig = ''
+        set -g mouse on
+      '';
     };
   };
 }
