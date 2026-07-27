@@ -64,5 +64,15 @@
     steam = {
       enable = true;
     };
+
+    tmux = {
+      enable = true;
+      clock24 = true;
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        yank
+        vim-tmux-navigator
+      ];
+    };
   };
 }
