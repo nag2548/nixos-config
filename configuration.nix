@@ -151,9 +151,13 @@
     };
   };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
+  fonts = {
+    enableDefaultPackages = false;
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+    ];
+    fontconfig.enable = true;
+  };
 
   nix.gc = {
     automatic = true;
