@@ -138,9 +138,15 @@
       telegram-desktop
       cifs-utils
     ];
+
     variables = {
       SUDO_EDITOR = "nvim";
     };
+
+    sessionVariables.XDG_DATA_DIRS = [
+      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
+      "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+    ];
   };
 
   virtualisation.docker = {
@@ -151,13 +157,9 @@
     };
   };
 
-  fonts = {
-    enableDefaultPackages = false;
-    packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
-    ];
-    fontconfig.enable = true;
-  };
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 
   nix.gc = {
     automatic = true;
