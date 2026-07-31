@@ -2,31 +2,7 @@
 
 {
   programs = {
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
-
-      shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake /home/nadine/.schnee";
-      };
-      histSize = 10000;
-
-      ohMyZsh = {
-        enable = true;
-        plugins = [
-          "git"
-          "python"
-          "man"
-          "docker"
-          "docker-compose"
-        ];
-        customPkgs = [
-          pkgs.nix-zsh-completions
-        ];
-      };
-    };
+    zsh.enable = true;
 
     _1password.enable = true;
     _1password-gui = {
@@ -44,10 +20,6 @@
           set number
         '';
       };
-    };
-
-    starship = {
-      enable = true;
     };
 
     steam = {

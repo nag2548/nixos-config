@@ -41,15 +41,43 @@
       };
     };
 
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      shellAliases = {
+        rebuild = "sudo nixos-rebuild switch --flake /home/nadine/.schnee";
+      };
+      history = {
+        size = 10000;
+        ignoreAllDups = true;
+      };
+
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "git"
+          "python"
+          "man"
+          "docker"
+          "docker-compose"
+        ];
+      };
+    };
+
+    starship = {
+      enable = true;
+    };
+
     vesktop = {
       enable = true;
-
       vencord.settings = {
         autoUpdate = true;
         autoUpdateNotification = true;
         notifyAboutUpdates = true;
-
         plugins = {
+          FakeNitro.enabled = true;
           ClearURLs.enabled = true;
           FixYoutubeEmbeds.enabled = true;
         };
@@ -66,13 +94,9 @@
         "en-US"
         "de"
       ];
-      preferences = {
-        "privacy.resistFingerprinting" = true;
-      };
       policies = {
         DisableTelemetry = true;
       };
-      nativeMessagingHosts.packages = with pkgs; [ kdePackages.plasma-browser-integration ];
     };
   };
 
