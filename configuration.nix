@@ -132,7 +132,6 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
-      btop
       neovim
       nil
       nixd
