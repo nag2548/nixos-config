@@ -98,19 +98,6 @@
         "wheel"
         "docker"
       ];
-      packages = with pkgs; [
-        jetbrains.idea
-        kdePackages.kate
-        protonmail-bridge-gui
-        signal-desktop
-        sone
-        vscode.fhs
-        nodejs
-        temurin-bin-25
-        portfolio
-        nextcloud-client
-        citrix_workspace
-      ];
     };
   };
 
@@ -133,7 +120,6 @@
       nixfmt
       wget
       wl-clipboard
-      telegram-desktop
       cifs-utils
     ];
 

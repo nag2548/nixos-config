@@ -19,10 +19,23 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # misc
     cowsay
-
     btop
+
+    kdePackages.kate
+    signal-desktop
+    jetbrains.idea
+    protonmail-bridge-gui
+    sone
+    vscode.fhs
+    nodejs
+    temurin-bin-25
+    portfolio
+    nextcloud-client
+    citrix_workspace
+    telegram-desktop
+    _1password-cli
+    _1password-gui
   ];
 
   programs = {
@@ -97,6 +110,28 @@
       policies = {
         DisableTelemetry = true;
       };
+    };
+
+    tmux = {
+      enable = true;
+      clock24 = true;
+      mouse = true;
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        yank
+        vim-tmux-navigator
+        better-mouse-mode
+      ];
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      extraConfig = ''
+        set number
+      '';
     };
   };
 
