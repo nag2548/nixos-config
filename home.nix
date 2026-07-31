@@ -34,8 +34,6 @@
     nextcloud-client
     citrix_workspace
     telegram-desktop
-    _1password-cli
-    _1password-gui
   ];
 
   programs = {
@@ -131,6 +129,7 @@
       vimAlias = true;
       extraConfig = ''
         set number
+        set cursorline
       '';
     };
   };
