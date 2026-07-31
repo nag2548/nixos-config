@@ -100,21 +100,17 @@
         "docker"
       ];
       packages = with pkgs; [
-        discord-ptb
         jetbrains.idea
         kdePackages.kate
         protonmail-bridge-gui
         signal-desktop
         sone
-        thunderbird
         vscode.fhs
         nodejs
         temurin-bin-25
         portfolio
         nextcloud-client
         citrix_workspace
-        obsidian
-        kitty
       ];
     };
   };
@@ -197,5 +193,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
-
 }

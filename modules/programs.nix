@@ -2,8 +2,6 @@
 
 {
   programs = {
-    firefox.enable = true;
-
     zsh = {
       enable = true;
       enableCompletion = true;

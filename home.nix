@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  # TODO please change the username & home directory to your own
   home.username = "nadine";
   home.homeDirectory = "/home/nadine";
 
@@ -18,38 +17,62 @@
   #   executable = true;  # make all files executable
   # };
 
-  # encode the file content in nix configuration file directly
-  # home.file.".xxx".text = ''
-  #     xxx
-  # '';
-
-  # set cursor size and dpi for 4k monitor
-  # xresources.properties = {
-  #   "Xcursor.size" = 16;
-  #   "Xft.dpi" = 172;
-  # };
-
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # here is some command line tools I use frequently
-    # feel free to add your own or remove some of them
-
     # misc
     cowsay
 
-    btop # replacement of htop/nmon
+    btop
   ];
 
-  # basic configuration of git, please change to your own
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    settings = {
-      user = {
-        name = "nag2548";
-        email = "nadine.grabmair@gmx.de";
+  programs = {
+    git = {
+      enable = true;
+      lfs.enable = true;
+      settings = {
+        user = {
+          name = "nag2548";
+          email = "nadine.grabmair@gmx.de";
+        };
+        init.defaultBranch = "main";
+        push = {
+          autoSetupRemote = true;
+        };
       };
-      init.defaultBranch = "main";
+    };
+
+    vesktop = {
+      enable = true;
+
+      vencord.settings = {
+        autoUpdate = true;
+        autoUpdateNotification = true;
+        notifyAboutUpdates = true;
+
+        plugins = {
+          ClearURLs.enabled = true;
+          FixYoutubeEmbeds.enabled = true;
+        };
+      };
+    };
+
+    thunderbird = {
+      enable = true;
+    };
+
+    firefox = {
+      enable = true;
+      languagePacks = [
+        "en-US"
+        "de"
+      ];
+      preferences = {
+        "privacy.resistFingerprinting" = true;
+      };
+      policies = {
+        DisableTelemetry = true;
+      };
+      nativeMessagingHosts.packages = with pkgs; [ kdePackages.plasma-browser-integration ];
     };
   };
 
