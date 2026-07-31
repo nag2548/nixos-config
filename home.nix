@@ -37,20 +37,20 @@
     # misc
     cowsay
 
-    # nix related
-    #
-    # it provides the command `nom` works just like `nix`
-    # with more details log output
-    nix-output-monitor
-
     btop # replacement of htop/nmon
   ];
 
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    userName = "nag2548";
-    userEmail = "nadine.grabmair@gmx.de";
+    lfs.enable = true;
+    settings = {
+      user = {
+        name = "nag2548";
+        email = "nadine.grabmair@gmx.de";
+      };
+      init.defaultBranch = "main";
+    };
   };
 
   # This value determines the home Manager release that your

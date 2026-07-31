@@ -24,7 +24,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.nadine = import ./home.nix;
+              home-manager.users.nadine = ./home.nix;
             }
           ];
         };

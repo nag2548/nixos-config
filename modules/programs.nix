@@ -4,15 +4,6 @@
   programs = {
     firefox.enable = true;
 
-    git = {
-      enable = true;
-      config = {
-        init = {
-          defaultBranch = "main";
-        };
-      };
-    };
-
     zsh = {
       enable = true;
       enableCompletion = true;
