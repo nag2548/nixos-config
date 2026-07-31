@@ -20,7 +20,7 @@
       syntaxHighlighting.enable = true;
 
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch -I nixos-config=/home/nadine/git/nixos/configuration.nix";
+        rebuild = "sudo nixos-rebuild switch -I nixos-config=/home/nadine/.schnee/configuration.nix";
       };
       histSize = 10000;
 
