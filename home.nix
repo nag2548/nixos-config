@@ -1,5 +1,7 @@
-{ pkgs, ... }:
-
+{ inputs, pkgs, ... }:
+let
+  unstable = import inputs.nixpkgs-unstable { inherit (pkgs.stdenv.hostPlatform) system; };
+in
 {
   home.username = "nadine";
   home.homeDirectory = "/home/nadine";
@@ -26,7 +28,7 @@
     jetbrains.idea
     protonmail-bridge-gui
     sone
-    portfolio
+    unstable.portfolio
     nextcloud-client
     citrix_workspace
     signal-desktop
