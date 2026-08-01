@@ -37,6 +37,7 @@
       settings = {
         right_format = "$time";
         time.disabled = false;
+        hostname.ssh_only = false;
       };
     };
 
