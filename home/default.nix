@@ -6,6 +6,7 @@
     ./programs/git.nix
     ./programs/shell.nix
     ./programs/vscode.nix
+    ./programs/browsers.nix
   ];
 
   home.username = "nadine";
