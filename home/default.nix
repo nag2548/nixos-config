@@ -1,10 +1,11 @@
 {
   imports = [
-    ./programs/common.nix
-    ./programs/git.nix
-    ./programs/shell.nix
-    ./programs/vscode.nix
-    ./programs/browsers.nix
+    ./browsers.nix
+    ./common.nix
+    ./git.nix
+    ./shell.nix
+    ./thunderbird.nix
+    ./vscode.nix
   ];
 
   home.username = "nadine";

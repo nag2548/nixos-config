@@ -15,9 +15,13 @@ in
     citrix_workspace
     signal-desktop
     telegram-desktop
+    karere
+    libreoffice
 
     nodejs
     temurin-bin-25
+    python3
+    gitmoji-cli
   ];
 
   programs = {
@@ -33,12 +37,10 @@ in
           FakeNitro.enabled = true;
           ClearURLs.enabled = true;
           FixYoutubeEmbeds.enabled = true;
+          SilentTyping.enable = true;
+          YoutubeAdblock.enable = true;
         };
       };
-    };
-
-    thunderbird = {
-      enable = true;
     };
   };
 }
