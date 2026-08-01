@@ -1,19 +1,71 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  # Bootloader.
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 20;
+    };
+    efi.canTouchEfiVariables = true;
   };
 
-  fileSystems."/mnt/documents" = {
-    device = "//192.168.100.31/documents";
-    fsType = "cifs";
-    options =
-      let
-        # this line prevents hanging on network split
-        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-      in
-      [ "${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100" ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    LC_TIME = "de_DE.UTF-8";
+  };
+
+  # Allow unfree packages
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    permittedInsecurePackages = [
+      "libsoup-2.74.3"
+    ];
+  };
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
+
+  programs = {
+    zsh.enable = true;
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
+    };
+
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "nadine" ];
+    };
   };
 }
