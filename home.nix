@@ -24,7 +24,6 @@ in
     cowsay
     btop
 
-    kdePackages.kate
     jetbrains.idea
     protonmail-bridge-gui
     sone
@@ -58,7 +57,7 @@ in
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake /home/nadine/.schnee";
+        rebuild = "sudo nixos-rebuild switch --flake ~/.schnee";
       };
       history = {
         size = 10000;
