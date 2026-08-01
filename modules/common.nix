@@ -59,7 +59,6 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
-      cifs-utils
       nil
       nixd
       nixfmt

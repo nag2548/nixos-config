@@ -1,4 +1,12 @@
+{ pkgs, ... }:
+
 {
+  environment = {
+    systemPackages = with pkgs; [
+      cifs-utils
+    ];
+  };
+
   fileSystems."/mnt/documents" = {
     device = "//192.168.100.31/documents";
     fsType = "cifs";
