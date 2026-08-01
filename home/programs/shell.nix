@@ -7,6 +7,7 @@
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      historySubstringSearch.enable = true;
 
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake ~/.schnee";
@@ -31,6 +32,12 @@
 
     starship = {
       enable = true;
+      enableZshIntegration = true;
+
+      settings = {
+        right_format = "$time";
+        time.disabled = false;
+      };
     };
 
     tmux = {
