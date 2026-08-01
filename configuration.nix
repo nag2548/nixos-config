@@ -20,6 +20,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 20;
 
   networking.hostName = "tenebrae"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -148,8 +149,8 @@
 
   nix.gc = {
     automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 14d";
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
