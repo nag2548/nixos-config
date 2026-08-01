@@ -170,6 +170,11 @@
           when = "editorTextFocus";
         }
         {
+          key = "shift+enter";
+          command = "editor.action.insertLineAfter";
+          when = "editorTextFocus && !editorReadonly";
+        }
+        {
           key = "ctrl+shift+delete";
           command = "deleteAllRight";
           when = "editorTextFocus";
@@ -187,8 +192,7 @@
         {
           key = "ctrl+shift+o";
           command = "editor.action.organizeImports";
-          when = "editorTextFocus && !editorReadonly && supportedCodeAction =~
- /(\\s|^)source\\.organizeImports\\b/";
+          when = "editorTextFocus && !editorReadonly && supportedCodeAction =~ /(\\s|^)source\\.organizeImports\\b/";
         }
         {
           key = "ctrl+space";
@@ -250,7 +254,7 @@
           command = "editor.action.codeAction";
           when = "editorTextFocus";
           args = {
-            "kind" = "refactor.extract.variable";
+            kind = "refactor.extract.variable";
           };
         }
         {
@@ -258,7 +262,7 @@
           command = "editor.action.codeAction";
           when = "editorTextFocus";
           args = {
-            "kind" = "refactor.extract.function";
+            kind = "refactor.extract.function";
           };
         }
         {
@@ -266,7 +270,7 @@
           command = "editor.action.codeAction";
           when = "editorTextFocus";
           args = {
-            "kind" = "refactor.move";
+            kind = "refactor.move";
           };
         }
         {
@@ -296,6 +300,14 @@
         {
           key = "alt+right";
           command = "workbench.action.navigateForward";
+        }
+        {
+          key = "ctrl+f7";
+          command = "workbench.action.focusNextPart";
+        }
+        {
+          key = "shift+ctrl+f7";
+          command = "workbench.action.focusPreviousPart";
         }
         {
           key = "f8";
