@@ -147,6 +147,7 @@ in
         enableUpdateCheck = true;
         enableExtensionUpdateCheck = true;
         userSettings = {
+          "editor.formatOnSave" = true;
           "diffEditor.ignoreTrimWhitespace" = false;
           "files.autoSave" = "afterDelay";
           "workbench.colorTheme" = "Dracula Theme";
