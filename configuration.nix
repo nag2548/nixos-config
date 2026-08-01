@@ -9,7 +9,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules/programs.nix
-    ./modules/hardware.nix
+    ./modules/system.nix
   ];
 
   nix.settings.experimental-features = [
@@ -115,13 +115,13 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
+      cifs-utils
       neovim
       nil
       nixd
       nixfmt
       wget
       wl-clipboard
-      cifs-utils
     ];
 
     variables = {

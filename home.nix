@@ -23,17 +23,17 @@
     btop
 
     kdePackages.kate
-    signal-desktop
     jetbrains.idea
     protonmail-bridge-gui
     sone
-    vscode.fhs
-    nodejs
-    temurin-bin-25
     portfolio
     nextcloud-client
     citrix_workspace
+    signal-desktop
     telegram-desktop
+
+    nodejs
+    temurin-bin-25
   ];
 
   programs = {
@@ -46,9 +46,7 @@
           email = "nadine.grabmair@gmx.de";
         };
         init.defaultBranch = "main";
-        push = {
-          autoSetupRemote = true;
-        };
+        push.autoSetupRemote = true;
       };
     };
 
@@ -131,6 +129,18 @@
         set number
         set cursorline
       '';
+    };
+
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs;
+      profiles.default.extensions = with pkgs.vscode-extensions; [
+        dracula-theme.theme-dracula
+        vscodevim.vim
+        yzhang.markdown-all-in-one
+        jnoortheen.nix-ide
+        christian-kohler.path-intellisense
+      ];
     };
   };
 
