@@ -8,8 +8,8 @@
     ./hardware-configuration.nix
 
     ../../modules/system.nix
-    ./modules/programs.nix
-    ../users/users.nix
+    ../../modules/gaming.nix
+    ../../modules/users.nix
   ];
 
   networking.hostName = "tenebrae"; # Define your hostname.
