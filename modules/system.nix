@@ -52,15 +52,25 @@
     nerd-fonts.jetbrains-mono
   ];
 
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment = {
+    systemPackages = with pkgs; [
+      cifs-utils
+      nil
+      nixd
+      nixfmt
+      wl-clipboard
+    ];
+
+    sessionVariables.XDG_DATA_DIRS = [
+      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
+      "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+    ];
+  };
+
   programs = {
     zsh.enable = true;
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      viAlias = true;
-    };
 
     _1password.enable = true;
     _1password-gui = {

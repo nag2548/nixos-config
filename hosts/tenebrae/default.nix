@@ -2,14 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
-
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
     ../../modules/system.nix
+    ./modules/programs.nix
+    ../users/users.nix
   ];
 
   networking.hostName = "tenebrae"; # Define your hostname.
@@ -56,35 +56,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
-    defaultUserShell = pkgs.zsh;
     users."nadine" = {
-      isNormalUser = true;
-      description = "nadine";
       extraGroups = [
-        "networkmanager"
-        "wheel"
         "docker"
       ];
     };
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment = {
-    systemPackages = with pkgs; [
-      cifs-utils
-      nil
-      nixd
-      nixfmt
-      wl-clipboard
-    ];
-
-    sessionVariables.XDG_DATA_DIRS = [
-      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
-      "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
-    ];
   };
 
   virtualisation.docker = {
@@ -109,12 +86,6 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
-  };
-
-  programs = {
-    steam = {
-      enable = true;
-    };
   };
 
   # This value determines the NixOS release from which the default
