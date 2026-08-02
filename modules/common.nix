@@ -43,6 +43,7 @@
   nixpkgs.config = {
     allowUnfree = true;
 
+    # libsoup 2.74.x is required by citrix_workspace; revisit on Citrix update
     permittedInsecurePackages = [
       "libsoup-2.74.3"
     ];
