@@ -13,8 +13,8 @@
         ms-python.python
       ];
 
-      enableUpdateCheck = true;
-      enableExtensionUpdateCheck = true;
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
 
       userSettings = {
         "editor.formatOnSave" = true;
