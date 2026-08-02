@@ -53,6 +53,7 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
   ];
 
   # List packages installed in system profile. To search, run:

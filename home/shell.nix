@@ -37,7 +37,6 @@
       settings = {
         right_format = "$time";
         time.disabled = false;
-        hostname.ssh_only = false;
       };
     };
 
@@ -70,11 +69,15 @@
       shellIntegration.enableZshIntegration = true;
       settings = {
         enable_audio_bell = false;
-        visual_bell_duration = "1.2 ease-in linear";
         scrollback_lines = 10000;
         update_check_interval = 0;
         font_size = 11;
-        font_family = "JetBrainsMono Nerd Font";
+        font_family = "Fira Code";
+        tab_bar_min_tabs = 1;
+        tab_bar_edge = "bottom";
+        tab_bar_style = "powerline";
+        tab_powerline_style = "slanted";
+        tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
       };
       themeFile = "Catppuccin-Mocha";
     };
