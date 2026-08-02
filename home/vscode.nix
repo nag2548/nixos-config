@@ -6,7 +6,7 @@
 
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
-        dracula-theme.theme-dracula
+        catppuccin.catppuccin-vsc
         yzhang.markdown-all-in-one
         jnoortheen.nix-ide
         christian-kohler.path-intellisense
@@ -20,7 +20,11 @@
         "editor.formatOnSave" = true;
         "diffEditor.ignoreTrimWhitespace" = false;
         "files.autoSave" = "afterDelay";
-        "workbench.colorTheme" = "Dracula Theme";
+
+        "workbench.colorTheme" = "Catppuccin Mocha";
+        "editor.semanticHighlighting.enabled" = true;
+        "terminal.integrated.minimumContrastRatio" = 1;
+        "window.titleBarStyle" = "custom";
       };
 
       keybindings = [
