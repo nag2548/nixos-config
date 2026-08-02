@@ -28,7 +28,7 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
-    variant = "";
+    variant = "intl";
   };
 
   # This value determines the NixOS release from which the default
