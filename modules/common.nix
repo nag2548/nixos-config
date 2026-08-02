@@ -60,7 +60,6 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
-      nil
       nixd
       nixfmt
       wl-clipboard
@@ -71,7 +70,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

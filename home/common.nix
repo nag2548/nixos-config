@@ -43,12 +43,5 @@ in
       };
     };
 
-    obsidian = {
-      enable = false;
-      vaults."libri" = {
-        enable = false;
-        target = "Documents/Obsidian/libri";
-      };
-    };
   };
 }

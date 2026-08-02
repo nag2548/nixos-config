@@ -21,12 +21,6 @@
         "diffEditor.ignoreTrimWhitespace" = false;
         "files.autoSave" = "afterDelay";
         "workbench.colorTheme" = "Dracula Theme";
-        # "vim.handleKeys" = {
-        #   "<C-p>" = false;
-        #   "<C-d>" = true;
-        #   "<C-s>" = false;
-        #   "<C-z>" = false;
-        # };
       };
 
       keybindings = [
@@ -140,17 +134,7 @@
           when = "editorTextFocus";
         }
         {
-          key = "ctrl+alt+win+down";
-          command = "editor.action.copyLinesDownAction";
-          when = "editorTextFocus";
-        }
-        {
           key = "ctrl+alt+up";
-          command = "editor.action.copyLinesUpAction";
-          when = "editorTextFocus";
-        }
-        {
-          key = "ctrl+alt+win+up";
           command = "editor.action.copyLinesUpAction";
           when = "editorTextFocus";
         }

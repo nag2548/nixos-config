@@ -7,7 +7,7 @@
 
     users.${username} = {
       isNormalUser = true;
-      description = username;
+      uid = 1000;
 
       extraGroups = [
         "networkmanager"
