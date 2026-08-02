@@ -10,6 +10,7 @@
         yzhang.markdown-all-in-one
         jnoortheen.nix-ide
         christian-kohler.path-intellisense
+        ms-python.python
       ];
 
       enableUpdateCheck = true;
