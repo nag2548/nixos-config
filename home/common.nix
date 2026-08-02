@@ -44,10 +44,10 @@ in
     };
 
     obsidian = {
-      enable = true;
-      vaults."second-brain" = {
-        enable = true;
-        target = "Documents/Obsidian/second-brain";
+      enable = false;
+      vaults."libri" = {
+        enable = false;
+        target = "Documents/Obsidian/libri";
       };
     };
   };

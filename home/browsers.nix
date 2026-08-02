@@ -15,7 +15,7 @@
       policies = {
         DisableTelemetry = true;
         OfferToSaveLogins = false;
-        DownloadDirectory = "\${home}/downloads";
+        DownloadDirectory = "\${home}/Downloads";
         AutofillAddressEnabled = false;
         AutofillCreditCardEnabled = false;
       };

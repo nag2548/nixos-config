@@ -1,13 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     defaultUserShell = pkgs.zsh;
 
-    users."nadine" = {
+    users.${username} = {
       isNormalUser = true;
-      description = "nadine";
+      description = username;
 
       extraGroups = [
         "networkmanager"

@@ -1,3 +1,5 @@
+{ username, ... }:
+
 {
   imports = [
     ./browsers.nix
@@ -8,8 +10,8 @@
     ./vscode.nix
   ];
 
-  home.username = "nadine";
-  home.homeDirectory = "/home/nadine";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

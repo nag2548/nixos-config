@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   nix.settings.experimental-features = [
@@ -96,7 +96,7 @@
     _1password.enable = true;
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = [ "nadine" ];
+      polkitPolicyOwners = [ username ];
     };
   };
 }

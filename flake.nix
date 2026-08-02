@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "My own, very basic NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -13,37 +13,29 @@
 
   outputs =
     inputs@{ nixpkgs, home-manager, ... }:
+    let
+      username = "nadine";
+      mkHost =
+        hostPath:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs username; };
+
+          modules = [
+            hostPath
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs username; };
+              home-manager.users.${username} = ./home;
+            }
+          ];
+        };
+    in
     {
       nixosConfigurations = {
-        tenebrae = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-
-          modules = [
-            ./hosts/tenebrae
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.nadine = ./home;
-            }
-          ];
-        };
-
-        galanthus = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-
-          modules = [
-            ./hosts/galanthus
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.nadine = ./home;
-            }
-          ];
-        };
+        tenebrae = mkHost ./hosts/tenebrae;
+        galanthus = mkHost ./hosts/galanthus;
       };
     };
 }
