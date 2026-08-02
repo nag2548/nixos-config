@@ -1,16 +1,17 @@
 {
   programs.thunderbird = {
     enable = true;
-
     policies = {
       DisableTelemetry = true;
     };
-
+    settings = {
+      "general.useragent.override" = "";
+      "privacy.donottrackheader.enabled" = true;
+    };
     languagePacks = [
       "en-US"
       "de"
     ];
-
     profiles."default" = {
       isDefault = true;
     };
@@ -29,7 +30,6 @@
         port = 1143;
         tls.useStartTls = true;
       };
-
       smtp = {
         host = "127.0.0.1";
         port = 1025;

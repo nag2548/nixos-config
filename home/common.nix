@@ -33,7 +33,6 @@ in
         autoUpdate = false;
         autoUpdateNotification = false;
         notifyAboutUpdates = false;
-
         plugins = {
           FakeNitro.enabled = true;
           ClearURLs.enabled = true;
@@ -41,6 +40,14 @@ in
           SilentTyping.enabled = true;
           YoutubeAdblock.enabled = true;
         };
+      };
+    };
+
+    obsidian = {
+      enable = true;
+      vaults."second-brain" = {
+        enable = true;
+        target = "Documents/Obsidian/second-brain";
       };
     };
   };
