@@ -30,15 +30,16 @@ in
     vesktop = {
       enable = true;
       vencord.settings = {
-        autoUpdate = true;
-        autoUpdateNotification = true;
-        notifyAboutUpdates = true;
+        autoUpdate = false;
+        autoUpdateNotification = false;
+        notifyAboutUpdates = false;
+
         plugins = {
           FakeNitro.enabled = true;
           ClearURLs.enabled = true;
           FixYoutubeEmbeds.enabled = true;
-          SilentTyping.enable = true;
-          YoutubeAdblock.enable = true;
+          SilentTyping.enabled = true;
+          YoutubeAdblock.enabled = true;
         };
       };
     };
