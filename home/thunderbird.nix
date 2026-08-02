@@ -17,7 +17,7 @@
   };
 
   accounts.email.accounts = {
-    "proton" = {
+    "nadine@grabmair.me" = {
       primary = true;
       thunderbird.enable = true;
       realName = "Nadine Grabmair";
