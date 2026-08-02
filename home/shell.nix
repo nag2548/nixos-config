@@ -81,5 +81,7 @@
       };
       themeFile = "Catppuccin-Mocha";
     };
+
+    opencode.enable = true;
   };
 }
