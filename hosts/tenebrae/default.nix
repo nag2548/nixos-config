@@ -1,3 +1,5 @@
+{ username, ... }:
+
 {
   imports = [
     ./hardware-configuration.nix
@@ -22,6 +24,11 @@
   };
 
   console.keyMap = "de";
+
+  sops = {
+    defaultSopsFile = ../../secrets/main.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  };
 
   system.stateVersion = "26.05";
 }

@@ -1,0 +1,7 @@
+keys:
+  - &nadine age16x38ldus3yj992xj8ejge4eeh58t9t3etvm8h52smhs2m429mc7se575wx
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *nadine
