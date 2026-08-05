@@ -1,7 +1,13 @@
-{ username, ... }:
+{
+  config,
+  inputs,
+  username,
+  ...
+}:
 
 {
   imports = [
+    inputs.sops-nix.homeManagerModules.sops
     ./browsers.nix
     ./common.nix
     ./git.nix
@@ -12,6 +18,11 @@
 
   home.username = username;
   home.homeDirectory = "/home/${username}";
+
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+  };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
