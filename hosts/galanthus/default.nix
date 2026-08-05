@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   imports = [
@@ -45,6 +45,11 @@
   ];
 
   hardware.logitech.wireless.enable = true;
+
+  sops = {
+    defaultSopsFile = ../../secrets/secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  };
 
   system.stateVersion = "26.05";
 }

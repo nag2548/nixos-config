@@ -26,7 +26,7 @@
   console.keyMap = "de";
 
   sops = {
-    defaultSopsFile = ../../secrets/main.yaml;
+    defaultSopsFile = ../../secrets/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
   };
 
