@@ -36,5 +36,23 @@
         tls.useStartTls = true;
       };
     };
+
+    "nadinegrabmair@yahoo.de" = {
+      thunderbird.enable = true;
+      realName = "Nadine Grabmair";
+      address = "nadinegrabmair@yahoo.de";
+      userName = "nadinegrabmair@yahoo.de";
+
+      imap = {
+        host = "imap.mail.yahoo.com";
+        port = 993;
+        tls.enable = true;
+      };
+      smtp = {
+        host = "smtp.mail.yahoo.com";
+        port = 465;
+        tls.enable = true;
+      };
+    };
   };
 }
