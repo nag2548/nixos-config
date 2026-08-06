@@ -7,6 +7,8 @@
     settings = {
       "general.useragent.override" = "";
       "privacy.donottrackheader.enabled" = true;
+      "calendar.week.start" = 1;
+      "calendar.alarms.playsound" = false;
     };
     languagePacks = [
       "en-US"
