@@ -24,7 +24,6 @@
       realName = "Nadine Grabmair";
       address = "nadine@grabmair.me";
       userName = "nadine@grabmair.me";
-
       imap = {
         host = "127.0.0.1";
         port = 1143;
@@ -42,7 +41,6 @@
       realName = "Nadine Grabmair";
       address = "nadinegrabmair@yahoo.de";
       userName = "nadinegrabmair@yahoo.de";
-
       imap = {
         host = "imap.mail.yahoo.com";
         port = 993;
@@ -52,6 +50,21 @@
         host = "smtp.mail.yahoo.com";
         port = 465;
         tls.enable = true;
+      };
+    };
+  };
+
+  accounts.calendar.accounts = {
+    "ngrabmair@googlemail.com" = {
+      primary = true;
+      remote = {
+        type = "caldav";
+        url = "https://apidata.googleusercontent.com/caldav/v2/ngrabmair@googlemail.com/events";
+        userName = "ngrabmair@googlemail.com";
+      };
+      thunderbird = {
+        enable = true;
+        color = "#cba6f7";
       };
     };
   };
