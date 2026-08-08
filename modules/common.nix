@@ -1,6 +1,20 @@
-{ pkgs, username, ... }:
+{
+  pkgs,
+  username,
+  inputs,
+  ...
+}:
 
 {
+  nixpkgs.overlays = [
+    (final: prev: {
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (prev.stdenv.hostPlatform) system;
+        config.allowUnfree = true;
+      };
+    })
+  ];
+
   nix.settings = {
     auto-optimise-store = true;
 
@@ -40,14 +54,7 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-
-    # libsoup 2.74.x is required by citrix_workspace; revisit on Citrix update
-    permittedInsecurePackages = [
-      "libsoup-2.74.3"
-    ];
-  };
+  nixpkgs.config.allowUnfree = true;
 
   networking.networkmanager.enable = true;
 

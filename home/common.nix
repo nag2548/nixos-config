@@ -1,7 +1,4 @@
-{ pkgs, inputs, ... }:
-let
-  unstable = import inputs.nixpkgs-unstable { inherit (pkgs.stdenv.hostPlatform) system; };
-in
+{ pkgs, ... }:
 {
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -13,7 +10,7 @@ in
     sone
     unstable.portfolio
     nextcloud-client
-    citrix_workspace
+    unstable.citrix-workspace
     signal-desktop
     telegram-desktop
     karere
