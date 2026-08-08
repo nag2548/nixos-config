@@ -1,19 +1,14 @@
-{
-  config,
-  inputs,
-  username,
-  ...
-}:
+{ config, username, ... }:
 
 {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
     ./browsers.nix
     ./common.nix
     ./git.nix
-    ./shell.nix
+    ./terminal.nix
     ./thunderbird.nix
     ./vscode.nix
+    ./desktop.nix
   ];
 
   home.username = username;

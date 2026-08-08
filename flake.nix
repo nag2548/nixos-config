@@ -14,6 +14,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -38,7 +43,12 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs username; };
-              home-manager.users.${username} = ./home;
+              home-manager.users.${username} = {
+                imports = [
+                  inputs.sops-nix.homeManagerModules.sops
+                  ./home
+                ];
+              };
             }
           ];
         };

@@ -93,5 +93,7 @@
       enable = true;
       polkitPolicyOwners = [ username ];
     };
+
+    niri.enable = true;
   };
 }

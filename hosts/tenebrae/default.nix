@@ -14,13 +14,15 @@
 
   networking.hostName = "tenebrae";
 
-  services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "";
+  services = {
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "de";
+        variant = "";
+      };
+    };
+    displayManager.sddm.enable = true;
   };
 
   console.keyMap = "de";
