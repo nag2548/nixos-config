@@ -5,14 +5,23 @@
     enable = true;
 
     profiles.default = {
-      extensions = with pkgs.vscode-extensions; [
-        catppuccin.catppuccin-vsc
-        catppuccin.catppuccin-vsc-icons
-        yzhang.markdown-all-in-one
-        jnoortheen.nix-ide
-        christian-kohler.path-intellisense
-        ms-python.python
-      ];
+      extensions =
+        (with pkgs.vscode-extensions; [
+          catppuccin.catppuccin-vsc
+          catppuccin.catppuccin-vsc-icons
+          yzhang.markdown-all-in-one
+          jnoortheen.nix-ide
+          christian-kohler.path-intellisense
+          ms-python.python
+        ])
+        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          {
+            name = "kdl";
+            publisher = "kdl-org";
+            version = "2.1.3";
+            sha256 = "1cx5jaacsw2027jym90ggfklmhm8l2h4iib2jrb07bihk9pjdjr6";
+          }
+        ];
 
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
