@@ -106,6 +106,15 @@ input {
     position x=1280 y=0
 }
 
+output "DP-2" {
+    mode "2560x1440@165.080"
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080@60.000"
+    position x=0 y=0
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Layout
