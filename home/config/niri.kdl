@@ -656,5 +656,5 @@ binds {
     XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
     XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
 
-    Mod+V { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
+    Mod+V { spawn-sh "noctalia msg panel-open clipboard"; }
 }
