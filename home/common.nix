@@ -5,6 +5,11 @@
   home.packages = with pkgs; [
     cowsay
     sops
+    nodejs
+    temurin-bin-25
+    python3
+    gitmoji-cli
+    isd
 
     jetbrains.idea
     (protonmail-bridge-gui.overrideAttrs (old: {
@@ -21,13 +26,8 @@
     citrix-workspace
     signal-desktop
     telegram-desktop
-    karere
     libreoffice
-
-    nodejs
-    temurin-bin-25
-    python3
-    gitmoji-cli
+    loupe
   ];
 
   programs = {
