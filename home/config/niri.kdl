@@ -9,8 +9,6 @@
 input {
     keyboard {
         xkb {
-            layout "us"
-            variant "intl"
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
 
@@ -37,7 +35,7 @@ input {
         // dwtp
         // drag false
         // drag-lock
-        natural-scroll
+        // natural-scroll
         // accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "two-finger"
@@ -64,7 +62,7 @@ input {
     }
 
     // Uncomment this to make the mouse warp to the center of newly focused windows.
-    // warp-mouse-to-focus
+    warp-mouse-to-focus
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
@@ -277,7 +275,7 @@ spawn-at-startup "noctalia"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    // skip-at-startup
+    skip-at-startup
 }
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -343,9 +341,21 @@ window-rule {
 
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-    geometry-corner-radius 12
+window-rule {
+    geometry-corner-radius 20
     clip-to-geometry true
+}
+
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
+
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
 }
 
 binds {
@@ -377,9 +387,6 @@ binds {
     // The allow-when-locked=true property makes them work even when the session is locked.
     // Using spawn-sh allows to pass multiple arguments together with the command.
     // "-l 1.0" limits the volume to 100%.
-    XF86AudioRaiseVolume { spawn-sh "noctalia msg volume-up"; }
-    XF86AudioLowerVolume { spawn-sh "noctalia msg volume-down"; }
-    XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     // Example media keys mapping using playerctl.
@@ -389,12 +396,6 @@ binds {
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
-
-    // Example brightness key mappings for brightnessctl.
-    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
-    // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
-    XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
@@ -548,8 +549,6 @@ binds {
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
 
-    // Consume one window from the right to the bottom of the focused column.
-    // Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
     Mod+Period { expel-window-from-column; }
 
@@ -608,13 +607,7 @@ binds {
     // a matching layout switch hotkey configured in xkb options above.
     // Having both at once on the same hotkey will break the switching,
     // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
-    // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
-
-    Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
-    Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
-    Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
-    Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
 
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
@@ -637,4 +630,19 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+
+    // Core Noctalia binds
+    Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
+    Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
+    Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
+    // Niri has a built-in window switcher you might want to try it to see which one you prefer.
+
+    // Audio & Brightness
+    XF86AudioRaiseVolume { spawn-sh "noctalia msg volume-up"; }
+    XF86AudioLowerVolume { spawn-sh "noctalia msg volume-down"; }
+    XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
+    XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
+    XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
 }
