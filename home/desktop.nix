@@ -12,10 +12,21 @@
         };
         shell = {
           niri_overview_type_to_launch_enabled = true;
+          panel = {
+            open_near_click_control_center = true;
+          };
         };
         wallpaper = {
           enabled = true;
           default.path = ./themes/bg.png;
+        };
+        bar.default = {
+          capsule = true;
+          capsule_padding = 4.0;
+          start = [
+            "launcher"
+            "workspaces"
+          ];
         };
       };
     };
