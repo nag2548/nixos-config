@@ -10,6 +10,10 @@
           source = "builtin";
           builtin = "Catppuccin";
         };
+        dock = {
+          enabled = true;
+          active_monitor_only = true;
+        };
       };
     };
   };
