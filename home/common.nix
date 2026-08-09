@@ -7,7 +7,14 @@
     sops
 
     jetbrains.idea
-    protonmail-bridge-gui
+    (protonmail-bridge-gui.overrideAttrs (old: {
+      postFixup = (old.postFixup or "") + ''
+        # Proton's autostart (--no-window) writes the raw binary path
+        # (lib/bridge-gui) into ~/.config/autostart, bypassing the wrapped
+        # bin entry. Wrap the raw binary too so QML/plugin env is always set.
+        wrapQtApp $out/lib/bridge-gui
+      '';
+    }))
     sone
     portfolio
     nextcloud-client
