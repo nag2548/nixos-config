@@ -83,6 +83,7 @@
     };
     power-profiles-daemon.enable = true;
     upower.enable = true;
+    gvfs.enable = true;
   };
 
   programs = {

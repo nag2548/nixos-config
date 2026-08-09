@@ -28,6 +28,7 @@
   home.packages = with pkgs; [
     swaybg
     xwayland-satellite
+    nemo
   ];
 
   xdg.configFile."niri/config.kdl".source =
@@ -39,4 +40,18 @@
         niri validate --config ${./config/niri.kdl}
         cp ${./config/niri.kdl} $out
       '';
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-gnome
+    ];
+    xdgOpenUsePortal = true;
+    config.common.default = "*";
+  };
+
+  home.sessionVariables = {
+    GDK_BACKEND = "wayland,x11";
+  };
 }
