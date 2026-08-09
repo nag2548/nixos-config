@@ -22,7 +22,6 @@
         variant = "";
       };
     };
-    displayManager.sddm.enable = true;
   };
 
   console.keyMap = "de";

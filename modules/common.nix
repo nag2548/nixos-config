@@ -6,6 +6,8 @@
 }:
 
 {
+  imports = [ inputs.noctalia-greeter.nixosModules.default ];
+
   nixpkgs.overlays = [
     (final: prev: {
       stable = import inputs.nixpkgs-stable {
@@ -96,5 +98,20 @@
     };
 
     niri.enable = true;
+
+    noctalia-greeter = {
+      enable = true;
+      settings = {
+        cursor = {
+          theme = "Bibata-Modern-Ice";
+          size = 24;
+          path = "${pkgs.bibata-cursors}/share/icons";
+        };
+        appearance = {
+          scheme = "Catppuccin";
+          theme_mode = "dark";
+        };
+      };
+    };
   };
 }

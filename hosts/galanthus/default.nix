@@ -24,7 +24,6 @@
         variant = "intl";
       };
     };
-    displayManager.sddm.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
