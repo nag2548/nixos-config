@@ -10,10 +10,6 @@
           source = "builtin";
           builtin = "Catppuccin";
         };
-        dock = {
-          enabled = true;
-          active_monitor_only = true;
-        };
         shell = {
           niri_overview_type_to_launch_enabled = true;
         };
