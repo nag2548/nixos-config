@@ -26,6 +26,7 @@
       nixpkgs,
       home-manager,
       sops-nix,
+      noctalia,
       ...
     }:
     let
@@ -43,11 +44,12 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs username; };
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+                noctalia.homeModules.default
+              ];
               home-manager.users.${username} = {
-                imports = [
-                  inputs.sops-nix.homeManagerModules.sops
-                  ./home
-                ];
+                imports = [ ./home ];
               };
             }
           ];
