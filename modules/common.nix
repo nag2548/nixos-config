@@ -8,12 +8,14 @@
 {
   nixpkgs.overlays = [
     (final: prev: {
-      unstable = import inputs.nixpkgs-unstable {
+      stable = import inputs.nixpkgs-stable {
         inherit (prev.stdenv.hostPlatform) system;
         config.allowUnfree = true;
       };
     })
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings = {
     auto-optimise-store = true;
@@ -53,8 +55,6 @@
       LC_TIME = "de_DE.UTF-8";
     };
   };
-
-  nixpkgs.config.allowUnfree = true;
 
   networking.networkmanager.enable = true;
 

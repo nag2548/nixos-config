@@ -9,9 +9,9 @@
     jetbrains.idea
     protonmail-bridge-gui
     sone
-    unstable.portfolio
+    portfolio
     nextcloud-client
-    unstable.citrix-workspace
+    citrix-workspace
     signal-desktop
     telegram-desktop
     karere
