@@ -68,17 +68,29 @@
         cp ${./config/niri.kdl} $out
       '';
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-gnome
-    ];
-    xdgOpenUsePortal = true;
-    config = {
-      common.default = "*";
-      niri = {
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+      ];
+      xdgOpenUsePortal = true;
+      config = {
+        common.default = "*";
+        niri = {
+          "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        };
+      };
+    };
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "image/png" = [ "org.gnome.Loupe.desktop" ];
+        "image/jpeg" = [ "org.gnome.Loupe.desktop" ];
+        "image/gif" = [ "org.gnome.Loupe.desktop" ];
+        "image/webp" = [ "org.gnome.Loupe.desktop" ];
+        "image/svg+xml" = [ "org.gnome.Loupe.desktop" ];
       };
     };
   };
