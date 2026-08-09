@@ -51,7 +51,7 @@
   home.packages = with pkgs; [
     swaybg
     xwayland-satellite
-    nemo
+    nautilus
   ];
 
   xdg.configFile."niri/config.kdl".source =

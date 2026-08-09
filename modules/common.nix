@@ -95,6 +95,9 @@
       polkitPolicyOwners = [ username ];
     };
 
-    niri.enable = true;
+    niri = {
+      enable = true;
+      useNautilus = true;
+    };
   };
 }
