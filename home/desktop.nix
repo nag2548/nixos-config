@@ -79,7 +79,12 @@
       xdg-desktop-portal-gnome
     ];
     xdgOpenUsePortal = true;
-    config.common.default = "*";
+    config = {
+      common.default = "*";
+      niri = {
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      };
+    };
   };
 
   home.sessionVariables = {

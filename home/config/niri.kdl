@@ -661,4 +661,5 @@ binds {
     XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
 
     Mod+V { spawn-sh "noctalia msg panel-open clipboard"; }
+    Mod+E { spawn "nautilus"; }
 }
