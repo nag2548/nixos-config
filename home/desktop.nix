@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   programs = {
@@ -42,6 +42,13 @@
       name = "Inter";
       size = 10;
     };
+    gtk3 = {
+      bookmarks = [
+        "file://${config.xdg.userDirs.download}"
+        "file://${config.xdg.userDirs.documents}"
+        "file:///mnt/documents/consume"
+      ];
+    };
   };
 
   services = {
@@ -52,6 +59,7 @@
     swaybg
     xwayland-satellite
     nautilus
+    xdg-user-dirs-gtk
   ];
 
   xdg.configFile."niri/config.kdl".source =
