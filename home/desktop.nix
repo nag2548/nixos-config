@@ -21,6 +21,29 @@
     };
   };
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "catppuccin-mocha-mauve-standard";
+      package = pkgs.catppuccin-gtk.override {
+        variant = "mocha";
+        accents = [ "mauve" ];
+      };
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    cursorTheme = {
+      name = "catppuccin-mocha-dark";
+      package = pkgs.catppuccin-cursors.mochaDark;
+    };
+    font = {
+      name = "Inter";
+      size = 10;
+    };
+  };
+
   services = {
     polkit-gnome.enable = true;
   };
