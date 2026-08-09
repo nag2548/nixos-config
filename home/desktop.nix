@@ -13,6 +13,10 @@
         shell = {
           niri_overview_type_to_launch_enabled = true;
         };
+        wallpaper = {
+          enabled = true;
+          default.path = ./themes/bg.png;
+        };
       };
     };
   };

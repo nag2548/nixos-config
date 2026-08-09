@@ -110,6 +110,7 @@
         appearance = {
           scheme = "Catppuccin";
           theme_mode = "dark";
+          wallpaper = ../home/themes/bg.png;
         };
       };
     };
