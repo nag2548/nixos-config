@@ -101,6 +101,12 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
+        "text/html" = [ "firefox.desktop" ];
+        "application/xhtml+xml" = [ "firefox.desktop" ];
+        "x-scheme-handler/http" = [ "firefox.desktop" ];
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
+        "x-scheme-handler/mailto" = [ "thunderbird.desktop" ];
+        "x-scheme-handler/net.thunderbird" = [ "thunderbird.desktop" ];
         "image/png" = [ "org.gnome.Loupe.desktop" ];
         "image/jpeg" = [ "org.gnome.Loupe.desktop" ];
         "image/gif" = [ "org.gnome.Loupe.desktop" ];
