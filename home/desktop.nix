@@ -45,10 +45,6 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    cursorTheme = {
-      name = "catppuccin-mocha-dark";
-      package = pkgs.catppuccin-cursors.mochaDark;
-    };
     font = {
       name = "Inter";
       size = 10;
@@ -118,5 +114,14 @@
 
   home.sessionVariables = {
     GDK_BACKEND = "wayland,x11";
+  };
+
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.catppuccin-cursors.mochaDark;
+    name = "catppuccin-mocha-dark-cursors";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
   };
 }
