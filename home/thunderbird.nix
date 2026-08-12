@@ -9,6 +9,8 @@
       "privacy.donottrackheader.enabled" = true;
       "calendar.week.start" = 1;
       "calendar.alarms.playsound" = false;
+      "mail.chat.play_sound" = false;
+      "mail.shell.checkDefaultClient" = false;
     };
     languagePacks = [
       "en-US"
