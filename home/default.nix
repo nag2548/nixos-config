@@ -9,6 +9,7 @@
     ./thunderbird.nix
     ./vscode.nix
     ./desktop.nix
+    ./vicinae.nix
   ];
 
   home.username = username;

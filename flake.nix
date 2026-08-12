@@ -23,6 +23,12 @@
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -32,6 +38,7 @@
       sops-nix,
       noctalia,
       noctalia-greeter,
+      vicinae,
       ...
     }:
     let
@@ -45,6 +52,7 @@
             hostPath
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            vicinae.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -52,6 +60,7 @@
               home-manager.sharedModules = [
                 sops-nix.homeManagerModules.sops
                 noctalia.homeModules.default
+                vicinae.homeManagerModules.default
               ];
               home-manager.users.${username} = {
                 imports = [ ./home ];

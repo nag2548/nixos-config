@@ -25,6 +25,18 @@
       "nix-command"
       "flakes"
     ];
+    substituters = [
+      "https://cache.keyruu.de"
+      "https://cache.nixos.org"
+      "https://vicinae.cachix.org"
+      "https://noctalia.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.keyruu.de:BifJnHe/XQhZmmFwLSZttthsXT4u2/L4aeo0k9zV+Kc="
+      "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
   };
 
   boot.loader = {
