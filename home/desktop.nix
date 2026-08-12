@@ -28,6 +28,9 @@
             "workspaces"
           ];
         };
+        location = {
+          address = "Pfaffenhofen, DE";
+        };
       };
     };
   };
