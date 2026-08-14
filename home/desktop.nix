@@ -35,23 +35,31 @@
     };
   };
 
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+    gtk = {
+      icon.enable = true;
+    };
+  };
+
   gtk = {
     enable = true;
-    theme = {
-      name = "catppuccin-mocha-mauve-standard";
-      package = pkgs.catppuccin-gtk.override {
-        variant = "mocha";
-        accents = [ "mauve" ];
-      };
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    font = {
-      name = "Inter";
-      size = 10;
-    };
+    # theme = {
+    #   name = "catppuccin-mocha-mauve-standard";
+    #   package = pkgs.catppuccin-gtk.override {
+    #     variant = "mocha";
+    #     accents = [ "mauve" ];
+    #   };
+    # };
+    # iconTheme = {
+    #   name = "Papirus-Dark";
+    #   package = pkgs.papirus-icon-theme;
+    # };
+    # font = {
+    #   name = "Inter";
+    #   size = 10;
+    # };
     gtk3 = {
       bookmarks = [
         "file://${config.xdg.userDirs.download}"
@@ -120,12 +128,17 @@
     };
   };
 
-  home.pointerCursor = {
+  catppuccin.cursors = {
     enable = true;
-    package = pkgs.catppuccin-cursors.mochaDark;
-    name = "catppuccin-mocha-dark-cursors";
-    size = 24;
-    gtk.enable = true;
-    x11.enable = true;
+    accent = "dark";
   };
+
+  # home.pointerCursor = {
+  #   enable = true;
+  #   package = pkgs.catppuccin-cursors.mochaDark;
+  #   name = "catppuccin-mocha-dark-cursors";
+  #   size = 24;
+  #   gtk.enable = true;
+  #   x11.enable = true;
+  # };
 }

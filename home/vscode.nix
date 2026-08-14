@@ -7,8 +7,6 @@
     profiles.default = {
       extensions =
         (with pkgs.vscode-extensions; [
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
           yzhang.markdown-all-in-one
           jnoortheen.nix-ide
           christian-kohler.path-intellisense
@@ -30,12 +28,6 @@
         "editor.formatOnSave" = true;
         "diffEditor.ignoreTrimWhitespace" = false;
         "files.autoSave" = "afterDelay";
-
-        "workbench.colorTheme" = "Catppuccin Mocha";
-        "workbench.iconTheme" = "catppuccin-mocha";
-        "editor.semanticHighlighting.enabled" = true;
-        "terminal.integrated.minimumContrastRatio" = 1;
-        "window.titleBarStyle" = "custom";
       };
 
       keybindings = [

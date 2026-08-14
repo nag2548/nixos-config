@@ -80,7 +80,7 @@
         tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
         window_padding_width = "0 8";
       };
-      themeFile = "Catppuccin-Mocha";
+      # themeFile = "Catppuccin-Mocha";
     };
 
     opencode.enable = true;

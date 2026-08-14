@@ -100,6 +100,11 @@
     gvfs.enable = true;
   };
 
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
+
   programs = {
     zsh.enable = true;
 

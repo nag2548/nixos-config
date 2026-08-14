@@ -29,6 +29,11 @@
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -39,6 +44,7 @@
       noctalia,
       noctalia-greeter,
       vicinae,
+      catppuccin,
       ...
     }:
     let
@@ -53,6 +59,7 @@
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             vicinae.nixosModules.default
+            catppuccin.nixosModules.catppuccin
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -61,6 +68,7 @@
                 sops-nix.homeManagerModules.sops
                 noctalia.homeModules.default
                 vicinae.homeManagerModules.default
+                catppuccin.homeModules.catppuccin
               ];
               home-manager.users.${username} = {
                 imports = [ ./home ];
