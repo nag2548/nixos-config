@@ -18,6 +18,7 @@
         };
         wallpaper = {
           enabled = true;
+          fill_mode = "crop";
           default.path = ./themes/bg-minimal.jpg;
         };
         bar.default = {

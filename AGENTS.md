@@ -41,6 +41,13 @@ house formatter.
 - Both hosts share the same module set; the only host-specific differences are
   hostname, keyboard layout (tenebrae: `de`, galanthus: `us intl`) and
   galanthus's `solaar`/`hardware.logitech.wireless`.
+- Noctalia reads `~/.config/noctalia/config.toml` (nix-managed) but overlays the
+  user-editable `~/.local/state/noctalia/settings.toml` on top — so settings
+  changed in the Noctalia UI silently win over nix. Change settings (especially
+  the wallpaper) only in `programs.noctalia.settings`, never in the UI. The
+  greeter reads its own config in `programs.noctalia-greeter.settings`.
+  `~/.local/state/noctalia/settings.toml` is not in the repo and will keep stale
+  overrides until cleared.
 
 ## Conventions
 
