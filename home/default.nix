@@ -8,8 +8,8 @@
     ./terminal.nix
     ./thunderbird.nix
     ./vscode.nix
-    ./desktop.nix
     ./vicinae.nix
+    ./desktop
   ];
 
   home.username = username;
