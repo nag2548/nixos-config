@@ -18,7 +18,7 @@
         };
         wallpaper = {
           enabled = true;
-          default.path = ./themes/bg.png;
+          default.path = ./themes/bg-minimal.jpg;
         };
         bar.default = {
           capsule = true;

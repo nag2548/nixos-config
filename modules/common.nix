@@ -142,7 +142,7 @@
             on_hover = "#1e1e2e";
           };
           wallpaper = {
-            path = ../home/themes/bg.png;
+            path = ../home/themes/bg-minimal.jpg;
             fill_mode = "crop";
           };
         };
