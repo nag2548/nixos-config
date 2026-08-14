@@ -1,4 +1,6 @@
 {
+  home.pointerCursor.enable = true;
+
   catppuccin = {
     enable = true;
     autoEnable = true;

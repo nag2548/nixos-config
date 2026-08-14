@@ -38,11 +38,11 @@
     telegram-desktop
     libreoffice
     loupe
+    vlc
   ];
 
   programs = {
     btop.enable = true;
-
     vesktop = {
       enable = true;
       vencord.settings = {
@@ -57,6 +57,10 @@
           YoutubeAdblock.enabled = true;
         };
       };
+    };
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
     };
   };
 }
