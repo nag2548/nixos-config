@@ -29,6 +29,9 @@
       location = {
         address = "Pfaffenhofen, DE";
       };
+      control_center.calendar = {
+        show_week_numbers = true;
+      };
     };
   };
 }
