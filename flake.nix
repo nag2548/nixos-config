@@ -58,6 +58,7 @@
             hostPath
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            noctalia-greeter.nixosModules.default
             vicinae.nixosModules.default
             catppuccin.nixosModules.catppuccin
             {
