@@ -121,6 +121,7 @@ cursor {
 
 output "DP-2" {
     mode "2560x1440@165.080"
+    focus-at-startup
 }
 
 output "HDMI-A-1" {
