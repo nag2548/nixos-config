@@ -1,5 +1,4 @@
 { config, username, ... }:
-
 {
   imports = [
     ./browsers.nix

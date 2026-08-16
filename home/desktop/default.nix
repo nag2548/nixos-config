@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   imports = [
     ./catppuccin.nix

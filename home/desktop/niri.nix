@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   xdg.configFile."niri/config.kdl".source =
     pkgs.runCommand "niri-config-checked"
