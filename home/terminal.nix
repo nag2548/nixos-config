@@ -52,18 +52,6 @@
       ];
     };
 
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-
-      extraConfig = ''
-        set number
-        set cursorline
-      '';
-    };
-
     kitty = {
       enable = true;
       shellIntegration.enableZshIntegration = true;

@@ -10,6 +10,7 @@
     python3
     gitmoji-cli
     isd
+    lazygit
 
     jetbrains.idea
     (protonmail-bridge-gui.overrideAttrs (old: {

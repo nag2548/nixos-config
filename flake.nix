@@ -34,6 +34,11 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -45,6 +50,7 @@
       noctalia-greeter,
       vicinae,
       catppuccin,
+      nvf,
       ...
     }:
     let
@@ -61,6 +67,7 @@
             noctalia-greeter.nixosModules.default
             vicinae.nixosModules.default
             catppuccin.nixosModules.catppuccin
+            nvf.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -70,6 +77,7 @@
                 noctalia.homeModules.default
                 vicinae.homeManagerModules.default
                 catppuccin.homeModules.catppuccin
+                nvf.homeManagerModules.default
               ];
               home-manager.users.${username} = {
                 imports = [ ./home ];

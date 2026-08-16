@@ -7,6 +7,7 @@
     ./fonts.nix
     ./git.nix
     ./terminal.nix
+    ./neovim.nix
     ./thunderbird.nix
     ./vscode.nix
     ./vicinae.nix
