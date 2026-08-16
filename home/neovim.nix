@@ -92,7 +92,7 @@
           mode = "n";
           silent = true;
           lua = true;
-          action = "require('fzf-lua').files()";
+          action = "function() require('fzf-lua').files() end";
         }
         {
           key = "<leader>fg";
@@ -100,7 +100,7 @@
           mode = "n";
           silent = true;
           lua = true;
-          action = "require('fzf-lua').live_grep()";
+          action = "function() require('fzf-lua').live_grep() end";
         }
       ];
 
