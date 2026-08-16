@@ -1,17 +1,6 @@
 { pkgs, ... }:
 
 {
-  # programs.neovim = {
-  #   enable = true;
-  #   defaultEditor = true;
-  #   viAlias = true;
-  #   vimAlias = true;
-
-  #   extraConfig = ''
-  #     set number
-  #     set cursorline
-  #   '';
-  # };
   programs.nvf = {
     enable = true;
     enableManpages = true;
@@ -44,6 +33,18 @@
         relativenumber = false;
       };
 
+      keymaps = [
+        {
+          # copy to system clipboard
+          key = "<leader>y";
+          mode = [
+            "n"
+            "v"
+          ];
+          action = ''"+y'';
+        }
+      ];
+
       autopairs.nvim-autopairs.enable = true;
 
       formatter.conform-nvim = {
@@ -64,6 +65,27 @@
         lightbulb.enable = true;
         trouble.enable = true;
         lspSignature.enable = true;
+      };
+
+      spellcheck.languages = [
+        "en"
+        "de"
+      ];
+
+      treesitter.context.enable = true;
+      visuals.indent-blankline.enable = true;
+
+      languages = {
+        enableFormat = true;
+        enableTreesitter = true;
+        enableExtraDiagnostics = true;
+
+        markdown.enable = true;
+        nix = {
+          enable = true;
+          lsp.servers = [ "nixd" ];
+          format.type = [ "nixfmt" ];
+        };
       };
     };
   };
