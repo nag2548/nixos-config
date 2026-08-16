@@ -1,4 +1,3 @@
-{ ... }:
 {
   programs.vicinae = {
     enable = true;
