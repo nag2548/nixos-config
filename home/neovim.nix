@@ -50,6 +50,12 @@
           lua = true;
           action = "vim.lsp.buf.code_action";
         }
+        {
+          key = "<leader>t";
+          mode = "n";
+          silent = true;
+          action = ":Neotree toggle<CR>";
+        }
       ];
 
       binds = {
@@ -58,6 +64,13 @@
       };
 
       autopairs.nvim-autopairs.enable = true;
+
+      autocomplete.blink-cmp = {
+        enable = true;
+        setupOpts = {
+          signature.enabled = true;
+        };
+      };
 
       formatter.conform-nvim = {
         enable = true;
@@ -76,7 +89,6 @@
         formatOnSave = true;
         lightbulb.enable = true;
         trouble.enable = true;
-        lspSignature.enable = true;
       };
 
       spellcheck.languages = [
@@ -103,6 +115,17 @@
         };
         sql.enable = true;
         typescript.enable = true;
+      };
+
+      filetree.neo-tree.enable = true;
+
+      statusline.lualine = {
+        enable = true;
+      };
+
+      git = {
+        enable = true;
+        gitsigns.enable = true;
       };
     };
   };
