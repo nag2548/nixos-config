@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   # programs.neovim = {
   #   enable = true;
@@ -40,6 +42,20 @@
         incsearch = true;
         number = true;
         relativenumber = false;
+      };
+
+      autopairs.nvim-autopairs.enable = true;
+
+      formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters.nixfmt = {
+            command = "${pkgs.nixfmt}/bin/nixfmt";
+          };
+          formatters_by_ft = {
+            nix = [ "nixfmt" ];
+          };
+        };
       };
 
       lsp = {
