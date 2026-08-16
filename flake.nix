@@ -67,7 +67,7 @@
             noctalia-greeter.nixosModules.default
             vicinae.nixosModules.default
             catppuccin.nixosModules.catppuccin
-            nvf.nixosModules.default
+
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
