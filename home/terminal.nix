@@ -77,6 +77,18 @@
       settings = {
         show_startup_tips = false;
       };
+      extraConfig = ''
+        keybinds {
+          shared_except "move" "locked" {
+            unbind "Ctrl h"
+            bind "Ctrl m" { SwitchToMode "Move"; }
+          }
+          move {
+            unbind "Ctrl h"
+            bind "Ctrl m" { SwitchToMode "Normal"; }
+          }
+        }
+      '';
     };
   };
 }
