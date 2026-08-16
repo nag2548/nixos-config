@@ -86,6 +86,22 @@
           silent = true;
           action = "<C-w>l";
         }
+        {
+          key = "<leader>ff";
+          desc = "Find files";
+          mode = "n";
+          silent = true;
+          lua = true;
+          action = "require('fzf-lua').files()";
+        }
+        {
+          key = "<leader>fg";
+          desc = "Live grep";
+          mode = "n";
+          silent = true;
+          lua = true;
+          action = "require('fzf-lua').live_grep()";
+        }
       ];
 
       binds = {
@@ -153,10 +169,7 @@
         enable = true;
       };
 
-      fzf-lua = {
-        enable = true;
-        profile = "telescope";
-      };
+      fzf-lua.enable = true;
 
       git = {
         enable = true;
