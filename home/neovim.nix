@@ -43,7 +43,19 @@
           ];
           action = ''"+y'';
         }
+        {
+          key = "<leader>ca";
+          mode = "n";
+          silent = true;
+          lua = true;
+          action = "vim.lsp.buf.code_action";
+        }
       ];
+
+      binds = {
+        cheatsheet.enable = true;
+        whichKey.enable = true;
+      };
 
       autopairs.nvim-autopairs.enable = true;
 
@@ -80,12 +92,17 @@
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
+        css.enable = true;
+        docker.enable = true;
+        html.enable = true;
         markdown.enable = true;
         nix = {
           enable = true;
           lsp.servers = [ "nixd" ];
           format.type = [ "nixfmt" ];
         };
+        sql.enable = true;
+        typescript.enable = true;
       };
     };
   };
