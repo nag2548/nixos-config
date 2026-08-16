@@ -4,6 +4,7 @@
   imports = [
     ./browsers.nix
     ./common.nix
+    ./fonts.nix
     ./git.nix
     ./terminal.nix
     ./thunderbird.nix

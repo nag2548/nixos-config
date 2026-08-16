@@ -57,11 +57,6 @@
 
   networking.networkmanager.enable = true;
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
-  ];
-
   environment = {
     systemPackages = with pkgs; [
       nixd
