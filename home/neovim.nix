@@ -153,6 +153,11 @@
         enable = true;
       };
 
+      fzf-lua = {
+        enable = true;
+        profile = "telescope";
+      };
+
       git = {
         enable = true;
         gitsigns.enable = true;
