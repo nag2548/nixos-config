@@ -18,6 +18,7 @@
     settings.vim = {
       viAlias = true;
       vimAlias = true;
+      searchCase = "smart";
 
       theme = {
         enable = true;
@@ -26,17 +27,19 @@
       };
 
       options = {
+        autoindent = true;
+        cursorline = true;
+        cursorlineopt = "both";
         shiftwidth = 2;
         tabstop = 2;
         softtabstop = 2;
+        termguicolors = true;
         expandtab = true;
-        autoindent = true;
         smartindent = true;
-        wrap = false;
         hlsearch = true;
         incsearch = true;
-        termguicolors = true;
-        cursorline = true;
+        number = true;
+        relativenumber = false;
       };
 
       lsp = {
