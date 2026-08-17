@@ -116,6 +116,7 @@
         enable = true;
         setupOpts = {
           signature.enabled = true;
+          keymap.preset = "default";
         };
       };
 
