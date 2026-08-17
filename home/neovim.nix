@@ -30,6 +30,7 @@
         incsearch = true;
         number = true;
         relativenumber = false;
+        scrolloff = 999;
       };
 
       keymaps = [
