@@ -6,6 +6,7 @@
     defaultEditor = true;
 
     settings.vim = {
+      startPlugins = [ pkgs.vimPlugins.vim-tmux-navigator ];
       viAlias = true;
       vimAlias = true;
       searchCase = "smart";
@@ -67,25 +68,25 @@
           key = "<C-h>";
           mode = "n";
           silent = true;
-          action = "<C-w>h";
+          action = ":TmuxNavigateLeft<CR>";
         }
         {
           key = "<C-j>";
           mode = "n";
           silent = true;
-          action = "<C-w>j";
+          action = ":TmuxNavigateDown<CR>";
         }
         {
           key = "<C-k>";
           mode = "n";
           silent = true;
-          action = "<C-w>k";
+          action = ":TmuxNavigateUp<CR>";
         }
         {
           key = "<C-l>";
           mode = "n";
           silent = true;
-          action = "<C-w>l";
+          action = ":TmuxNavigateRight<CR>";
         }
         {
           key = "<leader>ff";
