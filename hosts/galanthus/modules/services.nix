@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   systemd.services.sync-windows-esp = {
     description = "Copy the Windows bootloader onto the NixOS ESP";
