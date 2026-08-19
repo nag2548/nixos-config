@@ -65,6 +65,30 @@
           action = "<nop>";
         }
         {
+          key = "<A-Up>";
+          mode = "n";
+          action = ":m .-2<CR>==";
+          desc = "Move line up";
+        }
+        {
+          key = "<A-Down>";
+          mode = "n";
+          action = ":m .+1<CR>==";
+          desc = "Move line down";
+        }
+        {
+          key = "<A-Up>";
+          mode = "v";
+          action = ":m '<-2<CR>gv=gv";
+          desc = "Move selection up";
+        }
+        {
+          key = "<A-Down>";
+          mode = "v";
+          action = ":m '>+1<CR>gv=gv";
+          desc = "Move selection down";
+        }
+        {
           key = "<C-h>";
           mode = "n";
           silent = true;
