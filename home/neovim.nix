@@ -104,21 +104,19 @@
           lua = true;
           action = "function() require('fzf-lua').live_grep() end";
         }
+        {
+          key = "<leader>fb";
+          desc = "Buffers";
+          mode = "n";
+          silent = true;
+          lua = true;
+          action = "function() require('fzf-lua').buffers() end";
+        }
       ];
 
       binds = {
         cheatsheet.enable = true;
         whichKey.enable = true;
-      };
-
-      autopairs.nvim-autopairs.enable = true;
-
-      autocomplete.blink-cmp = {
-        enable = true;
-        setupOpts = {
-          signature.enabled = true;
-          keymap.preset = "default";
-        };
       };
 
       formatter.conform-nvim = {
@@ -147,6 +145,13 @@
 
       treesitter.context.enable = true;
       visuals.indent-blankline.enable = true;
+      mini.tabline.enable = true;
+      filetree.neo-tree.enable = true;
+      statusline.lualine.enable = true;
+      fzf-lua.enable = true;
+      autopairs.nvim-autopairs.enable = true;
+      autocomplete.nvim-cmp.enable = true;
+      visuals.nvim-web-devicons.enable = true;
 
       languages = {
         enableFormat = true;
@@ -165,14 +170,6 @@
         sql.enable = true;
         typescript.enable = true;
       };
-
-      filetree.neo-tree.enable = true;
-
-      statusline.lualine = {
-        enable = true;
-      };
-
-      fzf-lua.enable = true;
 
       git = {
         enable = true;
