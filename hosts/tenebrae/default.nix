@@ -9,6 +9,7 @@
     ../../modules/samba.nix
     ../../modules/docker.nix
     ../../modules/bluetooth.nix
+    ../../modules/syncthing.nix
   ];
 
   networking.hostName = "tenebrae";
