@@ -40,6 +40,7 @@
     loupe
     vlc
     calibre
+    obsidian
   ];
 
   programs = {
