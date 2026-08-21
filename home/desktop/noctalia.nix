@@ -21,10 +21,25 @@
       bar.default = {
         capsule = true;
         capsule_padding = 4.0;
+        margin_ends = 48;
         start = [
           "launcher"
           "workspaces"
         ];
+        center = [ "group:g1" ];
+        capsule_group = {
+          id = "g1";
+          accordion = false;
+          accordion_direction = "end";
+          enabled = true;
+          fill = "surface_variant";
+          members = [
+            "date"
+            "clock"
+          ];
+          opacity = 0.0;
+          padding = 4.0;
+        };
       };
       location = {
         address = "Pfaffenhofen, DE";
