@@ -146,11 +146,17 @@
       formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters.nixfmt = {
-            command = "${pkgs.nixfmt}/bin/nixfmt";
+          formatters = {
+            nixfmt = {
+              command = "${pkgs.nixfmt}/bin/nixfmt";
+            };
+            kdlfmt = {
+              command = "${pkgs.kdlfmt}/bin/kdlfmt";
+            };
           };
           formatters_by_ft = {
             nix = [ "nixfmt" ];
+            kdl = [ "kdlfmt" ];
           };
         };
       };
@@ -167,7 +173,11 @@
         "de"
       ];
 
-      treesitter.context.enable = true;
+      treesitter = {
+        context.enable = true;
+        grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [ kdl ];
+      };
+
       visuals.indent-blankline.enable = true;
       mini.tabline.enable = true;
       filetree.neo-tree.enable = true;
