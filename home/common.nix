@@ -39,6 +39,7 @@
     libreoffice
     loupe
     vlc
+    calibre
   ];
 
   programs = {
