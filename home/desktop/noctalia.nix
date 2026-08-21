@@ -21,11 +21,8 @@
       bar.default = {
         capsule = true;
         capsule_padding = 4.0;
-        margin_ends = 48;
-        start = [
-          "launcher"
-          "workspaces"
-        ];
+        margin_ends = 8;
+        start = [ "workspaces" ];
         center = [ "group:g1" ];
         capsule_group = {
           id = "g1";
