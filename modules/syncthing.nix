@@ -1,6 +1,6 @@
 { config, username, ... }:
 {
-  sops.secrets.syncthing-admin-password.owner = "root";
+  sops.secrets.syncthing-admin-password.owner = username;
 
   services.syncthing = {
     enable = true;
