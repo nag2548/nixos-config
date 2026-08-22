@@ -8,10 +8,10 @@
     group = "users";
     dataDir = "/home/${username}";
     openDefaultPorts = true;
+    guiPasswordFile = config.sops.secrets.syncthing-admin-password.path;
 
     settings = {
       options.urAccepted = -1;
-      guiPasswordFile = config.sops.secrets.syncthing-admin-password.path;
       gui.user = "syncthing";
     };
   };
