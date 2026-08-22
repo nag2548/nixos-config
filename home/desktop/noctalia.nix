@@ -24,19 +24,32 @@
         margin_ends = 8;
         start = [ "workspaces" ];
         center = [ "group:g1" ];
-        capsule_group = {
-          id = "g1";
-          accordion = false;
-          accordion_direction = "end";
-          enabled = true;
-          fill = "surface_variant";
-          members = [
-            "date"
-            "clock"
-          ];
-          opacity = 0.0;
-          padding = 4.0;
-        };
+        end = [
+          "media"
+          "tray"
+          "notifications"
+          "network"
+          "bluetooth"
+          "volume"
+          "brightness"
+          "battery"
+          "session"
+        ];
+        capsule_group = [
+          {
+            id = "g1";
+            accordion = false;
+            accordion_direction = "end";
+            enabled = true;
+            fill = "surface_variant";
+            members = [
+              "date"
+              "clock"
+            ];
+            opacity = 0.0;
+            padding = 4.0;
+          }
+        ];
       };
       location = {
         address = "Pfaffenhofen, DE";
