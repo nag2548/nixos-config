@@ -18,6 +18,7 @@ input {
             // localectl set-x11-keymap.
             layout "us"
             variant "intl"
+            options "caps:escape"
         }
         // Enable numlock on startup, omitting this setting disables it.
         numlock
