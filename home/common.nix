@@ -45,6 +45,7 @@
 
   programs = {
     btop.enable = true;
+
     vesktop = {
       enable = true;
       vencord.settings = {
@@ -60,6 +61,7 @@
         };
       };
     };
+
     yazi = {
       enable = true;
       enableZshIntegration = true;
