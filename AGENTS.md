@@ -17,7 +17,8 @@ and no formatter config — `nixfmt` (in system packages) is the house formatter
 
 - `flake.nix` — single source of truth for `username = "nadine"` and the
   `inputs` (`nixpkgs`, `nixpkgs-stable`, `home-manager`, `sops-nix`,
-  `noctalia`, `noctalia-greeter`, `vicinae`, `catppuccin`), passed via
+  `noctalia`, `noctalia-greeter`, `vicinae`, `vicinae-extensions`,
+  `catppuccin`, `nvf`), passed via
   `specialArgs` to both the system and home-manager configs. Always take
   `{ username, ... }` (and `inputs` when needed) as a module arg; never
   hardcode `nadine` in modules. A new host must also be registered in
@@ -27,20 +28,23 @@ and no formatter config — `nixfmt` (in system packages) is the house formatter
   have a `modules/` subdir for host-specific config (e.g. galanthus's
   `services.nix` syncs the Windows bootloader onto the ESP).
 - `modules/*` — NixOS system modules shared by every host (`common.nix`,
-  `gaming.nix`, `users.nix`, `samba.nix`, `docker.nix`, `bluetooth.nix`).
-  `modules/common.nix` is the place for desktop session / greeter / niri /
-  noctalia system-level setup and the `pkgs.stable` overlay.
+  `gaming.nix`, `users.nix`, `samba.nix`, `docker.nix`, `bluetooth.nix`,
+  `syncthing.nix`). `modules/common.nix` is the place for desktop session /
+  greeter / niri / noctalia system-level setup and the `pkgs.stable` overlay.
 - `secrets/` — encrypted sops-nix secrets (`secrets.yaml`) keyed per host
   (see `.sops.yaml`).
 - `home/` — shared home-manager config applied to user `nadine` on every host
   (`useGlobalPkgs`/`useUserPackages` true, so it builds against system nixpkgs
-  and installs into the user profile). Top-level files group by domain:
-  `browsers.nix`, `common.nix`, `git.nix`, `terminal.nix`, `thunderbird.nix`,
-  `vicinae.nix`, `vscode.nix`. Desktop-specific stuff lives under
-  `home/desktop/`.
-- `home/desktop/` — niri, noctalia, catppuccin, gtk, xdg portals/mimeapps.
-  `home/desktop/niri.nix` symlinks the validated `home/config/niri.kdl` into
-  place (runs `niri validate` at build time).
+  and installs into the user profile). `default.nix` is the importer and
+  also sets the sops default file, age key path and `home.stateVersion`.
+  Top-level files group by domain: `browsers.nix`, `common.nix`, `fonts.nix`,
+  `git.nix`, `neovim.nix`, `terminal.nix`, `thunderbird.nix`, `vicinae.nix`,
+  `vscode.nix`. Desktop-specific stuff lives under `home/desktop/`.
+- `home/desktop/` — `default.nix` imports the rest and adds the desktop-only
+  packages (swaybg, xwayland-satellite, nautilus, xdg-user-dirs-gtk) plus
+  polkit-gnome; the per-tool files are niri, noctalia, catppuccin, gtk,
+  xdg portals/mimeapps. `home/desktop/niri.nix` symlinks the validated
+  `home/config/niri.kdl` into place (runs `niri validate` at build time).
 - `home/config/` — raw config files for tools that don't have a nix option —
   `niri.kdl` is the only one right now.
 - `home/themes/` — wallpapers referenced by noctalia and the noctalia greeter.
