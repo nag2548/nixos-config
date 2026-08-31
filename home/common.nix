@@ -41,7 +41,7 @@
     vlc
     calibre
     obsidian
-    kdePackages.kcalc
+    qalculate-gtk
   ];
 
   programs = {
@@ -67,7 +67,5 @@
       enable = true;
       enableZshIntegration = true;
     };
-
-    qalculate.enable = true;
   };
 }
