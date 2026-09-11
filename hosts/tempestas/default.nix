@@ -1,12 +1,10 @@
-{ pkgs, username, ... }:
+{ username, ... }:
 {
   imports = [
     ./hardware-configuration.nix
 
-    ./modules/services.nix
-
     ../../modules/common.nix
-    ../../modules/niri-session.nix
+    ../../modules/kde-session.nix
     ../../modules/gaming.nix
     ../../modules/users.nix
     ../../modules/samba.nix
@@ -15,7 +13,7 @@
     ../../modules/syncthing.nix
   ];
 
-  networking.hostName = "galanthus";
+  networking.hostName = "tempestas";
 
   services = {
     xserver = {
@@ -26,11 +24,6 @@
       };
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    solaar
-  ];
-  hardware.logitech.wireless.enable = true;
 
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;

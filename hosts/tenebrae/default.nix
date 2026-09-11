@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
 
     ../../modules/common.nix
+    ../../modules/niri-session.nix
     ../../modules/gaming.nix
     ../../modules/users.nix
     ../../modules/samba.nix

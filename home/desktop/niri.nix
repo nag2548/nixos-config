@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./noctalia.nix
+  ];
+
   xdg.configFile."niri/config.kdl".source =
     pkgs.runCommand "niri-config-checked"
       {
@@ -9,4 +13,11 @@
         niri validate --config ${../config/niri.kdl}
         cp ${../config/niri.kdl} $out
       '';
+
+  services.polkit-gnome.enable = true;
+
+  home.packages = with pkgs; [
+    swaybg
+    xwayland-satellite
+  ];
 }

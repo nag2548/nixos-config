@@ -1,4 +1,9 @@
-{ config, username, ... }:
+{
+  config,
+  username,
+  session,
+  ...
+}:
 {
   imports = [
     ./browsers.nix
@@ -11,6 +16,7 @@
     ./vscode.nix
     ./vicinae.nix
     ./desktop
+    ./desktop/${session}.nix
   ];
 
   home.username = username;

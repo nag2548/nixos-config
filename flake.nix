@@ -79,9 +79,15 @@
     let
       username = "nadine";
       mkHost =
-        hostPath:
+        session: hostPath:
         nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs username; };
+          specialArgs = {
+            inherit
+              inputs
+              username
+              session
+              ;
+          };
 
           modules = [
             hostPath
@@ -94,7 +100,13 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs username; };
+              home-manager.extraSpecialArgs = {
+                inherit
+                  inputs
+                  username
+                  session
+                  ;
+              };
               home-manager.sharedModules = [
                 sops-nix.homeManagerModules.sops
                 noctalia.homeModules.default
@@ -111,8 +123,9 @@
     in
     {
       nixosConfigurations = {
-        tenebrae = mkHost ./hosts/tenebrae;
-        galanthus = mkHost ./hosts/galanthus;
+        tenebrae = mkHost "niri" ./hosts/tenebrae;
+        galanthus = mkHost "niri" ./hosts/galanthus;
+        tempestas = mkHost "kde" ./hosts/tempestas;
       };
     };
 }
