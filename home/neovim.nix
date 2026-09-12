@@ -195,6 +195,12 @@
         css.enable = true;
         docker.enable = true;
         html.enable = true;
+        java = {
+          enable = true;
+          extensions = {
+            maven-nvim.enable = true;
+          };
+        };
         markdown.enable = true;
         nix = {
           enable = true;
@@ -203,6 +209,7 @@
         };
         sql.enable = true;
         typescript.enable = true;
+        yaml.enable = true;
       };
 
       git = {
