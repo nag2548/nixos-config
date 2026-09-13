@@ -156,19 +156,28 @@
             prettier = {
               command =
                 let
-                  # Reuse the svelte copy already pulled in by pkgs.svelte-language-server's
-                  # pnpm deps so prettier-plugin-svelte's `require('svelte/compiler')` resolves.
-                  svelteNodePath = pkgs.runCommand "svelte-for-node-path" { } ''
-                    mkdir -p $out/lib/node_modules/svelte
-                    cp -r ${pkgs.svelte-language-server}/lib/node_modules/svelte-language-server/node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/. $out/lib/node_modules/svelte/
-                  '';
+                  # svelte's npm tarball ships a pre-bundled UMD `compiler/index.js`
+                  # that has no external runtime deps, so we can use the tarball as-is
+                  # without an npm install step.
+                  svelteForPrettier = pkgs.stdenvNoCC.mkDerivation {
+                    name = "svelte-5.56.7-node-path";
+                    src = pkgs.fetchurl {
+                      url = "https://registry.npmjs.org/svelte/-/svelte-5.56.7.tgz";
+                      sha256 = "1z9lawv2sb6q6fsfx0480j9yf7xaq54z61sj9xjgbiba0s9p24qw";
+                    };
+                    dontBuild = true;
+                    installPhase = ''
+                      mkdir -p $out/lib/node_modules/svelte
+                      tar -xzf $src -C $out/lib/node_modules/svelte --strip-components=1
+                    '';
+                  };
                   wrapped = pkgs.symlinkJoin {
                     name = "prettier-with-svelte";
                     paths = [ pkgs.prettier ];
                     nativeBuildInputs = [ pkgs.makeWrapper ];
                     postBuild = ''
                       wrapProgram $out/bin/prettier \
-                        --set NODE_PATH "${svelteNodePath}/lib/node_modules"
+                        --set NODE_PATH "${svelteForPrettier}/lib/node_modules"
                     '';
                   };
                 in
@@ -201,7 +210,6 @@
         context.enable = true;
         grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
           kdl
-          svelte
         ];
       };
 
