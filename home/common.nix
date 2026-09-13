@@ -7,7 +7,6 @@
     nodejs
     temurin-bin-25
     python3
-    direnv
     gitmoji-cli
     isd
     lazygit
@@ -65,6 +64,11 @@
     };
 
     yazi = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    direnv = {
       enable = true;
       enableZshIntegration = true;
     };

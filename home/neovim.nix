@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.nvf = {
     enable = true;
@@ -152,6 +152,27 @@
             };
             nixfmt = {
               command = "${pkgs.nixfmt}/bin/nixfmt";
+            };
+            prettier = {
+              command =
+                let
+                  # Reuse the svelte copy already pulled in by pkgs.svelte-language-server's
+                  # pnpm deps so prettier-plugin-svelte's `require('svelte/compiler')` resolves.
+                  svelteNodePath = pkgs.runCommand "svelte-for-node-path" { } ''
+                    mkdir -p $out/lib/node_modules/svelte
+                    cp -r ${pkgs.svelte-language-server}/lib/node_modules/svelte-language-server/node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/. $out/lib/node_modules/svelte/
+                  '';
+                  wrapped = pkgs.symlinkJoin {
+                    name = "prettier-with-svelte";
+                    paths = [ pkgs.prettier ];
+                    nativeBuildInputs = [ pkgs.makeWrapper ];
+                    postBuild = ''
+                      wrapProgram $out/bin/prettier \
+                        --set NODE_PATH "${svelteNodePath}/lib/node_modules"
+                    '';
+                  };
+                in
+                lib.mkForce "${wrapped}/bin/prettier";
             };
           };
           formatters_by_ft = {
