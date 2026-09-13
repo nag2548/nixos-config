@@ -175,7 +175,10 @@
 
       treesitter = {
         context.enable = true;
-        grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [ kdl ];
+        grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+          kdl
+          svelte
+        ];
       };
 
       visuals.indent-blankline.enable = true;
@@ -198,6 +201,7 @@
         enableFormat = true;
         enableTreesitter = true;
         enableExtraDiagnostics = true;
+        enableDAP = true;
 
         css.enable = true;
         docker.enable = true;
@@ -216,7 +220,10 @@
         };
         rust.enable = true;
         sql.enable = true;
-        svelte.enable = true;
+        svelte = {
+          enable = true;
+          format.type = [ "biome" ];
+        };
         typescript.enable = true;
         yaml.enable = true;
       };
