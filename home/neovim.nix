@@ -207,7 +207,9 @@
           lsp.servers = [ "nixd" ];
           format.type = [ "nixfmt" ];
         };
+        rust.enable = true;
         sql.enable = true;
+        svelte.enable = true;
         typescript.enable = true;
         yaml.enable = true;
       };
