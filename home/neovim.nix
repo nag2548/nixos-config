@@ -159,6 +159,9 @@
             nix = [ "nixfmt" ];
           };
         };
+        presets = {
+          prettier.plugins = [ "svelte" ];
+        };
       };
 
       lsp = {

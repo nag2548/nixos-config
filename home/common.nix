@@ -7,6 +7,7 @@
     nodejs
     temurin-bin-25
     python3
+    direnv
     gitmoji-cli
     isd
     lazygit
