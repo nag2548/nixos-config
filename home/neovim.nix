@@ -220,10 +220,7 @@
         };
         rust.enable = true;
         sql.enable = true;
-        svelte = {
-          enable = true;
-          format.type = [ "biome" ];
-        };
+        svelte.enable = true;
         typescript.enable = true;
         yaml.enable = true;
       };
