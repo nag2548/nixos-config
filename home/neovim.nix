@@ -147,16 +147,16 @@
         enable = true;
         setupOpts = {
           formatters = {
-            nixfmt = {
-              command = "${pkgs.nixfmt}/bin/nixfmt";
-            };
             kdlfmt = {
               command = "${pkgs.kdlfmt}/bin/kdlfmt";
             };
+            nixfmt = {
+              command = "${pkgs.nixfmt}/bin/nixfmt";
+            };
           };
           formatters_by_ft = {
-            nix = [ "nixfmt" ];
             kdl = [ "kdlfmt" ];
+            nix = [ "nixfmt" ];
           };
         };
       };
@@ -186,6 +186,13 @@
       autopairs.nvim-autopairs.enable = true;
       autocomplete.nvim-cmp.enable = true;
       visuals.nvim-web-devicons.enable = true;
+
+      diagnostics = {
+        enable = true;
+        config = {
+          virtual_text = true;
+        };
+      };
 
       languages = {
         enableFormat = true;
