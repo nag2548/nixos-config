@@ -49,11 +49,18 @@
         vim-tmux-navigator
         better-mouse-mode
       ];
+      extraConfig = ''
+        set -g extended-keys on
+        set -as terminal-features 'xterm-kitty:extkeys'
+        # tmux 3.5+: send keys to apps in CSI u format
+        set -g extended-keys-format csi-u
+      '';
     };
 
     kitty = {
       enable = true;
       shellIntegration.enableZshIntegration = true;
+      enableGitIntegration = true;
       settings = {
         enable_audio_bell = false;
         scrollback_lines = 10000;
@@ -66,6 +73,9 @@
         tab_powerline_style = "slanted";
         tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
         window_padding_width = "0 8";
+      };
+      keybindings = {
+        "shift+enter" = "send_text all \\x1b[13;2u";
       };
       # themeFile = "Catppuccin-Mocha";
     };
