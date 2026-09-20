@@ -107,5 +107,17 @@ packages) is the house formatter.
 
 ## Conventions
 
-- Commit messages use gitmoji-style emoji prefixes (✨, 🔧, 🐛, ⬆️, …) with a
-  short summary; `gitmoji-cli` is installed.
+- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/):
+  `type(scope?): short summary` — lowercase summary, no trailing period, imperative
+  mood ("add" not "added"), under ~72 chars. Common types:
+  - **feat** — new user-facing feature
+  - **fix** — bug fix
+  - **chore** — maintenance that doesn't affect production code (deps, tooling,
+    formatting, refactors with no behavior change)
+  - **docs** — docs only
+  - **refactor** — code change that neither fixes a bug nor adds a feature
+  - **build**, **ci**, **perf**, **style**, **test**, **revert** — used as needed
+  - Use a `!` after the type/scope for breaking changes: `feat(niri)!: swap keybind
+    for ...`, and explain the breakage in the body.
+  - Scope is optional; when used, prefer a module or domain name (`niri`,
+    `noctalia`, `sops`, `home`, `galanthus`, etc.).
