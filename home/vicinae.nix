@@ -4,7 +4,10 @@
     systemd = {
       enable = true;
       autoStart = true;
-      environment.USE_LAYER_SHELL = 1;
+      environment = {
+        USE_LAYER_SHELL = 1;
+        OP_BIOMETRIC_UNLOCK_ENABLED = "true";
+      };
     };
     settings = {
       favicon_service = "twenty";
