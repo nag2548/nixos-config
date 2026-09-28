@@ -12,6 +12,9 @@
         panel = {
           open_near_click_control_center = true;
         };
+        window_switcher = {
+          style = "compact";
+        };
       };
       wallpaper = {
         enabled = true;
