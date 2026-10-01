@@ -9,6 +9,7 @@
     inputs.sops-nix.nixosModules.sops
     inputs.vicinae.nixosModules.default
     inputs.catppuccin.nixosModules.catppuccin
+    ./plymouth.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
