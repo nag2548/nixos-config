@@ -1,4 +1,8 @@
+{ inputs, ... }:
 {
+  imports = [
+    inputs.catppuccin.homeModules.catppuccin
+  ];
   home.pointerCursor.enable = true;
 
   catppuccin = {

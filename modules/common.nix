@@ -1,5 +1,16 @@
-{ pkgs, username, ... }:
 {
+  inputs,
+  pkgs,
+  username,
+  ...
+}:
+{
+  imports = [
+    inputs.sops-nix.nixosModules.sops
+    inputs.vicinae.nixosModules.default
+    inputs.catppuccin.nixosModules.catppuccin
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   nix.settings = {

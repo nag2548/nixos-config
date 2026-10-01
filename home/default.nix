@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   username,
   session,
@@ -6,6 +7,7 @@
 }:
 {
   imports = [
+    inputs.sops-nix.homeManagerModules.sops
     ./browsers.nix
     ./common.nix
     ./fonts.nix

@@ -68,12 +68,6 @@
     inputs@{
       nixpkgs,
       home-manager,
-      sops-nix,
-      noctalia,
-      noctalia-greeter,
-      vicinae,
-      catppuccin,
-      nvf,
       ...
     }:
     let
@@ -91,31 +85,21 @@
 
           modules = [
             hostPath
-            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            noctalia-greeter.nixosModules.default
-            vicinae.nixosModules.default
-            catppuccin.nixosModules.catppuccin
-
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit
-                  inputs
-                  username
-                  session
-                  ;
-              };
-              home-manager.sharedModules = [
-                sops-nix.homeManagerModules.sops
-                noctalia.homeModules.default
-                vicinae.homeManagerModules.default
-                catppuccin.homeModules.catppuccin
-                nvf.homeManagerModules.default
-              ];
-              home-manager.users.${username} = {
-                imports = [ ./home ];
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    username
+                    session
+                    ;
+                };
+                users.${username} = {
+                  imports = [ ./home ];
+                };
               };
             }
           ];

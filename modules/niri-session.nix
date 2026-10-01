@@ -1,5 +1,9 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
+  imports = [
+    inputs.noctalia-greeter.nixosModules.default
+  ];
+
   programs = {
     niri.enable = true;
   };
