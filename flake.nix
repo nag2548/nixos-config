@@ -109,7 +109,7 @@
       nixosConfigurations = {
         tenebrae = mkHost "niri" ./hosts/tenebrae;
         galanthus = mkHost "niri" ./hosts/galanthus;
-        tempestas = mkHost "kde" ./hosts/tempestas;
+        caligo = mkHost "kde" ./hosts/caligo;
       };
     };
 }

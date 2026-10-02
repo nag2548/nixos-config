@@ -13,7 +13,7 @@
     ../../modules/syncthing.nix
   ];
 
-  networking.hostName = "tempestas";
+  networking.hostName = "caligo";
 
   services = {
     xserver = {
