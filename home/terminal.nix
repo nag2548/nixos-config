@@ -17,12 +17,6 @@
         ignoreAllDups = true;
       };
 
-      initContent = ''
-        if [[ -o interactive ]]; then
-          fastfetch
-        fi
-      '';
-
       oh-my-zsh = {
         enable = true;
         plugins = [
