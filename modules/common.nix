@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   username,
   ...
@@ -42,6 +43,8 @@
       "nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="
     ];
   };
+
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   boot.loader = {
     systemd-boot = {
