@@ -25,6 +25,7 @@
           "man"
           "docker"
           "docker-compose"
+          "tmux"
         ];
       };
     };
