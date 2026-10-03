@@ -50,6 +50,8 @@ in
   programs = {
     btop.enable = true;
 
+    fastfetch.enable = true;
+
     vesktop = {
       enable = true;
       vencord.settings = {
