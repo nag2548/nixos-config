@@ -45,7 +45,6 @@ in
     vlc
     calibre
     obsidian
-    qalculate-gtk
   ];
 
   programs = {
