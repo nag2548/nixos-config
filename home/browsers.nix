@@ -12,7 +12,13 @@
       ];
 
       policies = {
+        # Updates & Background Services
+        AppAutoUpdate = false;
+        BackgroundAppUpdate = false;
+
         DisableTelemetry = true;
+        DisablePocket = true;
+        DisableMasterPasswordCreation = true;
         OfferToSaveLogins = false;
         DownloadDirectory = "\${home}/Downloads";
         AutofillAddressEnabled = false;
