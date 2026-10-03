@@ -44,6 +44,7 @@
       newSession = true;
       clock24 = true;
       mouse = true;
+      escapeTime = 0;
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
@@ -52,8 +53,10 @@
         {
           plugin = resurrect;
           extraConfig = ''
+            set -g @resurrect-strategy-nvim 'session'
             set -g @resurrect-capture-pane-contents 'on'
             set -g @resurrect-pane-contents-area 'visible'
+            set -g @resurrect-processes 'nvim lazygit opencode'
           '';
         }
         {
