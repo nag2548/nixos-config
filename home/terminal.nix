@@ -59,6 +59,7 @@
             set -g @resurrect-capture-pane-contents 'on'
             set -g @resurrect-pane-contents-area 'visible'
             set -g @resurrect-processes '~vi ~lazygit ~opencode'
+            set -g @resurrect-save-command-strategy 'linux_procfs'
           '';
         }
         {
