@@ -19,6 +19,7 @@
       enable = true;
       accent = "dark";
     };
+
     tmux = {
       extraConfig = ''
         set -g @catppuccin_window_status_style "rounded"
@@ -41,6 +42,10 @@
         # set -ag status-right "#{E:@catppuccin_status_uptime}"
         # set -agF status-right "#{E:@catppuccin_status_battery}"
       '';
+    };
+
+    thunderbird = {
+      profile = "default";
     };
   };
 
