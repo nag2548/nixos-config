@@ -41,6 +41,7 @@
 
     tmux = {
       enable = true;
+      newSession = true;
       clock24 = true;
       mouse = true;
       plugins = with pkgs.tmuxPlugins; [
@@ -48,6 +49,20 @@
         yank
         vim-tmux-navigator
         better-mouse-mode
+        {
+          plugin = resurrect;
+          extraConfig = ''
+            set -g @resurrect-capture-pane-contents 'on'
+            set -g @resurrect-pane-contents-area 'visible'
+          '';
+        }
+        {
+          plugin = continuum;
+          extraConfig = ''
+            set -g @continuum-restore 'on'
+            set -g @continuum-save-interval '5'
+          '';
+        }
       ];
       extraConfig = ''
         set -g extended-keys on
