@@ -66,7 +66,7 @@
         scrollback_lines = 10000;
         update_check_interval = 0;
         font_size = 11;
-        font_family = "Fira Code";
+        font_family = "FiraCode Nerd Font Mono";
         tab_bar_min_tabs = 1;
         tab_bar_edge = "bottom";
         tab_bar_style = "powerline";
