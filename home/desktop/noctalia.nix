@@ -29,7 +29,7 @@
       bar.default = {
         capsule = true;
         capsule_padding = 4.0;
-        margin_ends = 8;
+        margin_ends = 12;
         start = [ "workspaces" ];
         center = [ "group:g1" ];
         end = [

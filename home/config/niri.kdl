@@ -247,10 +247,10 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        left 8
-        right 8
- // top 64
-        // bottom 64
+        left 12
+        right 12
+        top 0
+        bottom 0
     }
 }
 // Add lines like this to spawn processes at startup.
