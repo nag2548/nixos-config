@@ -8,6 +8,8 @@
       syntaxHighlighting.enable = true;
       historySubstringSearch.enable = true;
 
+      prezto.tmux.autoStartLocal = true;
+
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake ~/.schnee";
       };
@@ -47,6 +49,8 @@
       mouse = true;
       escapeTime = 0;
       disableConfirmationPrompt = true;
+      keyMode = "vi";
+
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
@@ -72,6 +76,7 @@
           '';
         }
       ];
+
       extraConfig = ''
         set -g extended-keys on
         set -as terminal-features 'xterm-kitty:extkeys'
@@ -84,6 +89,7 @@
       enable = true;
       shellIntegration.enableZshIntegration = true;
       enableGitIntegration = true;
+
       settings = {
         enable_audio_bell = false;
         scrollback_lines = 10000;
@@ -97,6 +103,7 @@
         tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
         window_padding_width = "0 8";
       };
+
       keybindings = {
         "shift+enter" = "send_text all \\x1b[13;2u";
       };
@@ -107,9 +114,11 @@
 
     zellij = {
       enable = true;
+
       settings = {
         show_startup_tips = false;
       };
+
       extraConfig = ''
         keybinds {
           shared_except "move" "locked" {
