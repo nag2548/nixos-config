@@ -58,7 +58,6 @@
         vim-tmux-navigator
         better-mouse-mode
         tmux-floax
-        catppuccin
         cpu
         battery
         {
