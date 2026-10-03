@@ -8,7 +8,9 @@ let
     logo_image = Image("logo.png");
     logo_sprite = Sprite(logo_image);
     logo_sprite.SetX(screen.half.w - logo_image.GetWidth() / 2);
-    logo_sprite.SetY(flyingman_sprite.GetY() + flyingman_image[0].GetHeight() + 32);
+    preferred_y = flyingman_sprite.GetY() + flyingman_image[0].GetHeight() + 32;
+    max_y = screen.h - logo_image.GetHeight() - 100;
+    logo_sprite.SetY(Math.Min(preferred_y, max_y));
   '';
 
   colorfulLoopLogo = pkgs.stdenvNoCC.mkDerivation {
@@ -46,7 +48,7 @@ let
         ln -s "$f" "$themeDir/"
       done
 
-      resvg --width 600 "$logoSvg" "$themeDir/logo.png"
+      resvg --width 320 "$logoSvg" "$themeDir/logo.png"
     '';
   };
 in
