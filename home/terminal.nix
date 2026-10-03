@@ -51,6 +51,7 @@
         yank
         vim-tmux-navigator
         better-mouse-mode
+        tmux-floax
         {
           plugin = resurrect;
           extraConfig = ''
