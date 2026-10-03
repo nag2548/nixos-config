@@ -50,6 +50,7 @@
       escapeTime = 0;
       disableConfirmationPrompt = true;
       keyMode = "vi";
+      terminal = "tmux-256color";
 
       plugins = with pkgs.tmuxPlugins; [
         sensible
@@ -57,6 +58,9 @@
         vim-tmux-navigator
         better-mouse-mode
         tmux-floax
+        catppuccin
+        cpu
+        battery
         {
           plugin = resurrect;
           extraConfig = ''
