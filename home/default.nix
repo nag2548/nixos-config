@@ -8,7 +8,7 @@
 {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
-    ./browsers.nix
+    ./browsers
     ./common.nix
     ./fonts.nix
     ./git.nix
