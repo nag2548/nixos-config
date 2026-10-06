@@ -1,8 +1,8 @@
 {
   "browser.aboutConfig.showWarning" = false;
 
-  "sidebar.verticalTabs" = true;
-  "sidebar.revamp" = true;
+  # "sidebar.verticalTabs" = true;
+  # "sidebar.revamp" = true;
 
   "devtools.toolbox.host" = "right";
   "devtools.chrome.enabled" = true;
