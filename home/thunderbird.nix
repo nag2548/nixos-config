@@ -11,6 +11,7 @@
       "calendar.alarms.playsound" = false;
       "mail.chat.play_sound" = false;
       "mail.shell.checkDefaultClient" = false;
+      "mailnews.message_display.disable_remote_image" = false;
     };
     languagePacks = [
       "en-US"
