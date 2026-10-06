@@ -1,7 +1,4 @@
-{ inputs, pkgs, ... }:
-let
-  stable = import inputs.nixpkgs-stable { inherit (pkgs.stdenv.hostPlatform) system; };
-in
+{ pkgs, ... }:
 {
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -15,8 +12,7 @@ in
     lazygit
 
     jetbrains.idea
-    # TODO: https://github.com/NixOS/nixpkgs/pull/569323
-    (stable.protonmail-bridge-gui.overrideAttrs (old: {
+    (protonmail-bridge-gui.overrideAttrs (old: {
       postFixup = (old.postFixup or "") + ''
         # Proton's autostart (--no-window) writes the raw binary path
         # (lib/bridge-gui) into ~/.config/autostart, bypassing the wrapped
