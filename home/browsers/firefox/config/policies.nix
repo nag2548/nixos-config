@@ -45,7 +45,7 @@ in
       installation_mode = "force_installed";
       updates_disabled = true;
       private_browsing = true;
-      default_area = "menupanel";
+      default_area = "navbar";
     };
 
     "jid1-MnnxcxisBPnSXQ@jetpack" = {
