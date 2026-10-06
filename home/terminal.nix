@@ -8,8 +8,6 @@
       syntaxHighlighting.enable = true;
       historySubstringSearch.enable = true;
 
-      prezto.tmux.autoStartLocal = true;
-
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake ~/.schnee";
       };
