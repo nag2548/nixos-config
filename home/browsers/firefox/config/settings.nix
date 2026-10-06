@@ -1,5 +1,4 @@
 {
-  "extensions.autoDisableScopes" = 0;
   "browser.aboutConfig.showWarning" = false;
 
   # "sidebar.verticalTabs" = true;
