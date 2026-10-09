@@ -362,6 +362,12 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: foot" {
         spawn-sh "nirius focus-or-spawn -a foot footclient"
     }
+    Mod+B hotkey-overlay-title="Open a Browser: firefox" {
+        spawn-sh "nirius focus-or-spawn -a firefox firefox"
+    }
+    Mod+N hotkey-overlay-title="Open Sone: tidal" {
+        spawn-sh "nirius focus-or-spawn -a sone sone"
+    }
     // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen" {
