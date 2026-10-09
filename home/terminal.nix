@@ -123,6 +123,9 @@
         bell = {
           system = "no";
         };
+        mouse = {
+          hide-when-typing = "yes";
+        };
         scrollback = {
           lines = 10000;
         };
