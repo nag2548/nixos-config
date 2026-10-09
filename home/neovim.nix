@@ -219,6 +219,7 @@
         html.enable = true;
         java = {
           enable = true;
+          format.type = [ ];
           extensions = {
             maven-nvim.enable = true;
           };
