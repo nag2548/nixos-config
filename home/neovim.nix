@@ -224,7 +224,12 @@
             maven-nvim.enable = true;
           };
         };
-        markdown.enable = true;
+        markdown = {
+          enable = true;
+          extensions = {
+            render-markdown-nvim.enable = true;
+          };
+        };
         nix = {
           enable = true;
           lsp.servers = [ "nixd" ];
