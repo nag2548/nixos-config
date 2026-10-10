@@ -7,8 +7,9 @@
     settings = {
       "general.useragent.override" = "";
       "privacy.donottrackheader.enabled" = true;
-      "calendar.week.start" = 1;
       "calendar.alarms.playsound" = false;
+      "calendar.week.start" = 1;
+      "calendar.view.visiblehours" = 14;
       "mail.chat.play_sound" = false;
       "mail.shell.checkDefaultClient" = false;
       "mailnews.message_display.disable_remote_image" = false;
