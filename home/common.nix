@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     cowsay
     sops
+    dig
     nodejs
     temurin-bin-25
     python3
