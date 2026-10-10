@@ -104,6 +104,11 @@ packages) is the house formatter.
   loaded for every host. They're no-ops unless the matching
   `programs.noctalia-greeter.enable` / `programs.noctalia.enable` is set, so
   non-niri hosts are unaffected.
+- **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
+  recursive. The store has tens of thousands of paths and scans take forever.
+  Use `nix path-info`, `nix eval`, or open the specific source file directly. If
+  you must look in the store, target a known path (`/nix/store/<hash>-<name>`) —
+  never `find /nix/store` or `rg /nix/store`.
 
 ## Conventions
 
