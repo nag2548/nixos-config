@@ -33,18 +33,20 @@ packages) is the house formatter.
   (and `inputs` when needed) as a module arg; never hardcode `nadine` or assume
   the session in modules.
 - `hosts/<host>/` — one dir per machine. `default.nix` imports the generated
-  `hardware-configuration.nix` plus `modules/common.nix` + exactly one of
-  `modules/<session>-session.nix`. Hosts may also have a `modules/` subdir for
-  host-specific config (e.g. galanthus's `services.nix` syncs the Windows
-  bootloader onto the ESP).
+  `hardware-configuration.nix`, `modules/common.nix`, the matching
+  `modules/<session>-session.nix`, and every shared session-agnostic module
+  (`gaming`, `users`, `samba`, `docker`, `bluetooth`, `syncthing`). Hosts may
+  also have a `modules/` subdir for host-specific config on top of that (e.g.
+  galanthus's `services.nix` syncs the Windows bootloader onto the ESP).
 - `modules/*` — NixOS system modules. `common.nix` is shared by every host
   (boot, nix settings, locale, pipewire, catppuccin, 1password, etc.). Per-
   session config lives in `modules/<session>-session.nix`:
   - `niri-session.nix` — `programs.niri.enable` + `programs.noctalia-greeter`
   - `kde-session.nix` — `services.desktopManager.plasma6.enable` + SDDM with the
     `breeze` theme
-  - The other shared modules (`gaming.nix`, `users.nix`, `samba.nix`,
-    `docker.nix`, `bluetooth.nix`, `syncthing.nix`) are session-agnostic.
+  - The other shared modules (`gaming.nix`, `hardware.nix`, `plymouth.nix`,
+    `users.nix`, `samba.nix`, `docker.nix`, `bluetooth.nix`, `syncthing.nix`)
+    are session-agnostic.
 - `secrets/` — encrypted sops-nix secrets (`secrets.yaml`) keyed per host (see
   `.sops.yaml`). Add a new host's age public key to `.sops.yaml` and to the
   `creation_rules` key group before referencing host-specific secrets.
@@ -52,16 +54,19 @@ packages) is the house formatter.
   (`useGlobalPkgs`/`useUserPackages` true, so it builds against system nixpkgs
   and installs into the user profile). `default.nix` is the importer and also
   sets the sops default file, age key path and `home.stateVersion`; it imports
-  `./desktop` (shared) plus `./desktop/${session}.nix` (per session bundle).
-  Top-level files group by domain: `browsers.nix`, `common.nix`, `fonts.nix`,
-  `git.nix`, `neovim.nix`, `terminal.nix`, `thunderbird.nix`, `vicinae.nix`,
-  `vscode.nix`. Desktop-specific stuff lives under `home/desktop/`.
+  `./browsers` (shared), `./desktop` (shared cross-DE defaults) and
+  `./desktop/${session}.nix` (per session bundle). Top-level files group by
+  domain: `default.nix` (importer), `browsers/` (with a `firefox/` subdir),
+  `common.nix`, `fonts.nix`, `git.nix`, `neovim.nix`, `terminal.nix`,
+  `thunderbird.nix`, `vicinae.nix`, `vscode.nix`. Desktop-specific stuff
+  lives under `home/desktop/`.
 - `home/desktop/` — `default.nix` imports the shared `catppuccin.nix`,
   `gtk.nix`, `xdg.nix` and adds the cross-DE packages (`nautilus`,
   `xdg-user-dirs-gtk`). Session-specific bundles:
   - `niri.nix` — symlinks the validated `home/config/niri.kdl` into place (runs
     `niri validate` at build time), enables polkit-gnome, imports
-    `noctalia.nix`, and adds `swaybg` + `xwayland-satellite`
+    `noctalia.nix`, and adds `nirius` (launcher), `swaybg` (wallpaper
+    fallback) and `xwayland-satellite` (Xwayland-on-demand)
   - `kde.nix` — adds `dolphin`, `konsole`, `spectacle` (plasma6 ships everything
     else via the system module)
 - `home/config/` — raw config files for tools that don't have a nix option —
@@ -74,9 +79,9 @@ packages) is the house formatter.
   edit the host's `default.nix` instead. The `caligo` placeholder is an
   asserting module that fails loudly until replaced with a real one.
 - Two nixpkgs inputs exist: unstable `nixpkgs` (the default `pkgs`) and stable
-  `nixpkgs-stable` (26.05). The overlay in `modules/common.nix` exposes the
-  stable set as `pkgs.stable`, so use `pkgs.stable.<package>` for stable pins
-  instead of importing `inputs.nixpkgs-stable` directly.
+  `nixpkgs-stable` (26.05). The stable input is currently declared but unused
+  — nothing exposes `pkgs.stable`, so reach for `inputs.nixpkgs-stable` only
+  if you also add an overlay (e.g. in `modules/common.nix`) that wires it in.
 - `modules/samba.nix` mounts `//192.168.100.31/documents` using sops-nix
   templates (`samba-truenas`) — credentials live in `secrets/secrets.yaml`,
   decrypted on demand into the nix store.
