@@ -42,6 +42,7 @@
     vlc
     calibre
     obsidian
+    trezor-suite
   ];
 
   programs = {
