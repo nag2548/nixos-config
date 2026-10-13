@@ -61,14 +61,6 @@
   };
 
   accounts.calendar.accounts = {
-    "ngrabmair@googlemail.com" = {
-      remote = {
-        type = "caldav";
-        url = "https://apidata.googleusercontent.com/caldav/v2/ngrabmair@googlemail.com/events";
-        userName = "ngrabmair@googlemail.com";
-      };
-      thunderbird.enable = true;
-    };
     "nextcloud-personal" = {
       primary = true;
       remote = {
@@ -76,7 +68,10 @@
         url = "https://nextcloud.zimtix.de/remote.php/dav/calendars/nadine/personal/";
         userName = "nadine";
       };
-      thunderbird.enable = true;
+      thunderbird = {
+        enable = true;
+        color = "#a6e3a1";
+      };
     };
   };
 }
