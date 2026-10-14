@@ -43,7 +43,7 @@ in
     "uBlock0@raymondhill.net" = {
       install_url = moz "ublock-origin";
       installation_mode = "force_installed";
-      updates_disabled = true;
+      updates_disabled = false;
       private_browsing = true;
       default_area = "navbar";
     };
@@ -51,35 +51,35 @@ in
     "jid1-MnnxcxisBPnSXQ@jetpack" = {
       install_url = moz "privacy-badger17";
       installation_mode = "force_installed";
-      updates_disabled = true;
+      updates_disabled = false;
       default_area = "menupanel";
     };
 
     "sponsorBlocker@ajay.app" = {
       install_url = moz "sponsorblock";
       installation_mode = "force_installed";
-      updates_disabled = true;
+      updates_disabled = false;
       default_area = "menupanel";
     };
 
     "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
       install_url = moz "return-youtube-dislikes";
       installation_mode = "force_installed";
-      updates_disabled = true;
+      updates_disabled = false;
       default_area = "menupanel";
     };
 
     "FirefoxColor@mozilla.com" = {
       install_url = moz "firefox-color";
       installation_mode = "force_installed";
-      updates_disabled = true;
+      updates_disabled = false;
       default_area = "menupanel";
     };
 
     "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
       install_url = moz "1password-x-password-manager";
       installation_mode = "force_installed";
-      updates_disabled = true;
+      updates_disabled = false;
       private_browsing = true;
       default_area = "navbar";
     };
