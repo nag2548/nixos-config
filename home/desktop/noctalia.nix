@@ -90,6 +90,7 @@
         };
       };
       notification = {
+        history_retention_hours = 8;
         filter_order = [
           "filter"
           "filter-2"
