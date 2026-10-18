@@ -43,6 +43,9 @@
     calibre
     obsidian
     trezor-suite
+    zathura
+    audacity
+    gimp
   ];
 
   programs = {
