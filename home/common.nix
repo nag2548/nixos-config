@@ -14,6 +14,8 @@ in
     gitmoji-cli
     isd
     lazygit
+    lazydocker
+    unzip
 
     jetbrains.idea
     (protonmail-bridge-gui.overrideAttrs (old: {
