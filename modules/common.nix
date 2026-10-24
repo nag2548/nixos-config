@@ -16,26 +16,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      # pygments 2.21 escapes quotes in its HTML output, which breaks
-      # diff-cover's expected HTML fixtures (only pulled in via sqlfluff,
-      # which nvf uses for SQL formatting/diagnostics).
-      python3Packages = prev.python3Packages // {
-        diff-cover = prev.python3Packages.diff-cover.overridePythonAttrs (old: {
-          disabledTests = old.disabledTests ++ [
-            "test_added_file_pycodestyle_html"
-            "test_all_reports"
-            "test_added_file_pyflakes_html"
-            "test_added_file_pylint_html"
-            "test_fail_under_html"
-            "test_fail_under_pass_html"
-          ];
-        });
-      };
-    })
-  ];
-
   nix.settings = {
     auto-optimise-store = true;
     warn-dirty = false;
