@@ -9,7 +9,7 @@
       historySubstringSearch.enable = true;
 
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake ~/.schnee";
+        rebuild = "nh os switch";
       };
 
       history = {
