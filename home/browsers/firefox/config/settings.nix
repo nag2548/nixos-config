@@ -3,6 +3,7 @@
 
   # "sidebar.verticalTabs" = true;
   # "sidebar.revamp" = true;
+  "general.autoScroll" = true;
 
   "devtools.toolbox.host" = "right";
   "devtools.chrome.enabled" = true;
