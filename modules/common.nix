@@ -45,6 +45,11 @@
     ];
   };
 
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  };
+
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   boot.loader = {

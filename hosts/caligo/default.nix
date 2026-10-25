@@ -1,4 +1,4 @@
-{ username, ... }:
+{ ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -23,11 +23,6 @@
         variant = "intl";
       };
     };
-  };
-
-  sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
-    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
   };
 
   system.stateVersion = "26.05";
