@@ -9,7 +9,6 @@ in
     sops
     dig
     nodejs
-    temurin-bin-25
     python3
     gitmoji-cli
     isd
@@ -48,7 +47,6 @@ in
     stable.calibre
     obsidian
     trezor-suite
-    zathura
     # Audacity 4.0 doesn't build against Qt 6.12
     # (https://github.com/NixOS/nixpkgs/issues/572942), so take the stable
     # version until nixpkgs picks up the fix.
@@ -95,5 +93,7 @@ in
       };
       flake = "$HOME/.schnee";
     };
+
+    zathura.enable = true;
   };
 }
