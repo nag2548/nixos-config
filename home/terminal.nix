@@ -133,7 +133,13 @@
       };
     };
 
-    opencode.enable = true;
+    opencode = {
+      enable = true;
+
+      cli = {
+        attention.notifications = true;
+      };
+    };
 
     zellij = {
       enable = true;
