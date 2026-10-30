@@ -103,6 +103,7 @@
         tab_powerline_style = "slanted";
         tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
         window_padding_width = "0 8";
+        cursor_trail = 30;
       };
 
       keybindings = {
