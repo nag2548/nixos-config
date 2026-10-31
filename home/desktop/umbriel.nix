@@ -291,8 +291,8 @@
         {
           match.app_id = "^scratchpad-terminal$";
           default_scratchpad = "terminal";
-          default_floating_size.width = 0.8;
-          default_floating_size.height = 0.8;
+          default_floating_size.width = 0.88;
+          default_floating_size.height = 0.88;
         }
         {
           match.app_id = "signal";
