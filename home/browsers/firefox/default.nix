@@ -30,6 +30,10 @@
                 name = "Homepage";
                 url = "https://homepage.home.zimtix.de/";
               }
+              {
+                name = "GitHub";
+                url = "https://github.com/";
+              }
             ];
           }
         ];
