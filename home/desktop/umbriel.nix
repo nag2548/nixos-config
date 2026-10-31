@@ -263,7 +263,7 @@
           action = "scratchpad-toggle music";
           repeat = false;
         };
-        "Mod+Alt+S" = {
+        "Mod+Alt+Comma" = {
           action = "scratchpad-toggle messengers";
           repeat = false;
         };
@@ -304,10 +304,14 @@
         {
           match.app_id = "signal";
           default_scratchpad = "messengers";
+          default_floating_size.width = 0.5;
+          default_floating_size.height = 0.6;
         }
         {
           match.app_id = "telegram";
           default_scratchpad = "messengers";
+          default_floating_size.width = 0.5;
+          default_floating_size.height = 0.6;
         }
         {
           match.app_id = "sone";
@@ -318,10 +322,9 @@
         {
           match.app_id = "^com[.]onepassword[.]OnePassword$";
           default_floating = true;
-          default_floating_size = {
-            width = 0.5;
-            height = 0.6;
-          };
+          default_floating_size.width = 0.5;
+          default_floating_size.height = 0.6;
+          block_capture = true;
         }
       ];
     };
