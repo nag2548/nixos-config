@@ -27,6 +27,7 @@
       };
 
       options = {
+        cmdheight = 0;
         autoindent = true;
         cursorline = true;
         cursorlineopt = "both";
