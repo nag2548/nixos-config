@@ -138,32 +138,14 @@
       };
 
       keybinds = {
-        "Mod+B" = {
-          action = "spawn vicinae vicinae://launch/applications/firefox";
-          repeat = false;
-        };
-        "Mod+E" = {
-          action = "spawn vicinae vicinae://launch/applications/org.gnome.Nautilus";
-          repeat = false;
-        };
-        "Mod+Semicolon" = {
-          action = "spawn vicinae vicinae://launch/applications/com.onepassword.OnePassword";
-          repeat = false;
-        };
-        "Mod+Shift+Space" = {
-          action = "spawn 1password --quick-access";
-          repeat = false;
-        };
+        "Mod+B" = "spawn vicinae vicinae://launch/applications/firefox";
+        "Mod+E" = "spawn vicinae vicinae://launch/applications/org.gnome.Nautilus";
+        "Mod+Semicolon" = "spawn vicinae vicinae://launch/applications/com.onepassword.OnePassword";
+        "Mod+Shift+Space" = "spawn 1password --quick-access";
 
-        "Mod+Q" = {
-          action = "window-close";
-          repeat = false;
-        };
+        "Mod+Q" = "window-close";
         "Super+Alt+L" = "spawn noctalia msg session lock";
-        "Mod+Slash" = {
-          action = "cheatsheet-toggle";
-          repeat = false;
-        };
+        "Mod+Slash" = "cheatsheet-toggle";
 
         "Mod+Escape" = "session-quit";
         "Mod+Shift+Escape" = {
@@ -171,12 +153,12 @@
           allow_when_inhibited = true;
           repeat = false;
         };
-        "Mod+O" = {
-          action = "overview-toggle";
+        "Mod+O" = "overview-toggle";
+
+        "Mod+Space" = {
+          action = "spawn vicinae toggle";
           repeat = false;
         };
-
-        "Mod+Space" = "spawn vicinae toggle";
         "Mod+V" = "spawn vicinae vicinae://launch/clipboard/history";
         "Alt+Tab" = "spawn noctalia msg window-switcher";
 
