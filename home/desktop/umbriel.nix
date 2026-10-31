@@ -76,20 +76,12 @@
       };
 
       keybinds = {
-        "Mod+T" = {
-          action = "spawn foot";
-          repeat = false;
-        };
         "Mod+B" = {
-          action = "spawn firefox";
-          repeat = false;
-        };
-        "Mod+N" = {
-          action = "spawn sone";
+          action = "spawn vicinae vicinae://launch/applications/firefox";
           repeat = false;
         };
         "Mod+E" = {
-          action = "spawn nautilus";
+          action = "spawn vicinae vicinae://launch/applications/org.gnome.Nautilus";
           repeat = false;
         };
 
@@ -109,12 +101,13 @@
           allow_when_inhibited = true;
           repeat = false;
         };
+        "Mod+O" = {
+          action = "overview-toggle";
+          repeat = false;
+        };
 
-        # Noctalia
         "Mod+Space" = "spawn vicinae toggle";
         "Mod+V" = "spawn vicinae vicinae://launch/clipboard/history";
-        "Mod+S" = "spawn noctalia msg panel-toggle control-center";
-        "Mod+Comma" = "spawn noctalia msg settings-toggle";
         "Alt+Tab" = "spawn noctalia msg window-switcher";
 
         # Screenshots
@@ -164,30 +157,60 @@
         "Mod+Up" = "window-focus-up";
         "Mod+Right" = "window-focus-right";
         "Mod+H" = "window-focus-left";
-        "Mod+J" = "window-focus-down";
-        "Mod+K" = "window-focus-up";
+        "Mod+J" = "window-focus-or-workspace-down";
+        "Mod+K" = "window-focus-or-workspace-up";
         "Mod+L" = "window-focus-right";
-        "Mod+F1" = "window-focus-next";
-        "Mod+Shift+Left" = "column-move-left";
-        "Mod+Shift+Down" = "window-move-down";
-        "Mod+Shift+Up" = "window-move-up";
-        "Mod+Shift+Right" = "column-move-right";
+        "Mod+Ctrl+Left" = "column-move-left";
+        "Mod+Ctrl+Down" = "window-move-down";
+        "Mod+Ctrl+Up" = "window-move-up";
+        "Mod+Ctrl+Right" = "column-move-right";
+        "Mod+Ctrl+H" = "column-move-left";
+        "Mod+Ctrl+J" = "window-move-or-workspace-down";
+        "Mod+Ctrl+K" = "window-move-or-workspace-up";
+        "Mod+Ctrl+L" = "column-move-right";
+
+        # Monitor focus
+        "Mod+Shift+Left" = "output-focus-left";
+        "Mod+Shift+Down" = "output-focus-down";
+        "Mod+Shift+Up" = "output-focus-up";
+        "Mod+Shift+Right" = "output-focus-right";
+        "Mod+Shift+H" = "output-focus-left";
+        "Mod+Shift+J" = "output-focus-down";
+        "Mod+Shift+K" = "output-focus-up";
+        "Mod+Shift+L" = "output-focus-right";
+
+        # Move the focused column to another monitor
+        "Mod+Shift+Ctrl+Left" = "column-move-to-output-left";
+        "Mod+Shift+Ctrl+Down" = "column-move-to-output-down";
+        "Mod+Shift+Ctrl+Up" = "column-move-to-output-up";
+        "Mod+Shift+Ctrl+Right" = "column-move-to-output-right";
+        "Mod+Shift+Ctrl+H" = "column-move-to-output-left";
+        "Mod+Shift+Ctrl+J" = "column-move-to-output-down";
+        "Mod+Shift+Ctrl+K" = "column-move-to-output-up";
+        "Mod+Shift+Ctrl+L" = "column-move-to-output-right";
+
+        # Swap the focused window with its neighbour: A - B becomes B - A
+        "Mod+Alt+Left" = "window-swap-left";
+        "Mod+Alt+Down" = "window-swap-down";
+        "Mod+Alt+Up" = "window-swap-up";
+        "Mod+Alt+Right" = "window-swap-right";
 
         # Workspaces
-        "Mod+Page_Down" = "workspace-next";
-        "Mod+Page_Up" = "workspace-previous";
-        "Mod+U" = "workspace-next";
-        "Mod+I" = "workspace-previous";
-        "Mod+Ctrl+Page_Down" = "window-move-to-workspace-next";
-        "Mod+Ctrl+Page_Up" = "window-move-to-workspace-previous";
-        "Mod+Ctrl+U" = "window-move-to-workspace-next";
-        "Mod+Ctrl+I" = "window-move-to-workspace-previous";
         "Mod+WheelDown" = "workspace-next";
         "Mod+WheelUp" = "workspace-previous";
         "Mod+Ctrl+WheelDown" = "window-move-to-workspace-next";
         "Mod+Ctrl+WheelUp" = "window-move-to-workspace-previous";
         "Mod+WheelRight" = "window-focus-right";
         "Mod+WheelLeft" = "window-focus-left";
+        "Mod+1" = "workspace-switch 1";
+        "Mod+2" = "workspace-switch 2";
+        "Mod+3" = "workspace-switch 3";
+        "Mod+4" = "workspace-switch 4";
+        "Mod+5" = "workspace-switch 5";
+        "Mod+6" = "workspace-switch 6";
+        "Mod+7" = "workspace-switch 7";
+        "Mod+8" = "workspace-switch 8";
+        "Mod+9" = "workspace-switch 9";
         "Mod+Ctrl+1" = "window-move-to-workspace 1";
         "Mod+Ctrl+2" = "window-move-to-workspace 2";
         "Mod+Ctrl+3" = "window-move-to-workspace 3";
@@ -201,14 +224,6 @@
         # Window state and layout
         "Mod+BracketLeft" = "window-consume-or-expel-left";
         "Mod+BracketRight" = "window-consume-or-expel-right";
-        "Mod+G" = {
-          action = "window-toggle-floating";
-          repeat = false;
-        };
-        "Mod+Shift+G" = {
-          action = "window-focus-switch-floating";
-          repeat = false;
-        };
         "Mod+P" = {
           action = "window-toggle-pinned";
           repeat = false;
@@ -218,11 +233,11 @@
           repeat = false;
         };
         "Mod+F" = {
-          action = "window-toggle-fullscreen";
+          action = "window-toggle-maximize";
           repeat = false;
         };
-        "Mod+Ctrl+F" = {
-          action = "window-toggle-maximize";
+        "Mod+Shift+F" = {
+          action = "window-toggle-fullscreen";
           repeat = false;
         };
         "Mod+R" = "window-cycle-primary-extent";
@@ -232,18 +247,65 @@
         "Mod+Shift+Minus" = "window-modify-height-down -0.1";
         "Mod+Shift+Equal" = "window-modify-height-up 0.1";
 
-        # Scratchpad
-        "Mod+Shift+Space" = {
-          action = "window-move-to-scratchpad";
+        # Scratchpads
+        "Mod+Alt+T" = {
+          action = "scratchpad-toggle terminal";
           repeat = false;
         };
-        "Mod" = "scratchpad-toggle";
-        "Mod+Ctrl+Space" = {
-          action = "window-restore-from-scratchpad";
+        "Mod+Alt+M" = {
+          action = "scratchpad-toggle music";
           repeat = false;
         };
-        "Mod+Tab" = "scratchpad-focus-next";
+        "Mod+Alt+S" = {
+          action = "scratchpad-toggle messengers";
+          repeat = false;
+        };
+        "Mod+Tab" = {
+          action = "scratchpad-focus-next messengers";
+          repeat = false;
+        };
       };
+
+      # Named scratchpads. Defining any of these removes the implicit
+      # "default" scratchpad, so every scratchpad action needs a name.
+      scratchpad = [
+        {
+          name = "terminal";
+          spawn_when_empty = "foot --app-id scratchpad-terminal";
+        }
+        {
+          name = "music";
+          spawn_when_empty = "sone";
+        }
+        {
+          name = "messengers";
+        }
+      ];
+
+      # Applications that open straight into their scratchpad, hidden until
+      # the pad is toggled.
+      window_rule = [
+        {
+          match.app_id = "^scratchpad-terminal$";
+          default_scratchpad = "terminal";
+          default_floating_size.width = 0.8;
+          default_floating_size.height = 0.8;
+        }
+        {
+          match.app_id = "signal";
+          default_scratchpad = "messengers";
+        }
+        {
+          match.app_id = "telegram";
+          default_scratchpad = "messengers";
+        }
+        {
+          match.app_id = "sone";
+          default_scratchpad = "music";
+          default_floating_size.width = 0.8;
+          default_floating_size.height = 0.8;
+        }
+      ];
     };
   };
 
