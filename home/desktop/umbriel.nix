@@ -141,10 +141,10 @@
         "Mod+B" = "spawn vicinae vicinae://launch/applications/firefox";
         "Mod+T" = "spawn vicinae vicinae://launch/applications/kitty";
         "Mod+E" = "spawn vicinae vicinae://launch/applications/org.gnome.Nautilus";
-        "Mod+Semicolon" = "spawn vicinae vicinae://launch/applications/com.onepassword.OnePassword";
         "Mod+Shift+Space" = "spawn 1password --quick-access";
 
         "Mod+Q" = "window-close";
+        "Mod+W" = "window-minimize";
         "Super+Alt+L" = "spawn noctalia msg session lock";
         "Mod+Slash" = "cheatsheet-toggle";
 
