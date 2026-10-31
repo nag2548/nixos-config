@@ -272,13 +272,16 @@
         {
           name = "terminal";
           spawn_when_empty = "foot --app-id scratchpad-terminal";
+          proportional_size = true;
         }
         {
           name = "music";
           spawn_when_empty = "sone";
+          proportional_size = true;
         }
         {
           name = "messengers";
+          proportional_size = true;
         }
       ];
 
