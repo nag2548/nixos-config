@@ -20,7 +20,6 @@
           theme = "catppuccin-mocha-dark-cursors";
           size = 24;
         };
-        # English (US) layout with intl variant, as on the niri session.
         keyboard = {
           layout = "us";
           variant = "intl";
@@ -28,7 +27,7 @@
           numlock_toggle = true;
         };
         focus = {
-          follows_mouse = true;
+          follows_mouse = false;
         };
       };
 
@@ -39,13 +38,29 @@
           0.667
           1.0
         ];
+        gap = 4;
+        struts = {
+          left = 12;
+          right = 12;
+          top = 0;
+          bottom = 0;
+        };
         scrolling = {
           default_extent_fraction = 1.0;
         };
       };
 
-      # Monitor setup, mirrored from home/config/niri.kdl.
-      # DP-2 has no position: umbriel places it automatically.
+      colors = {
+        border = {
+          focused = "#cba6f7";
+          unfocused = "#45475a";
+        };
+      };
+
+      appearance = {
+        border_width = 3;
+      };
+
       output = {
         "DP-2" = {
           mode = "2560x1440@165.080";
