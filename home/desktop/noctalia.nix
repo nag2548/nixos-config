@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -63,6 +63,31 @@
       };
       control_center.calendar = {
         show_week_numbers = true;
+      };
+      calendar = {
+        enabled = true;
+        account = {
+          nextcloud_personal = {
+            type = "caldav";
+            name = "Personal";
+            provider = "custom";
+            server_url = "https://nextcloud.zimtix.de/remote.php/dav/";
+            username = "nadine";
+            calendars = [ ];
+            credential_source = "file";
+            password_file = config.sops.secrets.nextcloud-password.path;
+          };
+          holidays = {
+            name = "German Holidays";
+            server_url = "https://www.feiertage-deutschland.de/kalender-download/ics/feiertage-deutschland.ics";
+            type = "ics";
+            color = "#f38ba8";
+          };
+        };
+        reminders = {
+          enabled = true;
+          use_event_reminders = true;
+        };
       };
       idle = {
         behavior_order = [
