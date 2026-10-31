@@ -16,9 +16,12 @@
       };
 
       input = {
+        middle_click_paste = false;
         cursor = {
           theme = "catppuccin-mocha-dark-cursors";
           size = 24;
+          follows_focus = true;
+          hide_when_typing = true;
         };
         keyboard = {
           layout = "us";
@@ -82,6 +85,10 @@
         };
         "Mod+E" = {
           action = "spawn vicinae vicinae://launch/applications/org.gnome.Nautilus";
+          repeat = false;
+        };
+        "Mod+Semicolon" = {
+          action = "spawn vicinae vicinae://launch/applications/com.onepassword.OnePassword";
           repeat = false;
         };
 
@@ -307,6 +314,14 @@
           default_scratchpad = "music";
           default_floating_size.width = 0.8;
           default_floating_size.height = 0.8;
+        }
+        {
+          match.app_id = "^com[.]onepassword[.]OnePassword$";
+          default_floating = true;
+          default_floating_size = {
+            width = 0.5;
+            height = 0.6;
+          };
         }
       ];
     };
