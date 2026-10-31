@@ -176,6 +176,30 @@ packages) is the house formatter.
   loaded for every host. They're no-ops unless the matching
   `programs.noctalia-greeter.enable` / `programs.noctalia.enable` is set, so
   non-niri hosts are unaffected.
+- **A session needs its own Secret Service provider.** Noctalia stores its
+  storage master key and calendar credentials through the Secret Service, and
+  apps like nextcloud and the protonmail bridge use it too. `libsecret` is
+  only the client library — a provider has to run in the login session.
+  - The nixpkgs niri module sets `services.gnome.gnome-keyring.enable =
+    lib.mkDefault true`. Umbriel replaces that module (`disabledModules` in
+    umbriel's own nixos module), so nothing enables the keyring there —
+    `modules/umbriel-session.nix` has to do it explicitly.
+  - `services.gnome.gnome-keyring.enable` also sets
+    `security.pam.services.login.enableGnomeKeyring`, which adds
+    `pam_gnome_keyring` to the login stack. That unlocks the "Login" keyring
+    with the login password; without it every login re-prompts for keyring
+    passwords.
+  - gnome-keyring also ships the `org.freedesktop.impl.portal.Secret`
+    backend, so it must be in `xdg.portal.config.<session>.default`
+    alongside the other portals.
+  - caligo (KDE) uses KWallet instead — do not enable gnome-keyring there.
+  - Symptom to recognize: `umbriel` logs
+    `[secret-store] operation=lookup scope=storage status=unavailable
+    category=provider-unavailable`, and clients log
+    `failed to open secretservice session: The name is not activatable`.
+  - Noctalia's docs (`docs/user/configuration/secret-service.mdx`) also cover
+    the separate "multiple keyrings" trap: the `default` collection alias must
+    point at the keyring PAM unlocks.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If
