@@ -7,6 +7,7 @@
 
     ../../modules/common.nix
     ../../modules/niri-session.nix
+    ../../modules/umbriel-session.nix
     ../../modules/gaming.nix
     ../../modules/users.nix
     ../../modules/samba.nix

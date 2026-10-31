@@ -2,9 +2,13 @@
 
 NixOS flake configuration (flakes + home-manager + sops-nix) for three machines:
 
-- **tenebrae** — niri (Wayland tiling) + noctalia shell + noctalia-greeter
-- **galanthus** — niri (Wayland tiling) + noctalia shell + noctalia-greeter
+- **tenebrae** — umbriel (Wayland compositor) + noctalia shell + noctalia-greeter
+- **galanthus** — umbriel (Wayland compositor) + noctalia shell + noctalia-greeter
 - **caligo** — KDE Plasma 6 + breeze SDDM theme
+
+tenebrae and galanthus keep their niri session modules and home bundle around:
+switching back is a one-word change of the `session` argument in `flake.nix`
+(`mkHost "niri" ./hosts/tenebrae`).
 
 There is no CI, no test suite, and no formatter config — `nixfmt` (in system
 packages) is the house formatter.
@@ -24,14 +28,16 @@ packages) is the house formatter.
 
 - `flake.nix` — single source of truth for `username = "nadine"` and the
   `inputs` (`nixpkgs`, `nixpkgs-stable`, `home-manager`, `sops-nix`, `noctalia`,
-  `noctalia-greeter`, `vicinae`, `vicinae-extensions`, `catppuccin`, `nvf`),
-  passed via `specialArgs` to both the system and home-manager configs. The
-  `mkHost` helper takes `(session, hostPath)` and exposes `session` as a
+  `noctalia-greeter`, `umbriel`, `vicinae`, `vicinae-extensions`, `catppuccin`,
+  `nvf`), passed via `specialArgs` to both the system and home-manager configs.
+  The `mkHost` helper takes `(session, hostPath)` and exposes `session` as a
   `specialArg`; `session` selects which session module the home-manager side
   imports (see below). A new host must also be registered in
   `nixosConfigurations` in `flake.nix`. Always take `{ username, session, ... }`
   (and `inputs` when needed) as a module arg; never hardcode `nadine` or assume
   the session in modules.
+  The `umbriel` input tracks the `cachix` branch and keeps its own nixpkgs —
+  see the Gotchas section before touching it.
 - `hosts/<host>/` — one dir per machine. `default.nix` imports the generated
   `hardware-configuration.nix`, `modules/common.nix`, the matching
   `modules/<session>-session.nix`, and every shared session-agnostic module
@@ -40,10 +46,18 @@ packages) is the house formatter.
   galanthus's `services.nix` syncs the Windows bootloader onto the ESP).
 - `modules/*` — NixOS system modules. `common.nix` is shared by every host
   (boot, nix settings, locale, pipewire, catppuccin, 1password, etc.). Per-
-  session config lives in `modules/<session>-session.nix`:
-  - `niri-session.nix` — `programs.niri.enable` + `programs.noctalia-greeter`
+  session config lives in `modules/<session>-session.nix`. Each session module
+  gates its compositor on the `session` specialArg, so a host can import
+  several of them and only the matching one activates:
+  - `niri-session.nix` — `programs.niri.enable` when `session == "niri"`
+  - `umbriel-session.nix` — imports `inputs.umbriel.nixosModules.default` and
+    sets `programs.umbriel.enable` when `session == "umbriel"`, plus
+    `programs.xwayland.enable` (umbriel starts the wlroots Xwayland server
+    itself and finds `Xwayland` on PATH)
   - `kde-session.nix` — `services.desktopManager.plasma6.enable` + SDDM with the
     `breeze` theme
+  - `noctalia-greeter.nix` — the greeter (palette, wallpaper, cursor), shared
+    by the niri and umbriel sessions
   - The other shared modules (`gaming.nix`, `hardware.nix`, `plymouth.nix`,
     `users.nix`, `samba.nix`, `docker.nix`, `bluetooth.nix`, `syncthing.nix`)
     are session-agnostic.
@@ -65,8 +79,19 @@ packages) is the house formatter.
   `xdg-user-dirs-gtk`). Session-specific bundles:
   - `niri.nix` — symlinks the validated `home/config/niri.kdl` into place (runs
     `niri validate` at build time), enables polkit-gnome, imports
-    `noctalia.nix`, and adds `nirius` (launcher), `swaybg` (wallpaper
-    fallback) and `xwayland-satellite` (Xwayland-on-demand)
+    `noctalia.nix` and `screenshot.nix`, and adds `nirius` (launcher) and
+    `xwayland-satellite` (Xwayland-on-demand)
+  - `umbriel.nix` — imports `inputs.umbriel.homeModules.default` and writes the
+    compositor config as a Nix attrset under `programs.umbriel.settings`
+    (serialized to TOML by the module). The `[keybinds]` table only lists the
+    binds niri had and umbriel's own defaults do not cover — umbriel keeps its
+    compiled-in set for the rest. Also enables polkit-gnome, imports
+    `noctalia.nix` and `screenshot.nix`, and turns on Noctalia's umbriel
+    overview toggles
+  - `screenshot.nix` — shared `nshot` wrapper (grim/slurp/swappy) plus
+    `swaybg` wallpaper fallback; the window-capture command depends on the
+    session (`niri msg action screenshot-window` vs `noctalia msg
+    screenshot-window`)
   - `kde.nix` — adds `dolphin`, `konsole`, `spectacle` (plasma6 ships everything
     else via the system module)
 - `home/config/` — raw config files for tools that don't have a nix option —
@@ -101,6 +126,48 @@ packages) is the house formatter.
 - `home/desktop/niri.nix` runs `niri validate` on the kdl at build time, so a
   syntax error in `home/config/niri.kdl` breaks the build. Fix the file, not the
   wrapper.
+- The umbriel config is a Nix attrset in `home/desktop/umbriel.nix`, rendered to
+  TOML by `inputs.umbriel.homeModules.default`. It is *not* validated at build
+  time; umbriel only reports config errors at runtime. Check it with
+  `umbriel config validate` (point `XDG_CONFIG_HOME` at a dir holding
+  `umbriel/config.toml`). An unknown keybind is dropped with a warning.
+- Umbriel merges the user's `[keybinds]` table over a **compiled-in** default
+  set (`defaultKeybinds()` in `src/config/keybind_parse.cpp`), not over the
+  packaged `share/umbriel/config.toml`. A user chord replaces the default for
+  that chord; other defaults stay. The packaged file is only a starting
+  example — it is used when no user config exists.
+- Umbriel 0.1.0 takes action arguments **space-separated**, not colon-separated:
+  `"Mod+Return" = "spawn kitty"`, `"Mod+1" = "workspace-switch 1"`. The colon
+  form (`spawn:kitty`) belongs to the newer `0-unstable-*` nixpkgs build and is
+  rejected as an unknown action by 0.1.0.
+- Umbriel wheel chords are `WheelUp`/`WheelDown`/`WheelLeft`/`WheelRight`, not
+  niri's `WheelScrollUp`/`WheelScrollDown`. Niri's `WheelScroll*` chords are
+  dropped as "bad chord" by umbriel.
+- `window-modify-width-*` and `window-modify-height-*` take a **fraction**
+  delta (-0.9 to 0.9), not a percentage. Niri's `Mod+Minus` was -10%, so it
+  maps to `window-modify-width-left -0.1`.
+- The `umbriel` flake input must **not** follow our nixpkgs — the binary cache
+  (`umbriel.cachix.org`) only matches the umbriel flake's own locked nixpkgs.
+  The `cachix` branch ships that lock (`3ec636362e18`), and a fresh
+  `nix flake lock` picks it up on its own.
+  Gotcha: if `follows` was ever set on that input, the branch's revision is
+  dropped from `flake.lock`, and removing `follows` afterwards makes nix
+  re-resolve the channel URL to the *newest* unstable — every cache lookup
+  then misses. Recovery: delete the `umbriel/nixpkgs` entry from `flake.lock`
+  and re-lock, or set `inputs.umbriel.inputs.nixpkgs.url` to the exact
+  tarball the branch's lock names.
+- `umbriel.cachix.org` is registered in `modules/common.nix` and in the
+  `nixConfig` block of `flake.nix`. The daemon reads substituters from
+  `/etc/nix/nix.conf`, which is rewritten on the next `nixos-rebuild switch`.
+- Switching the compositor on tenebrae/galanthus means changing the `session`
+  string in `flake.nix` only; both session modules and both home bundles are
+  already imported by the hosts. Keep the niri files around so the switch is
+  reversible.
+- Umbriel reads the keyboard layout from `[input.keyboard]`, which the umbriel
+  config sets to the English (US) layout (`us`/`intl`/`caps:escape`) on every
+  host. Without that setting it would fall back to the systemd-localed X11
+  keymap, which NixOS fills from `services.xserver.xkb` (German on tenebrae,
+  US intl on galanthus and caligo).
 - Adding a new session means: (1) `modules/<session>-session.nix` for system
   config, (2) `home/desktop/<session>.nix` for the home bundle, (3) wire it via
   `mkHost "<session>" ./hosts/<host>` in `flake.nix`. Pick a session name that
