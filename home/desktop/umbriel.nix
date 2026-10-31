@@ -139,6 +139,7 @@
 
       keybinds = {
         "Mod+B" = "spawn vicinae vicinae://launch/applications/firefox";
+        "Mod+T" = "spawn vicinae vicinae://launch/applications/kitty";
         "Mod+E" = "spawn vicinae vicinae://launch/applications/org.gnome.Nautilus";
         "Mod+Semicolon" = "spawn vicinae vicinae://launch/applications/com.onepassword.OnePassword";
         "Mod+Shift+Space" = "spawn 1password --quick-access";
@@ -323,7 +324,7 @@
       scratchpad = [
         {
           name = "terminal";
-          spawn_when_empty = "foot --app-id scratchpad-terminal";
+          spawn_when_empty = "kitty --app-id scratchpad-terminal";
           proportional_size = true;
         }
         {
