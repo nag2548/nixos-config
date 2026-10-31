@@ -9,9 +9,6 @@
   programs.umbriel = {
     enable = true;
 
-    # Umbriel ships a compiled-in default keybind set. The `[keybinds]` table
-    # below is merged on top of it, so it only lists the binds niri had and
-    # umbriel's defaults do not cover.
     settings = {
       general = {
         autostart = [ "noctalia" ];
@@ -30,17 +27,26 @@
           options = "caps:escape";
           numlock_toggle = true;
         };
+        focus = {
+          follows_mouse = true;
+        };
+      };
+
+      layout = {
+        extent_presets = [
+          0.333
+          0.5
+          0.667
+          1.0
+        ];
+        scrolling = {
+          default_extent_fraction = 1.0;
+        };
       };
 
       keybinds = {
-        # Applications and session
-        "Mod+Return" = {
-          action = "spawn kitty";
-          repeat = false;
-        };
-        "Mod" = "spawn noctalia msg panel-toggle launcher";
         "Mod+T" = {
-          action = "spawn kitty";
+          action = "spawn foot";
           repeat = false;
         };
         "Mod+B" = {
@@ -55,9 +61,21 @@
           action = "spawn nautilus";
           repeat = false;
         };
+
+        "Mod+Q" = {
+          action = "window-close";
+          repeat = false;
+        };
         "Super+Alt+L" = "spawn noctalia msg session lock";
-        "Mod+Shift+Slash" = {
+        "Mod+Slash" = {
           action = "cheatsheet-toggle";
+          repeat = false;
+        };
+
+        "Mod+Escape" = "session-quit";
+        "Mod+Shift+Escape" = {
+          action = "shortcuts-inhibit-toggle";
+          allow_when_inhibited = true;
           repeat = false;
         };
 
@@ -110,20 +128,19 @@
         };
 
         # Focus and movement
-        "Mod+Ctrl+Left" = "column-move-left";
-        "Mod+Ctrl+Right" = "column-move-right";
-        "Mod+Ctrl+Down" = "window-move-down";
-        "Mod+Ctrl+Up" = "window-move-up";
-        "Mod+Home" = "column-focus-first";
-        "Mod+End" = "column-focus-last";
-        "Mod+Ctrl+Home" = "column-move-to-first";
-        "Mod+Ctrl+End" = "column-move-to-last";
-
-        # Outputs
-        "Mod+Shift+Left" = "output-focus-left";
-        "Mod+Shift+Right" = "output-focus-right";
-        "Mod+Ctrl+Shift+Left" = "column-move-to-output-left";
-        "Mod+Ctrl+Shift+Right" = "column-move-to-output-right";
+        "Mod+Left" = "window-focus-left";
+        "Mod+Down" = "window-focus-down";
+        "Mod+Up" = "window-focus-up";
+        "Mod+Right" = "window-focus-right";
+        "Mod+H" = "window-focus-left";
+        "Mod+J" = "window-focus-down";
+        "Mod+K" = "window-focus-up";
+        "Mod+L" = "window-focus-right";
+        "Mod+F1" = "window-focus-next";
+        "Mod+Shift+Left" = "column-move-left";
+        "Mod+Shift+Down" = "window-move-down";
+        "Mod+Shift+Up" = "window-move-up";
+        "Mod+Shift+Right" = "column-move-right";
 
         # Workspaces
         "Mod+Page_Down" = "workspace-next";
@@ -161,27 +178,40 @@
           action = "window-focus-switch-floating";
           repeat = false;
         };
-        "Mod+C" = "column-center";
+        "Mod+P" = {
+          action = "window-toggle-pinned";
+          repeat = false;
+        };
+        "Mod+M" = {
+          action = "window-toggle-maximize-to-edges";
+          repeat = false;
+        };
+        "Mod+F" = {
+          action = "window-toggle-fullscreen";
+          repeat = false;
+        };
+        "Mod+Ctrl+F" = {
+          action = "window-toggle-maximize";
+          repeat = false;
+        };
+        "Mod+R" = "window-cycle-primary-extent";
+        "Mod+Shift+R" = "window-cycle-primary-extent-back";
         "Mod+Minus" = "window-modify-width-left -0.1";
         "Mod+Equal" = "window-modify-width-right 0.1";
         "Mod+Shift+Minus" = "window-modify-height-down -0.1";
         "Mod+Shift+Equal" = "window-modify-height-up 0.1";
 
-        # Session
-        "Mod+Escape" = {
-          action = "shortcuts-inhibit-toggle";
-          allow_when_inhibited = true;
+        # Scratchpad
+        "Mod+Shift+Space" = {
+          action = "window-move-to-scratchpad";
           repeat = false;
         };
-        "Mod+Shift+E" = {
-          action = "session-quit";
+        "Mod" = "scratchpad-toggle";
+        "Mod+Ctrl+Space" = {
+          action = "window-restore-from-scratchpad";
           repeat = false;
         };
-        "Ctrl+Alt+Delete" = {
-          action = "session-quit";
-          repeat = false;
-        };
-        "Mod+Shift+P" = "dpms-off";
+        "Mod+Tab" = "scratchpad-focus-next";
       };
     };
   };
