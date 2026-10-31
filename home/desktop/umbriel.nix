@@ -29,9 +29,6 @@
           options = "caps:escape";
           numlock_toggle = true;
         };
-        focus = {
-          follows_mouse = false;
-        };
       };
 
       layout = {
@@ -53,15 +50,77 @@
         };
       };
 
+      # Catppuccin Mocha palette.
       colors = {
+        background = "#1e1e2e";
+        text_primary = "#cdd6f4";
+        text_muted = "#a6adc8";
+        accent_primary = "#cba6f7";
+        accent_secondary = "#89b4fa";
+        warning = "#f9e2af";
+        error = "#f38ba8";
+        insert_hint = "#89b4fa80";
+        backdrop = "#11111b";
+        shadow = "#00000080";
+
         border = {
           focused = "#cba6f7";
           unfocused = "#45475a";
+          outer = "#181825";
+        };
+
+        overview = {
+          background_tint = "#11111b30";
+          workspace_background = "#11111b44";
+          badge = "#cba6f7";
+        };
+
+        tab_bar = {
+          background = "#181825";
+          text = "#a6adc8";
+          active = "#cba6f7";
+          active_text = "#1e1e2e";
+          active_unfocused = "#45475a";
+          active_unfocused_text = "#cdd6f4";
+          urgent = "#f38ba8";
+          urgent_text = "#1e1e2e";
+        };
+
+        title_bar = {
+          background = "#313244";
+          background_unfocused = "#181825";
+          text = "#cdd6f4";
+          text_unfocused = "#a6adc8";
+          close = "#f38ba8";
+          close_glyph = "#1e1e2e";
+          close_glyph_hover = "#1e1e2e";
+          maximize = "#89b4fa";
+          maximize_glyph = "#1e1e2e";
+          maximize_glyph_hover = "#1e1e2e";
+          minimize = "#f9e2af";
+          minimize_glyph = "#1e1e2e";
+          minimize_glyph_hover = "#1e1e2e";
         };
       };
 
       appearance = {
         border_width = 3;
+        blur = {
+          enabled = true;
+          optimized = true;
+          passes = 2;
+          radius = 5;
+          noise = 0.02;
+          brightness = 0.9;
+          contrast = 0.9;
+          saturation = 1.1;
+        };
+        shadow = {
+          enabled = true;
+          softness = 10;
+          offset_x = 2;
+          offset_y = 2;
+        };
       };
 
       output = {
@@ -89,6 +148,10 @@
         };
         "Mod+Semicolon" = {
           action = "spawn vicinae vicinae://launch/applications/com.onepassword.OnePassword";
+          repeat = false;
+        };
+        "Mod+Shift+Space" = {
+          action = "spawn 1password --quick-access";
           repeat = false;
         };
 
@@ -306,12 +369,14 @@
           default_scratchpad = "messengers";
           default_floating_size.width = 0.5;
           default_floating_size.height = 0.6;
+          block_capture = true;
         }
         {
           match.app_id = "telegram";
           default_scratchpad = "messengers";
           default_floating_size.width = 0.5;
           default_floating_size.height = 0.6;
+          block_capture = true;
         }
         {
           match.app_id = "sone";
@@ -325,6 +390,12 @@
           default_floating_size.width = 0.5;
           default_floating_size.height = 0.6;
           block_capture = true;
+        }
+        {
+          match.app_id = "^org[.]gnome[.]Nautilus$";
+          default_floating = true;
+          default_floating_size.width = 0.5;
+          default_floating_size.height = 0.6;
         }
       ];
     };
