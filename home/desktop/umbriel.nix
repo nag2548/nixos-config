@@ -44,6 +44,22 @@
         };
       };
 
+      # Monitor setup, mirrored from home/config/niri.kdl.
+      # DP-2 has no position: umbriel places it automatically.
+      output = {
+        "DP-2" = {
+          mode = "2560x1440@165.080";
+          focus_at_startup = true;
+        };
+        "HDMI-A-1" = {
+          mode = "1920x1080@60.000";
+          position = [
+            0
+            0
+          ];
+        };
+      };
+
       keybinds = {
         "Mod+T" = {
           action = "spawn foot";
