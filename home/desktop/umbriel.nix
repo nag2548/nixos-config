@@ -252,7 +252,7 @@
         "Mod+Minus" = "window-modify-width-left -0.1";
         "Mod+Equal" = "window-modify-width-right 0.1";
         "Mod+Shift+Minus" = "window-modify-height-down -0.1";
-        "Mod+Shift+Equal" = "window-modify-height-up 0.1";
+        "Mod+Shift+Equal" = "window-modify-height-down 0.1";
 
         # Scratchpads
         "Mod+Alt+T" = {
