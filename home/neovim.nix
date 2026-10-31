@@ -165,11 +165,35 @@
             prettier = {
               command = lib.mkForce "prettier";
             };
+            google-java-format = {
+              command = "${pkgs.google-java-format}/bin/google-java-format";
+              args = [
+                "--assume-filename"
+                "$FILENAME"
+                "-"
+              ];
+            };
           };
-          formatters_by_ft = {
+          formatters_by_ft = lib.mkAfter {
             kdl = [ "kdlfmt" ];
             nix = [ "nixfmt" ];
+            java = [ "google-java-format" ];
           };
+          # google-java-format is a JVM launcher and needs well over nvf's
+          # 500ms default to start, so raise the format-on-save timeout.
+          format_on_save = lib.mkAfter (
+            lib.generators.mkLuaInline ''
+              function()
+                if vim.b.nvf_format_save == nil and not vim.g.nvf_format_save then
+                  return
+                elseif vim.b.nvf_format_save then
+                  return
+                else
+                  return {lsp_format = "fallback", timeout_ms = 5000}
+                end
+              end
+            ''
+          );
         };
       };
 
@@ -239,6 +263,7 @@
         sql.enable = true;
         svelte.enable = true;
         typescript.enable = true;
+        xml.enable = true;
         yaml.enable = true;
       };
 
