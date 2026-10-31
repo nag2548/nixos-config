@@ -163,7 +163,7 @@
               command = "${pkgs.nixfmt}/bin/nixfmt";
             };
             prettier = {
-              command = lib.mkForce "prettier";
+              command = lib.mkForce "${pkgs.prettier}/bin/prettier";
             };
             google-java-format = {
               command = "${pkgs.google-java-format}/bin/google-java-format";
@@ -172,6 +172,25 @@
                 "$FILENAME"
                 "-"
               ];
+            };
+            sqlfluff = {
+              command = lib.mkForce "${pkgs.sqlfluff}/bin/sqlfluff";
+              args = [
+                "fix"
+                "--dialect"
+                "ansi"
+                "-"
+              ];
+              # sqlfluff exits 1 when it fixed something, which conform would
+              # otherwise treat as a failure
+              exit_codes = [
+                0
+                1
+              ];
+              # conform's builtin sqlfluff config requires a project root
+              # marker (.sqlfluff, pyproject.toml, ...); run in the buffer's
+              # directory instead so plain SQL files work
+              require_cwd = false;
             };
           };
           formatters_by_ft = lib.mkAfter {
