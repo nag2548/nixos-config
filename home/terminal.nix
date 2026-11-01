@@ -55,7 +55,6 @@
         yank
         vim-tmux-navigator
         better-mouse-mode
-        tmux-floax
         cpu
         battery
         {

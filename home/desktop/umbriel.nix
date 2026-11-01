@@ -163,8 +163,6 @@
           repeat = false;
         };
         "Mod+Comma" = "spawn noctalia msg settings-toggle";
-        "Mod+Shift+1" = "spawn noctalia msg screenshot-region";
-
         "Mod+Space" = {
           action = "spawn vicinae toggle";
           repeat = false;
@@ -176,6 +174,10 @@
         "Print" = "spawn noctalia msg screenshot-fullscreen";
         "Mod+Print" = "spawn noctalia msg screenshot-region";
         "Mod+Shift+Print" = "spawn noctalia msg screenshot-annotate";
+        "Mod+0" = {
+          action = "spawn noctalia msg screenshot-annotate";
+          repeat = false;
+        };
 
         # Media, volume and brightness keys, routed through Noctalia
         "XF86AudioRaiseVolume" = {
@@ -360,7 +362,6 @@
       window_rule = [
         {
           blur = true;
-          blur_optimized = true;
         }
         {
           match.app_id = "^dev.noctalia.Noctalia$";
@@ -401,6 +402,11 @@
           border_color_unfocused = "#40C057FF";
         }
         {
+          match.app_id = "^gimp";
+          match.is_dialog = true;
+          attach_to_parent = false;
+        }
+        {
           match.app_id = "^scratchpad-terminal$";
           default_scratchpad = "terminal";
           default_floating_size.width = 0.88;
@@ -414,7 +420,7 @@
           block_capture = true;
         }
         {
-          match.app_id = "^telegram$";
+          match.app_id = "^org[.]telegram[.]desktop$";
           default_scratchpad = "messengers";
           default_floating_size.width = 0.5;
           default_floating_size.height = 0.8;
