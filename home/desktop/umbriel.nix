@@ -104,12 +104,14 @@
       };
 
       appearance = {
+        prefer_no_csd = true;
         border_width = 3;
+        corner_radius = 10;
         blur = {
           enabled = true;
           optimized = true;
           passes = 2;
-          radius = 5;
+          radius = 3;
           noise = 0.02;
           brightness = 0.9;
           contrast = 0.9;
@@ -155,6 +157,8 @@
           repeat = false;
         };
         "Mod+O" = "overview-toggle";
+        "Mod+Comma" = "spawn noctalia msg settings-toggle";
+        "Mod+Shift+1" = "spawn noctalia msg screenshot-region";
 
         "Mod+Space" = {
           action = "spawn vicinae toggle";
@@ -342,6 +346,16 @@
       # the pad is toggled.
       window_rule = [
         {
+          blur = true;
+          blur_optimized = true;
+        }
+        {
+          match.app_id = "^dev.noctalia.Noctalia$";
+          default_floating = true;
+          default_floating_size_px.width = 1020;
+          default_floating_size_px.height = 900;
+        }
+        {
           match.app_id = "^scratchpad-terminal$";
           default_scratchpad = "terminal";
           default_floating_size.width = 0.88;
@@ -381,12 +395,22 @@
           default_floating_size.height = 0.6;
         }
       ];
+
+      layer_rule = [
+        {
+          match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$";
+          blur = true;
+          blur_ignore_alpha = 0.6;
+          blur_optimized = false;
+        }
+      ];
     };
   };
 
   programs.noctalia.settings.shell = {
     umbriel_overview_type_to_launch_enabled = true;
     umbriel_overview_close_on_launch_enabled = true;
+    umbriel_audio_provider_enabled = true;
   };
 
   services.polkit-gnome.enable = true;
