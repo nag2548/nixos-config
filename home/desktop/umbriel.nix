@@ -50,7 +50,7 @@
         };
         scrolling = {
           default_extent_fraction = 1.0;
-          center_focused = "always";
+          center_focused = "never";
         };
       };
 
@@ -350,20 +350,12 @@
         "Mod+Shift+Equal" = "window-modify-height-down 0.1";
 
         # Scratchpads
-        "Mod+Shift+T" = {
+        "Alt+Space" = {
           action = "scratchpad-toggle terminal";
           repeat = false;
         };
-        "Mod+Shift+M" = {
+        "Alt+M" = {
           action = "scratchpad-toggle music";
-          repeat = false;
-        };
-        "Mod+Shift+Period" = {
-          action = "scratchpad-toggle messengers";
-          repeat = false;
-        };
-        "Mod+Tab" = {
-          action = "scratchpad-focus-next messengers";
           repeat = false;
         };
       };
@@ -379,10 +371,6 @@
         {
           name = "music";
           spawn_when_empty = "sone";
-          proportional_size = true;
-        }
-        {
-          name = "messengers";
           proportional_size = true;
         }
       ];
@@ -444,14 +432,14 @@
         }
         {
           match.app_id = "^signal$";
-          default_scratchpad = "messengers";
+          default_floating = true;
           default_floating_size.width = 0.5;
           default_floating_size.height = 0.8;
           block_capture = true;
         }
         {
           match.app_id = "^org[.]telegram[.]desktop$";
-          default_scratchpad = "messengers";
+          default_floating = true;
           default_floating_size.width = 0.5;
           default_floating_size.height = 0.8;
           block_capture = true;
