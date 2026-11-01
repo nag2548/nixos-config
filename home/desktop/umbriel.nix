@@ -149,7 +149,7 @@
           repeat = false;
         };
         "Mod+W" = "window-minimize";
-        "Super+Alt+L" = "spawn noctalia msg session lock";
+        "Mod+Ctrl+Q" = "spawn noctalia msg session lock";
         "Mod+Slash" = "cheatsheet-toggle";
 
         "Mod+Escape" = "session-quit";
@@ -175,9 +175,25 @@
         "Mod+Print" = "spawn noctalia msg screenshot-region";
         "Mod+Shift+Print" = "spawn noctalia msg screenshot-annotate";
         "Mod+0" = {
-          action = "spawn noctalia msg screenshot-annotate";
+          action = "submap screencapture";
           repeat = false;
         };
+        "submap[screencapture],1" = {
+          action = "spawn noctalia msg screenshot-region --annotate --directory '~/Pictures/Screenshots'";
+          repeat = false;
+          submap = "reset";
+        };
+        "submap[screencapture],2" = {
+          action = "spawn noctalia msg screenshot-window --annotate --directory '~/Pictures/Screenshots'";
+          repeat = false;
+          submap = "reset";
+        };
+        "submap[screencapture],3" = {
+          action = "spawn noctalia msg screenshot-region --no-annotate --copy-to-clipboard --no-save-to-file";
+          repeat = false;
+          submap = "reset";
+        };
+        "submap[screencapture],Escape" = "submap reset";
 
         # Media, volume and brightness keys, routed through Noctalia
         "XF86AudioRaiseVolume" = {
@@ -217,16 +233,16 @@
 
         # Focus and movement
         "Mod+Left" = "window-focus-left";
-        "Mod+Down" = "window-focus-down";
-        "Mod+Up" = "window-focus-up";
+        "Mod+Down" = "window-focus-or-workspace-down";
+        "Mod+Up" = "window-focus-or-workspace-up";
         "Mod+Right" = "window-focus-right";
         "Mod+H" = "window-focus-left";
         "Mod+J" = "window-focus-or-workspace-down";
         "Mod+K" = "window-focus-or-workspace-up";
         "Mod+L" = "window-focus-right";
         "Mod+Ctrl+Left" = "column-move-left";
-        "Mod+Ctrl+Down" = "window-move-down";
-        "Mod+Ctrl+Up" = "window-move-up";
+        "Mod+Ctrl+Down" = "window-move-or-workspace-down";
+        "Mod+Ctrl+Up" = "window-move-or-workspace-up";
         "Mod+Ctrl+Right" = "column-move-right";
         "Mod+Ctrl+H" = "column-move-left";
         "Mod+Ctrl+J" = "window-move-or-workspace-down";
@@ -254,6 +270,10 @@
         "Mod+Shift+Ctrl+L" = "column-move-to-output-right";
 
         # Swap the focused window with its neighbour: A - B becomes B - A
+        "Mod+Alt+H" = "window-swap-left";
+        "Mod+Alt+J" = "window-swap-down";
+        "Mod+Alt+K" = "window-swap-up";
+        "Mod+Alt+L" = "window-swap-right";
         "Mod+Alt+Left" = "window-swap-left";
         "Mod+Alt+Down" = "window-swap-down";
         "Mod+Alt+Up" = "window-swap-up";
