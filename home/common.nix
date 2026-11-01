@@ -54,9 +54,7 @@
 
   programs = {
     btop.enable = true;
-
     fastfetch.enable = true;
-
     vesktop = {
       enable = true;
       vencord.settings = {
@@ -72,17 +70,14 @@
         };
       };
     };
-
     yazi = {
       enable = true;
       enableZshIntegration = true;
     };
-
     direnv = {
       enable = true;
       enableZshIntegration = true;
     };
-
     nh = {
       enable = true;
       clean = {
@@ -91,7 +86,8 @@
       };
       flake = "$HOME/.schnee";
     };
-
     zathura.enable = true;
+    fzf.enable = true;
+    bat.enable = true;
   };
 }
