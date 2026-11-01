@@ -144,7 +144,10 @@
         "Mod+E" = "spawn vicinae vicinae://launch/applications/org.gnome.Nautilus";
         "Mod+Shift+Space" = "spawn 1password --quick-access";
 
-        "Mod+Q" = "window-close";
+        "Mod+Q" = {
+          action = "window-close";
+          repeat = false;
+        };
         "Mod+W" = "window-minimize";
         "Super+Alt+L" = "spawn noctalia msg session lock";
         "Mod+Slash" = "cheatsheet-toggle";
@@ -155,7 +158,10 @@
           allow_when_inhibited = true;
           repeat = false;
         };
-        "Mod+O" = "overview-toggle";
+        "Mod+O" = {
+          action = "overview-toggle";
+          repeat = false;
+        };
         "Mod+Comma" = "spawn noctalia msg settings-toggle";
         "Mod+Shift+1" = "spawn noctalia msg screenshot-region";
 
@@ -296,6 +302,14 @@
           action = "window-toggle-fullscreen";
           repeat = false;
         };
+        "Mod+G" = {
+          action = "window-toggle-floating";
+          repeat = false;
+        };
+        "Mod+Shift+G" = {
+          action = "window-focus-switch-floating";
+          repeat = false;
+        };
         "Mod+R" = "window-cycle-primary-extent";
         "Mod+Shift+R" = "window-cycle-primary-extent-back";
         "Mod+Minus" = "window-modify-width-left -0.1";
@@ -355,27 +369,59 @@
           default_floating_size_px.height = 900;
         }
         {
+          match.app_id = "^dev.noctalia.UmbrielSharePicker$";
+          default_floating = true;
+          default_floating_size_px.width = 800;
+          default_floating_size_px.height = 600;
+        }
+        {
+          match.title = "^(Picture-in-Picture|Picture in picture)$";
+          default_floating = true;
+          default_maximize = false;
+          default_position = {
+            x = 20;
+            y = 20;
+            anchor = "bottom_right";
+          };
+        }
+        {
+          match.title = "^notificationtoasts_.+_desktop";
+          default_position = {
+            x = 0;
+            y = 0;
+            anchor = "bottom_right";
+          };
+          default_focused = false;
+          default_pinned = true;
+        }
+        {
+          match.is_cast_target = true;
+          border_width = 5;
+          border_color_focused = "#40C057FF";
+          border_color_unfocused = "#40C057FF";
+        }
+        {
           match.app_id = "^scratchpad-terminal$";
           default_scratchpad = "terminal";
           default_floating_size.width = 0.88;
           default_floating_size.height = 0.88;
         }
         {
-          match.app_id = "signal";
+          match.app_id = "^signal$";
           default_scratchpad = "messengers";
           default_floating_size.width = 0.5;
-          default_floating_size.height = 0.6;
+          default_floating_size.height = 0.8;
           block_capture = true;
         }
         {
-          match.app_id = "telegram";
+          match.app_id = "^telegram$";
           default_scratchpad = "messengers";
           default_floating_size.width = 0.5;
-          default_floating_size.height = 0.6;
+          default_floating_size.height = 0.8;
           block_capture = true;
         }
         {
-          match.app_id = "sone";
+          match.app_id = "^sone$";
           default_scratchpad = "music";
           default_floating_size.width = 0.8;
           default_floating_size.height = 0.8;
@@ -397,9 +443,13 @@
 
       layer_rule = [
         {
-          match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$";
+          match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^\"]*)$";
           blur = true;
-          blur_ignore_alpha = 0.6;
+          blur_ignore_alpha = 0.5;
+          blur_popups = true;
+        }
+        {
+          match.namespace = "^noctalia-(notification|dock|panel|attached-panel|osd)$";
           blur_optimized = false;
         }
       ];
