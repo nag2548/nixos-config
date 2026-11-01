@@ -2,7 +2,6 @@
 {
   imports = [
     ./noctalia.nix
-    ./screenshot.nix
     inputs.umbriel.homeModules.default
   ];
 

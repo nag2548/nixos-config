@@ -2,11 +2,11 @@
 {
   imports = [
     ./noctalia.nix
-    ./screenshot.nix
   ];
 
   programs.noctalia.settings.shell = {
     niri_overview_type_to_launch_enabled = true;
+    niri_overview_close_on_launch_enabled = true;
   };
 
   xdg.configFile."niri/config.kdl".source =
