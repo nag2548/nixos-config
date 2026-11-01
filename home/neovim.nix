@@ -62,18 +62,18 @@
           action = "vim.lsp.buf.code_action";
         }
         {
-          key = "<leader>t";
+          key = "t";
           mode = "n";
           silent = true;
           action = ":Neotree toggle<CR>";
         }
-        {
-          # no macro menu
-          key = "q";
-          mode = "n";
-          silent = true;
-          action = "<nop>";
-        }
+        # {
+        #   # no macro menu
+        #   key = "q";
+        #   mode = "n";
+        #   silent = true;
+        #   action = "<nop>";
+        # }
         {
           key = "<A-Up>";
           mode = "n";
@@ -289,7 +289,12 @@
 
       git = {
         enable = true;
-        gitsigns.enable = true;
+        gitsigns = {
+          enable = true;
+          setupOpts = {
+            current_line_blame = true;
+          };
+        };
       };
     };
   };
