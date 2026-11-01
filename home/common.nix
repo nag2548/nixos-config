@@ -1,7 +1,4 @@
-{ inputs, pkgs, ... }:
-let
-  stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in
+{ pkgs, ... }:
 {
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -15,6 +12,8 @@ in
     lazygit
     lazydocker
     unzip
+    inetutils
+    rsync
 
     jetbrains.idea
     (protonmail-bridge-gui.overrideAttrs (old: {
@@ -44,14 +43,13 @@ in
     libreoffice
     loupe
     vlc
-    stable.calibre
+    calibre
     obsidian
     trezor-suite
-    # Audacity 4.0 doesn't build against Qt 6.12
-    # (https://github.com/NixOS/nixpkgs/issues/572942), so take the stable
-    # version until nixpkgs picks up the fix.
-    stable.audacity
+    audacity
     gimp
+    element-desktop
+    slack
   ];
 
   programs = {
