@@ -17,6 +17,7 @@ packages) is the house formatter.
 
 - Rebuild a machine: `sudo nixos-rebuild switch --flake .#tenebrae` (or
   `.#galanthus`, `.#caligo`)
+- Rebuild via `nh` (the zsh `rebuild` alias): `nh os switch`
 - Build without applying: `nixos-rebuild build --flake .#host`
 - Validate everything: `nix flake check` (caligo will fail until its
   `hardware-configuration.nix` placeholder is replaced — see Gotchas)
@@ -44,16 +45,21 @@ packages) is the house formatter.
   (`gaming`, `users`, `samba`, `docker`, `bluetooth`, `syncthing`). Hosts may
   also have a `modules/` subdir for host-specific config on top of that (e.g.
   galanthus's `services.nix` syncs the Windows bootloader onto the ESP).
+  tenebrae additionally declares the `wireguard-mesh/tenebrae-conf` secret.
 - `modules/*` — NixOS system modules. `common.nix` is shared by every host
-  (boot, nix settings, locale, pipewire, catppuccin, 1password, etc.). Per-
+  (boot, nix settings, locale, pipewire, catppuccin, 1password, sops,
+  substituters, etc.) and imports `hardware.nix` and `plymouth.nix`. Per-
   session config lives in `modules/<session>-session.nix`. Each session module
   gates its compositor on the `session` specialArg, so a host can import
   several of them and only the matching one activates:
-  - `niri-session.nix` — `programs.niri.enable` when `session == "niri"`
+  - `niri-session.nix` — `programs.niri.enable` when `session == "niri"`,
+    imports `noctalia-greeter.nix`
   - `umbriel-session.nix` — imports `inputs.umbriel.nixosModules.default` and
-    sets `programs.umbriel.enable` when `session == "umbriel"`, plus
-    `programs.xwayland.enable` (umbriel starts the wlroots Xwayland server
-    itself and finds `Xwayland` on PATH)
+    `noctalia-greeter.nix`, sets `programs.umbriel.enable` when
+    `session == "umbriel"`, plus `programs.xwayland.enable` (umbriel starts
+    the wlroots Xwayland server itself and finds `Xwayland` on PATH),
+    `services.gnome.gnome-keyring.enable` and
+    `xdg.portal.config.umbriel.default`
   - `kde-session.nix` — `services.desktopManager.plasma6.enable` + SDDM with the
     `breeze` theme
   - `noctalia-greeter.nix` — the greeter (palette, wallpaper, cursor), shared
@@ -62,13 +68,17 @@ packages) is the house formatter.
     `users.nix`, `samba.nix`, `docker.nix`, `bluetooth.nix`, `syncthing.nix`)
     are session-agnostic.
 - `secrets/` — encrypted sops-nix secrets (`secrets.yaml`) keyed per host (see
-  `.sops.yaml`). Add a new host's age public key to `.sops.yaml` and to the
-  `creation_rules` key group before referencing host-specific secrets.
+  `.sops.yaml`). Keys: `samba-truenas/{username,password}`,
+  `syncthing-admin-password`, `wireguard-mesh/tenebrae-conf`,
+  `nextcloud-password`. Add a new host's age public key to `.sops.yaml` and to
+  the `creation_rules` key group before referencing host-specific secrets.
 - `home/` — shared home-manager config applied to user `nadine` on every host
   (`useGlobalPkgs`/`useUserPackages` true, so it builds against system nixpkgs
   and installs into the user profile). `default.nix` is the importer and also
   sets the sops default file, age key path and `home.stateVersion`; it imports
-  `./browsers` (shared), `./desktop` (shared cross-DE defaults) and
+  `./browsers` (shared), `./common.nix`, `./fonts.nix`, `./git.nix`,
+  `./terminal.nix`, `./neovim.nix`, `./thunderbird.nix`, `./vscode.nix`,
+  `./vicinae.nix`, `./desktop` (shared cross-DE defaults) and
   `./desktop/${session}.nix` (per session bundle). Top-level files group by
   domain: `default.nix` (importer), `browsers/` (with a `firefox/` subdir),
   `common.nix`, `fonts.nix`, `git.nix`, `neovim.nix`, `terminal.nix`,
@@ -79,24 +89,27 @@ packages) is the house formatter.
   `xdg-user-dirs-gtk`). Session-specific bundles:
   - `niri.nix` — symlinks the validated `home/config/niri.kdl` into place (runs
     `niri validate` at build time), enables polkit-gnome, imports
-    `noctalia.nix` and `screenshot.nix`, and adds `nirius` (launcher) and
-    `xwayland-satellite` (Xwayland-on-demand)
+    `noctalia.nix`, and adds `nirius` (launcher) and `xwayland-satellite`
+    (Xwayland-on-demand)
   - `umbriel.nix` — imports `inputs.umbriel.homeModules.default` and writes the
     compositor config as a Nix attrset under `programs.umbriel.settings`
-    (serialized to TOML by the module). The `[keybinds]` table only lists the
-    binds niri had and umbriel's own defaults do not cover — umbriel keeps its
-    compiled-in set for the rest. Also enables polkit-gnome, imports
-    `noctalia.nix` and `screenshot.nix`, and turns on Noctalia's umbriel
+    (serialized to TOML by the module): general/input/layout/colors/appearance/
+    output, `[keybinds]`, `scratchpad`, `window_rule` and `layer_rule`. The
+    `[keybinds]` table only lists the binds niri had and umbriel's own defaults
+    do not cover — umbriel keeps its compiled-in set for the rest. Also enables
+    polkit-gnome, imports `noctalia.nix`, and turns on Noctalia's umbriel
     overview toggles
-  - `screenshot.nix` — shared `nshot` wrapper (grim/slurp/swappy) plus
-    `swaybg` wallpaper fallback; the window-capture command depends on the
-    session (`niri msg action screenshot-window` vs `noctalia msg
-    screenshot-window`)
+  - `noctalia.nix` — the Noctalia shell settings shared by the niri and umbriel
+    bundles: theme, bar, wallpaper, control center, calendars (nextcloud caldav
+    + German holidays ICS), reminders, idle/lock behavior and notification
+    filters. Reads the nextcloud password from
+    `config.sops.secrets.nextcloud-password.path`
   - `kde.nix` — adds `dolphin`, `konsole`, `spectacle` (plasma6 ships everything
     else via the system module)
 - `home/config/` — raw config files for tools that don't have a nix option —
   `niri.kdl` is the only one right now.
-- `home/themes/` — wallpapers referenced by noctalia and the noctalia greeter.
+- `home/themes/` — wallpapers referenced by noctalia and the noctalia greeter
+  (`bg-minimal.jpg` is the one in use; `bg.png` is unused).
 
 ## Gotchas
 
@@ -104,17 +117,20 @@ packages) is the house formatter.
   edit the host's `default.nix` instead. The `caligo` placeholder is an
   asserting module that fails loudly until replaced with a real one.
 - Two nixpkgs inputs exist: unstable `nixpkgs` (the default `pkgs`) and stable
-  `nixpkgs-stable` (26.05). The stable input is currently declared but unused
-  — nothing exposes `pkgs.stable`, so reach for `inputs.nixpkgs-stable` only
-  if you also add an overlay (e.g. in `modules/common.nix`) that wires it in.
+  `nixpkgs-stable` (26.05). The stable input is used *only* in
+  `home/common.nix`, where `stable = inputs.nixpkgs-stable.legacyPackages...`
+  pins `calibre` and `audacity` (Audacity 4.0 does not build against Qt 6.12).
+  It is not exposed as `pkgs.stable` anywhere else — reach for
+  `inputs.nixpkgs-stable` only in the same `home/common.nix` style.
 - `modules/samba.nix` mounts `//192.168.100.31/documents` using sops-nix
   templates (`samba-truenas`) — credentials live in `secrets/secrets.yaml`,
   decrypted on demand into the nix store.
-- The zsh `rebuild` alias points at `~/.schnee`, not this repo path — machines
-  symlink the repo there. Don't "fix" the alias unless that changes.
+- The zsh `rebuild` alias is `nh os switch` and `programs.nh.flake` points at
+  `$HOME/.schnee`, not this repo path — machines symlink the repo there. Don't
+  "fix" the alias unless that changes.
 - Per-host differences beyond session are: hostname, keyboard layout (tenebrae:
-  `de`, galanthus & caligo: `us intl`), and galanthus's
-  `solaar`/`hardware.logitech.wireless` plus its host-only
+  `de`, galanthus & caligo: `us intl`), tenebrae's wireguard secret, and
+  galanthus's `solaar`/`hardware.logitech.wireless` plus its host-only
   `hosts/galanthus/modules/services.nix` (Windows bootloader sync).
 - Noctalia reads `~/.config/noctalia/config.toml` (nix-managed) but overlays the
   user-editable `~/.local/state/noctalia/settings.toml` on top — so settings
@@ -146,6 +162,11 @@ packages) is the house formatter.
 - `window-modify-width-*` and `window-modify-height-*` take a **fraction**
   delta (-0.9 to 0.9), not a percentage. Niri's `Mod+Minus` was -10%, so it
   maps to `window-modify-width-left -0.1`.
+- `home/config/niri.kdl` still binds `Mod+Print`/`Mod+Shift+Print`/
+  `Mod+Alt+Print` to the removed `nshot` wrapper (deleted in
+  `chore: remove custom screenshot wrapper`). The wrapper no longer exists —
+  niri's built-in `Print`/`Ctrl+Print`/`Alt+Print` actions are the live path.
+  Clean this up when the niri session is next touched.
 - The `umbriel` flake input must **not** follow our nixpkgs — the binary cache
   (`umbriel.cachix.org`) only matches the umbriel flake's own locked nixpkgs.
   The `cachix` branch ships that lock (`3ec636362e18`), and a fresh
@@ -200,6 +221,19 @@ packages) is the house formatter.
   - Noctalia's docs (`docs/user/configuration/secret-service.mdx`) also cover
     the separate "multiple keyrings" trap: the `default` collection alias must
     point at the keyring PAM unlocks.
+- `xdg.portal.config` in `home/desktop/xdg.nix` only has a `niri` key — add an
+  `umbriel` entry there if a portal needs an explicit backend for that session
+  (the umbriel one currently lives in `modules/umbriel-session.nix`).
+- `home/common.nix` patches two packages at build time:
+  `protonmail-bridge-gui` (wraps the raw `lib/bridge-gui` binary so the QML
+  plugin env is always set) and `citrix-workspace` (forces `GDK_BACKEND=x11` on
+  every Citrix binary, otherwise the login window crashes on Wayland).
+- `home/terminal.nix` configures several terminals (kitty, foot, zellij) plus
+  zsh, starship and tmux; the tmux `resurrect`/`continuum` plugins capture
+  `~vi ~lazygit ~opencode` processes.
+- `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup
+  has hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
+  overrides if you touch the formatter list.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If
@@ -225,4 +259,4 @@ packages) is the house formatter.
     for ...`, and explain the breakage in the
     body.
   - Scope is optional; when used, prefer a module or domain name (`niri`,
-    `noctalia`, `sops`, `home`, `galanthus`, etc.).
+    `umbriel`, `noctalia`, `sops`, `home`, `galanthus`, etc.).
