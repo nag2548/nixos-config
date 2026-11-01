@@ -10,7 +10,11 @@
 
     settings = {
       general = {
-        autostart = [ "noctalia" ];
+        autostart = [
+          "noctalia"
+          "1password --silent"
+        ];
+        show_cheatsheet = false;
         mod_key = "Super";
       };
 
@@ -46,6 +50,7 @@
         };
         scrolling = {
           default_extent_fraction = 1.0;
+          center_focused = "always";
         };
       };
 
@@ -189,6 +194,11 @@
           submap = "reset";
         };
         "submap[screencapture],3" = {
+          action = "spawn noctalia msg screenshot-fullscreen --annotate --directory '~/Pictures/Screenshots'";
+          repeat = false;
+          submap = "reset";
+        };
+        "submap[screencapture],4" = {
           action = "spawn noctalia msg screenshot-region --no-annotate --copy-to-clipboard --no-save-to-file";
           repeat = false;
           submap = "reset";
@@ -340,15 +350,15 @@
         "Mod+Shift+Equal" = "window-modify-height-down 0.1";
 
         # Scratchpads
-        "Mod+Alt+T" = {
+        "Mod+Shift+T" = {
           action = "scratchpad-toggle terminal";
           repeat = false;
         };
-        "Mod+Alt+M" = {
+        "Mod+Shift+M" = {
           action = "scratchpad-toggle music";
           repeat = false;
         };
-        "Mod+Alt+Comma" = {
+        "Mod+Shift+Period" = {
           action = "scratchpad-toggle messengers";
           repeat = false;
         };
