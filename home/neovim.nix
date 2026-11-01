@@ -238,7 +238,12 @@
 
       visuals.indent-blankline.enable = true;
       mini.tabline.enable = true;
-      filetree.neo-tree.enable = true;
+      filetree.neo-tree = {
+        enable = true;
+        setupOpts = {
+          filesystem.follow_current_file.enabled = true;
+        };
+      };
       statusline.lualine.enable = true;
       fzf-lua.enable = true;
       autopairs.nvim-autopairs.enable = true;
