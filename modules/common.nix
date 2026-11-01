@@ -23,7 +23,7 @@
       "nix-command"
       "flakes"
     ];
-    substituters = [
+    extra-substituters = [
       "https://cache.keyruu.de"
       "https://cache.nixos.org"
       "https://vicinae.cachix.org"
@@ -34,7 +34,7 @@
       "https://nvf.cachix.org"
       "https://umbriel.cachix.org"
     ];
-    trusted-public-keys = [
+    extra-trusted-public-keys = [
       "cache.keyruu.de:BifJnHe/XQhZmmFwLSZttthsXT4u2/L4aeo0k9zV+Kc="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="

@@ -40,12 +40,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia.url = "github:noctalia-dev/noctalia";
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     umbriel.url = "github:noctalia-dev/umbriel/cachix";
 
     vicinae.url = "github:vicinaehq/vicinae";
