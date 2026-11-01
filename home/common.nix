@@ -89,5 +89,6 @@
     zathura.enable = true;
     fzf.enable = true;
     bat.enable = true;
+    ripgrep.enable = true;
   };
 }

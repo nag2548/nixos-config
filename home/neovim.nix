@@ -245,7 +245,10 @@
         };
       };
       statusline.lualine.enable = true;
-      fzf-lua.enable = true;
+      fzf-lua = {
+        enable = true;
+        profile = "fzf-native";
+      };
       autopairs.nvim-autopairs.enable = true;
       autocomplete.nvim-cmp.enable = true;
       visuals.nvim-web-devicons.enable = true;
