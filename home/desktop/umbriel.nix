@@ -425,6 +425,10 @@
           attach_to_parent = false;
         }
         {
+          match.content_type = "game";
+          vrr = "always";
+        }
+        {
           match.app_id = "^scratchpad-terminal$";
           default_scratchpad = "terminal";
           default_floating_size.width = 0.88;
