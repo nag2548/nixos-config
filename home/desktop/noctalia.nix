@@ -29,10 +29,12 @@
         capsule = true;
         capsule_padding = 4.0;
         margin_ends = 12;
-        start = [ "workspaces" ];
+        start = [
+          "workspaces"
+          "media"
+        ];
         center = [ "group:g1" ];
         end = [
-          "media"
           "tray"
           "notifications"
           "network"
