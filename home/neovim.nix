@@ -241,7 +241,11 @@
       filetree.neo-tree = {
         enable = true;
         setupOpts = {
-          filesystem.follow_current_file.enabled = true;
+          filesystem = {
+            follow_current_file.enabled = true;
+            filtered_items.hide_hidden = false;
+            filtered_items.hide_dotfiles = false;
+          };
         };
       };
       statusline.lualine.enable = true;
