@@ -2,8 +2,10 @@
 
 NixOS flake configuration (flakes + home-manager + sops-nix) for three machines:
 
-- **tenebrae** — umbriel (Wayland compositor) + noctalia shell + noctalia-greeter
-- **galanthus** — umbriel (Wayland compositor) + noctalia shell + noctalia-greeter
+- **tenebrae** — umbriel (Wayland compositor) + noctalia shell +
+  noctalia-greeter
+- **galanthus** — umbriel (Wayland compositor) + noctalia shell +
+  noctalia-greeter
 - **caligo** — KDE Plasma 6 + breeze SDDM theme
 
 tenebrae and galanthus keep their niri session modules and home bundle around:
@@ -36,9 +38,8 @@ packages) is the house formatter.
   imports (see below). A new host must also be registered in
   `nixosConfigurations` in `flake.nix`. Always take `{ username, session, ... }`
   (and `inputs` when needed) as a module arg; never hardcode `nadine` or assume
-  the session in modules.
-  The `umbriel` input tracks the `cachix` branch and keeps its own nixpkgs —
-  see the Gotchas section before touching it.
+  the session in modules. The `umbriel` input tracks the `cachix` branch and
+  keeps its own nixpkgs — see the Gotchas section before touching it.
 - `hosts/<host>/` — one dir per machine. `default.nix` imports the generated
   `hardware-configuration.nix`, `modules/common.nix`, the matching
   `modules/<session>-session.nix`, and every shared session-agnostic module
@@ -50,20 +51,20 @@ packages) is the house formatter.
   (boot, nix settings, locale, pipewire, catppuccin, 1password, sops,
   substituters, etc.) and imports `hardware.nix` and `plymouth.nix`. Per-
   session config lives in `modules/<session>-session.nix`. Each session module
-  gates its compositor on the `session` specialArg, so a host can import
-  several of them and only the matching one activates:
+  gates its compositor on the `session` specialArg, so a host can import several
+  of them and only the matching one activates:
   - `niri-session.nix` — `programs.niri.enable` when `session == "niri"`,
     imports `noctalia-greeter.nix`
   - `umbriel-session.nix` — imports `inputs.umbriel.nixosModules.default` and
     `noctalia-greeter.nix`, sets `programs.umbriel.enable` when
-    `session == "umbriel"`, plus `programs.xwayland.enable` (umbriel starts
-    the wlroots Xwayland server itself and finds `Xwayland` on PATH),
+    `session == "umbriel"`, plus `programs.xwayland.enable` (umbriel starts the
+    wlroots Xwayland server itself and finds `Xwayland` on PATH),
     `services.gnome.gnome-keyring.enable` and
     `xdg.portal.config.umbriel.default`
   - `kde-session.nix` — `services.desktopManager.plasma6.enable` + SDDM with the
     `breeze` theme
-  - `noctalia-greeter.nix` — the greeter (palette, wallpaper, cursor), shared
-    by the niri and umbriel sessions
+  - `noctalia-greeter.nix` — the greeter (palette, wallpaper, cursor), shared by
+    the niri and umbriel sessions
   - The other shared modules (`gaming.nix`, `hardware.nix`, `plymouth.nix`,
     `users.nix`, `samba.nix`, `docker.nix`, `bluetooth.nix`, `syncthing.nix`)
     are session-agnostic.
@@ -82,8 +83,8 @@ packages) is the house formatter.
   `./desktop/${session}.nix` (per session bundle). Top-level files group by
   domain: `default.nix` (importer), `browsers/` (with a `firefox/` subdir),
   `common.nix`, `fonts.nix`, `git.nix`, `neovim.nix`, `terminal.nix`,
-  `thunderbird.nix`, `vicinae.nix`, `vscode.nix`. Desktop-specific stuff
-  lives under `home/desktop/`.
+  `thunderbird.nix`, `vicinae.nix`, `vscode.nix`. Desktop-specific stuff lives
+  under `home/desktop/`.
 - `home/desktop/` — `default.nix` imports the shared `catppuccin.nix`,
   `gtk.nix`, `xdg.nix` and adds the cross-DE packages (`nautilus`,
   `xdg-user-dirs-gtk`). Session-specific bundles:
@@ -101,9 +102,9 @@ packages) is the house formatter.
     overview toggles
   - `noctalia.nix` — the Noctalia shell settings shared by the niri and umbriel
     bundles: theme, bar, wallpaper, control center, calendars (nextcloud caldav
-    + German holidays ICS), reminders, idle/lock behavior and notification
-    filters. Reads the nextcloud password from
-    `config.sops.secrets.nextcloud-password.path`
+    - German holidays ICS), reminders, idle/lock behavior and notification
+      filters. Reads the nextcloud password from
+      `config.sops.secrets.nextcloud-password.path`
   - `kde.nix` — adds `dolphin`, `konsole`, `spectacle` (plasma6 ships everything
     else via the system module)
 - `home/config/` — raw config files for tools that don't have a nix option —
@@ -117,7 +118,7 @@ packages) is the house formatter.
   edit the host's `default.nix` instead. The `caligo` placeholder is an
   asserting module that fails loudly until replaced with a real one.
 - Two nixpkgs inputs exist: unstable `nixpkgs` (the default `pkgs`) and stable
-  `nixpkgs-stable` (26.05). The stable input is used *only* in
+  `nixpkgs-stable` (26.05). The stable input is used _only_ in
   `home/common.nix`, where `stable = inputs.nixpkgs-stable.legacyPackages...`
   pins `calibre` and `audacity` (Audacity 4.0 does not build against Qt 6.12).
   It is not exposed as `pkgs.stable` anywhere else — reach for
@@ -143,15 +144,15 @@ packages) is the house formatter.
   syntax error in `home/config/niri.kdl` breaks the build. Fix the file, not the
   wrapper.
 - The umbriel config is a Nix attrset in `home/desktop/umbriel.nix`, rendered to
-  TOML by `inputs.umbriel.homeModules.default`. It is *not* validated at build
+  TOML by `inputs.umbriel.homeModules.default`. It is _not_ validated at build
   time; umbriel only reports config errors at runtime. Check it with
   `umbriel config validate` (point `XDG_CONFIG_HOME` at a dir holding
   `umbriel/config.toml`). An unknown keybind is dropped with a warning.
 - Umbriel merges the user's `[keybinds]` table over a **compiled-in** default
   set (`defaultKeybinds()` in `src/config/keybind_parse.cpp`), not over the
   packaged `share/umbriel/config.toml`. A user chord replaces the default for
-  that chord; other defaults stay. The packaged file is only a starting
-  example — it is used when no user config exists.
+  that chord; other defaults stay. The packaged file is only a starting example
+  — it is used when no user config exists.
 - Umbriel 0.1.0 takes action arguments **space-separated**, not colon-separated:
   `"Mod+Return" = "spawn kitty"`, `"Mod+1" = "workspace-switch 1"`. The colon
   form (`spawn:kitty`) belongs to the newer `0-unstable-*` nixpkgs build and is
@@ -159,9 +160,9 @@ packages) is the house formatter.
 - Umbriel wheel chords are `WheelUp`/`WheelDown`/`WheelLeft`/`WheelRight`, not
   niri's `WheelScrollUp`/`WheelScrollDown`. Niri's `WheelScroll*` chords are
   dropped as "bad chord" by umbriel.
-- `window-modify-width-*` and `window-modify-height-*` take a **fraction**
-  delta (-0.9 to 0.9), not a percentage. Niri's `Mod+Minus` was -10%, so it
-  maps to `window-modify-width-left -0.1`.
+- `window-modify-width-*` and `window-modify-height-*` take a **fraction** delta
+  (-0.9 to 0.9), not a percentage. Niri's `Mod+Minus` was -10%, so it maps to
+  `window-modify-width-left -0.1`.
 - `home/config/niri.kdl` still binds `Mod+Print`/`Mod+Shift+Print`/
   `Mod+Alt+Print` to the removed `nshot` wrapper (deleted in
   `chore: remove custom screenshot wrapper`). The wrapper no longer exists —
@@ -170,13 +171,13 @@ packages) is the house formatter.
 - The `umbriel` flake input must **not** follow our nixpkgs — the binary cache
   (`umbriel.cachix.org`) only matches the umbriel flake's own locked nixpkgs.
   The `cachix` branch ships that lock (`3ec636362e18`), and a fresh
-  `nix flake lock` picks it up on its own.
-  Gotcha: if `follows` was ever set on that input, the branch's revision is
-  dropped from `flake.lock`, and removing `follows` afterwards makes nix
-  re-resolve the channel URL to the *newest* unstable — every cache lookup
-  then misses. Recovery: delete the `umbriel/nixpkgs` entry from `flake.lock`
-  and re-lock, or set `inputs.umbriel.inputs.nixpkgs.url` to the exact
-  tarball the branch's lock names.
+  `nix flake lock` picks it up on its own. Gotcha: if `follows` was ever set on
+  that input, the branch's revision is dropped from `flake.lock`, and removing
+  `follows` afterwards makes nix re-resolve the channel URL to the _newest_
+  unstable — every cache lookup then misses. Recovery: delete the
+  `umbriel/nixpkgs` entry from `flake.lock` and re-lock, or set
+  `inputs.umbriel.inputs.nixpkgs.url` to the exact tarball the branch's lock
+  names.
 - `umbriel.cachix.org` is registered in `modules/common.nix` and in the
   `nixConfig` block of `flake.nix`. The daemon reads substituters from
   `/etc/nix/nix.conf`, which is rewritten on the next `nixos-rebuild switch`.
@@ -187,8 +188,8 @@ packages) is the house formatter.
 - Umbriel reads the keyboard layout from `[input.keyboard]`, which the umbriel
   config sets to the English (US) layout (`us`/`intl`/`caps:escape`) on every
   host. Without that setting it would fall back to the systemd-localed X11
-  keymap, which NixOS fills from `services.xserver.xkb` (German on tenebrae,
-  US intl on galanthus and caligo).
+  keymap, which NixOS fills from `services.xserver.xkb` (German on tenebrae, US
+  intl on galanthus and caligo).
 - Adding a new session means: (1) `modules/<session>-session.nix` for system
   config, (2) `home/desktop/<session>.nix` for the home bundle, (3) wire it via
   `mkHost "<session>" ./hosts/<host>` in `flake.nix`. Pick a session name that
@@ -199,24 +200,27 @@ packages) is the house formatter.
   non-niri hosts are unaffected.
 - **A session needs its own Secret Service provider.** Noctalia stores its
   storage master key and calendar credentials through the Secret Service, and
-  apps like nextcloud and the protonmail bridge use it too. `libsecret` is
-  only the client library — a provider has to run in the login session.
-  - The nixpkgs niri module sets `services.gnome.gnome-keyring.enable =
-    lib.mkDefault true`. Umbriel replaces that module (`disabledModules` in
-    umbriel's own nixos module), so nothing enables the keyring there —
-    `modules/umbriel-session.nix` has to do it explicitly.
+  apps like nextcloud and the protonmail bridge use it too. `libsecret` is only
+  the client library — a provider has to run in the login session.
+  - The nixpkgs niri module sets
+    `services.gnome.gnome-keyring.enable =
+    lib.mkDefault true`. Umbriel
+    replaces that module (`disabledModules` in umbriel's own nixos module), so
+    nothing enables the keyring there — `modules/umbriel-session.nix` has to do
+    it explicitly.
   - `services.gnome.gnome-keyring.enable` also sets
     `security.pam.services.login.enableGnomeKeyring`, which adds
     `pam_gnome_keyring` to the login stack. That unlocks the "Login" keyring
     with the login password; without it every login re-prompts for keyring
     passwords.
-  - gnome-keyring also ships the `org.freedesktop.impl.portal.Secret`
-    backend, so it must be in `xdg.portal.config.<session>.default`
-    alongside the other portals.
+  - gnome-keyring also ships the `org.freedesktop.impl.portal.Secret` backend,
+    so it must be in `xdg.portal.config.<session>.default` alongside the other
+    portals.
   - caligo (KDE) uses KWallet instead — do not enable gnome-keyring there.
   - Symptom to recognize: `umbriel` logs
     `[secret-store] operation=lookup scope=storage status=unavailable
-    category=provider-unavailable`, and clients log
+    category=provider-unavailable`,
+    and clients log
     `failed to open secretservice session: The name is not activatable`.
   - Noctalia's docs (`docs/user/configuration/secret-service.mdx`) also cover
     the separate "multiple keyrings" trap: the `default` collection alias must
@@ -224,15 +228,15 @@ packages) is the house formatter.
 - `xdg.portal.config` in `home/desktop/xdg.nix` only has a `niri` key — add an
   `umbriel` entry there if a portal needs an explicit backend for that session
   (the umbriel one currently lives in `modules/umbriel-session.nix`).
-- `home/common.nix` patches two packages at build time:
-  `protonmail-bridge-gui` (wraps the raw `lib/bridge-gui` binary so the QML
-  plugin env is always set) and `citrix-workspace` (forces `GDK_BACKEND=x11` on
-  every Citrix binary, otherwise the login window crashes on Wayland).
+- `home/common.nix` patches two packages at build time: `protonmail-bridge-gui`
+  (wraps the raw `lib/bridge-gui` binary so the QML plugin env is always set)
+  and `citrix-workspace` (forces `GDK_BACKEND=x11` on every Citrix binary,
+  otherwise the login window crashes on Wayland).
 - `home/terminal.nix` configures several terminals (kitty, foot, zellij) plus
   zsh, starship and tmux; the tmux `resurrect`/`continuum` plugins capture
   `~vi ~lazygit ~opencode` processes.
-- `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup
-  has hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
+- `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup has
+  hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
   overrides if you touch the formatter list.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
