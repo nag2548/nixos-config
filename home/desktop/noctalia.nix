@@ -40,7 +40,6 @@
           "network"
           "bluetooth"
           "volume"
-          "brightness"
           "battery"
           "session"
         ];
@@ -57,6 +56,7 @@
             ];
             opacity = 0.0;
             padding = 4.0;
+            widget_spacing = 12;
           }
         ];
       };
@@ -65,6 +65,15 @@
       };
       control_center.calendar = {
         show_week_numbers = true;
+      };
+      widget = {
+        media = {
+          hide_when_no_media = true;
+        };
+        network = {
+          show_label = false;
+        };
+        date.format = "{:%a %-d %b %Y}";
       };
       calendar = {
         enabled = true;
