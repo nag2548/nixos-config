@@ -132,13 +132,17 @@
       output = {
         "DP-2" = {
           mode = "2560x1440@165.080";
+          position = [
+            1920
+            0
+          ];
           focus_at_startup = true;
         };
         "HDMI-A-1" = {
           mode = "1920x1080@60.000";
           position = [
             0
-            0
+            360
           ];
         };
       };
