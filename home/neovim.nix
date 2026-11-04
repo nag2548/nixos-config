@@ -4,6 +4,19 @@
   lib,
   ...
 }:
+let
+  # nvf ships jls with a maven dependency hash that was computed with
+  # maven 3.9.x. nixpkgs bumped maven to 3.10.0, which changes the fetched
+  # dependency tree and breaks that fixed-output derivation. Patch the hash
+  # into a copy of nvf's package file and build our own jls from it.
+  jlsPackage = pkgs.writeText "jls-package.nix" (
+    lib.replaceStrings
+      [ "sha256-PNBuentUs+bv7IKK1mg9ZbisW7FtsENX/0bpkJ6qa6w=" ]
+      [ "sha256-2HEZClbtiFAWuR8aIgaW1nMl05aI/tShnQFBptamfKQ=" ]
+      (builtins.readFile "${inputs.nvf.outPath}/flake/pkgs/by-name/jls/package.nix")
+  );
+  jls = pkgs.callPackage jlsPackage { };
+in
 {
   imports = [
     inputs.nvf.homeManagerModules.default
@@ -256,6 +269,16 @@
       autopairs.nvim-autopairs.enable = true;
       autocomplete.nvim-cmp.enable = true;
       visuals.nvim-web-devicons.enable = true;
+
+      debugger.nvim-dap = {
+        # nvf's jls preset pulls in nvf's own jls package, which has a broken
+        # maven hash. Use our patched build instead.
+        presets.jls.enable = lib.mkForce false;
+        adapters.jls = {
+          type = "executable";
+          command = "${jls}/bin/jls-dap";
+        };
+      };
 
       diagnostics = {
         enable = true;

@@ -238,6 +238,32 @@ packages) is the house formatter.
 - `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup has
   hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
   overrides if you touch the formatter list.
+- **nvf's `jls` package ships a stale maven hash.** nvf packages `jls` itself
+  (`flake/pkgs/by-name/jls/package.nix`) with a `mvnHash` computed with maven
+  3.9.x. Nixpkgs bumped maven to 3.10.0 (`4fc430b3c222`, 2026-10-21), which
+  changes the fetched dependency tree, so the `maven-deps-jls` fixed-output
+  derivation fails with a hash mismatch and takes the whole neovim closure
+  down with it. `home/neovim.nix` works around this: it reads nvf's package
+  file, patches the hash into a copy, builds its own `jls` and points the
+  nvim-dap `jls` adapter at it. `presets.jls.enable = lib.mkForce false` is
+  required — it keeps nvf's unpatched `jls` out of the closure, while nvf's
+  Java DAP configurations stay untouched. Update the two hashes when maven
+  moves again; the patch becomes a no-op once nvf fixes the hash upstream.
+- **Nixpkgs' `opencode` package pins a stale `node_modules` hash.** The
+  fixed-output derivation `opencode-node_modules-2.2.5` fails with a hash
+  mismatch because `bun install` now fetches slightly different content than
+  when nixpkgs recorded the hash. Upstream fixes it in
+  [NixOS/nixpkgs#582675](https://github.com/NixOS/nixpkgs/pull/582675) (open
+  as of 2026-11-04). `home/terminal.nix` patches the hash into a copy of
+  nixpkgs' package file and passes the result as `programs.opencode.package`.
+  Drop the override once the PR lands — the hash replacement is a no-op from
+  then on.
+- **opencode owns `~/.config/opencode/cli.json`.** opencode 2 writes that file
+  itself, so home-manager's `programs.opencode` must keep
+  `mutableSettings = true` — otherwise activation dies with `Existing file
+  '/home/nadine/.config/opencode/cli.json' would be clobbered`. With mutable
+  settings home-manager writes `opencode/home-manager-cli.json` and exports
+  `OPENCODE_CLI_CONFIG_CONTENT` instead, leaving the app's file alone.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If
