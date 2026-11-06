@@ -23,12 +23,15 @@
       wallpaper = {
         enabled = true;
         fill_mode = "crop";
-        default.path = ../themes/bg-minimal.jpg;
+        default.path = ../themes/bg-new.jpg;
       };
       bar.default = {
+        background_opacity = 0.5;
         capsule = true;
         capsule_padding = 4.0;
+        capsule_radius = 8;
         margin_ends = 12;
+        concave_edge_corners = false;
         start = [
           "workspaces"
           "media"
