@@ -26,12 +26,14 @@
         default.path = ../themes/bg-new.jpg;
       };
       bar.default = {
-        background_opacity = 0.5;
+        background_opacity = 0.60;
         capsule = true;
         capsule_padding = 4.0;
         capsule_radius = 8;
+        capsule_opacity = 0.70;
         margin_ends = 12;
         concave_edge_corners = false;
+        shadow = false;
         start = [
           "workspaces"
           "media"
@@ -57,7 +59,7 @@
               "date"
               "clock"
             ];
-            opacity = 0.0;
+            opacity = 0.70;
             padding = 4.0;
             widget_spacing = 12;
           }
@@ -77,6 +79,10 @@
           show_label = false;
         };
         date.format = "{:%a %-d %b %Y}";
+        workspaces = {
+          active_pill_size = 1.5;
+          capsule = false;
+        };
       };
       calendar = {
         enabled = true;
