@@ -40,6 +40,7 @@
     }))
     signal-desktop
     telegram-desktop
+    whatsie
     libreoffice
     loupe
     vlc
