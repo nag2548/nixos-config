@@ -3,6 +3,14 @@
     enable = true;
     policies = {
       DisableTelemetry = true;
+      ExtensionSettings = {
+        "send-as-alias@mkoester.github.io" = {
+          install_url = "https://addons.thunderbird.net/thunderbird/downloads/latest/send-as-alias/latest.xpi";
+          installation_mode = "force_installed";
+          updates_disabled = false;
+        };
+        "*".installation_mode = "blocked";
+      };
     };
     settings = {
       "general.useragent.override" = "";
@@ -12,6 +20,7 @@
       "calendar.view.visiblehours" = 14;
       "mail.chat.play_sound" = false;
       "mail.shell.checkDefaultClient" = false;
+      "mail.dark-reader.enabled" = false;
       "mailnews.message_display.disable_remote_image" = false;
     };
     languagePacks = [
