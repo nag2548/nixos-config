@@ -40,7 +40,7 @@
     }))
     signal-desktop
     telegram-desktop
-    whatsie
+    whatsapp-electron
     libreoffice
     loupe
     vlc

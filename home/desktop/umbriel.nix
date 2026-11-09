@@ -439,7 +439,7 @@
           default_floating_size.height = 0.88;
         }
         {
-          match.app_id = "^(signal|com[.]ktechpit[.]whatsie|org[.]telegram[.]desktop)$";
+          match.app_id = "^(signal|com[.]github[.]dagmoller[.]whatsapp-electron|org[.]telegram[.]desktop)$";
           default_floating = true;
           default_floating_size.width = 0.5;
           default_floating_size.height = 0.8;
