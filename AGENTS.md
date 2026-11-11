@@ -230,8 +230,15 @@ packages) is the house formatter.
   (the umbriel one currently lives in `modules/umbriel-session.nix`).
 - `home/common.nix` patches two packages at build time: `protonmail-bridge-gui`
   (wraps the raw `lib/bridge-gui` binary so the QML plugin env is always set)
-  and `citrix-workspace` (forces `GDK_BACKEND=x11` on every Citrix binary,
-  otherwise the login window crashes on Wayland).
+  and `citrix-workspace` (pins the WebKit UI binaries to `GDK_BACKEND=x11`,
+  otherwise the login window crashes on Wayland). Nixpkgs already pins `wfica`
+  to X11 — do not re-add it to the override list.
+- **`home/vicinae.nix` uses the vicinae flake's own package**, not
+  `pkgs.vicinae`. Nixpkgs' vicinae lags the flake by a release and the flake
+  carries fixes nixpkgs has not taken yet (e.g. the gcc15 stdenv override for
+  numen that fixed
+  [vicinaehq/vicinae#2040](https://github.com/vicinaehq/vicinae/issues/2040)).
+  Do not "fix" this by pinning `package = pkgs.vicinae` again.
 - `home/terminal.nix` configures several terminals (kitty, foot, zellij) plus
   zsh, starship and tmux; the tmux `resurrect`/`continuum` plugins capture
   `~vi ~lazygit ~opencode` processes.
@@ -249,14 +256,6 @@ packages) is the house formatter.
   keeps nvf's unpatched `jls` out of the closure, while nvf's Java DAP
   configurations stay untouched. Update the two hashes when maven moves again;
   the patch becomes a no-op once nvf fixes the hash upstream.
-- **Nixpkgs' `opencode` package pins a stale `node_modules` hash.** The
-  fixed-output derivation `opencode-node_modules-2.2.5` fails with a hash
-  mismatch because `bun install` now fetches slightly different content than
-  when nixpkgs recorded the hash. Upstream fixes it in
-  [NixOS/nixpkgs#582675](https://github.com/NixOS/nixpkgs/pull/582675) (open as
-  of 2026-11-04). `home/terminal.nix` patches the hash into a copy of nixpkgs'
-  package file and passes the result as `programs.opencode.package`. Drop the
-  override once the PR lands — the hash replacement is a no-op from then on.
 - **opencode owns `~/.config/opencode/cli.json`.** opencode 2 writes that file
   itself, so home-manager's `programs.opencode` must keep
   `mutableSettings = true` — otherwise activation dies with

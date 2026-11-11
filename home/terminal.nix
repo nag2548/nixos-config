@@ -1,22 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
-let
-  # nixpkgs' opencode package pins a node_modules hash that no longer matches
-  # what `bun install` fetches today. Upstream fixes this in
-  # NixOS/nixpkgs#582675. Patch the hash into a copy of nixpkgs' package file
-  # until it lands; the replacement becomes a no-op once upstream ships it.
-  opencodePackage = pkgs.writeText "opencode-package.nix" (
-    lib.replaceStrings
-      [ "sha256-xfOVcw1+waLVNhFDwzOtzxrUSQEogvn88YomydOlhwc=" ]
-      [ "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=" ]
-      (builtins.readFile "${pkgs.path}/pkgs/by-name/op/opencode/package.nix")
-  );
-  opencode = pkgs.callPackage opencodePackage { };
-in
-{
+{ pkgs, ... }: {
   programs = {
     zsh = {
       enable = true;
@@ -151,12 +133,6 @@ in
 
     opencode = {
       enable = true;
-      package = opencode;
-
-      # opencode writes ~/.config/opencode/cli.json itself, so let it own that
-      # file and keep the declarative settings in a separate home-manager layer.
-      mutableSettings = true;
-
       cli = {
         attention.notifications = true;
       };

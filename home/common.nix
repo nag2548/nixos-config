@@ -29,12 +29,16 @@
     nextcloud-client
     # Citrix's WebKit UI (PrimaryAuthManager/selfservice) calls
     # gdk_x11_window_get_xid unconditionally, which crashes the login window
-    # when GTK picks the Wayland backend (the niri session exports
-    # GDK_BACKEND=wayland,x11). Force the X11 backend for every Citrix binary.
+    # when GTK picks the Wayland backend. Under a Wayland session GTK3 picks
+    # Wayland on its own, so pin the WebKit binaries to X11.
+    # wfica is not in this list: nixpkgs already pins it to X11.
+    # This wraps the shell wrappers nixpkgs creates, so the binaries end up
+    # doubly wrapped — the inner wrapper keeps upstream's env, the outer one
+    # only adds GDK_BACKEND.
     (pkgs.citrix-workspace.overrideAttrs (old: {
       postFixup = (old.postFixup or "") + ''
-        for prog in selfservice wfica adapter PrimaryAuthManager AuthManagerDaemon ServiceRecord util/configmgr util/conncenter util/ctx_rehash util/ctxwebhelper; do
-          wrapProgram "$out/opt/citrix-icaclient/$prog" --set GDK_BACKEND x11
+        for prog in selfservice adapter PrimaryAuthManager AuthManagerDaemon ServiceRecord util/configmgr util/conncenter util/ctx_rehash util/ctxwebhelper; do
+          wrapProgram "$out/opt/citrix-icaclient/$prog" --set-default GDK_BACKEND x11
         done
       '';
     }))

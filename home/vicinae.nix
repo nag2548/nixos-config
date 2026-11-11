@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 {
   imports = [
     inputs.vicinae.homeManagerModules.default
@@ -6,8 +6,6 @@
 
   programs.vicinae = {
     enable = true;
-    # TODO: https://github.com/vicinaehq/vicinae/issues/2040
-    package = pkgs.vicinae;
     systemd = {
       enable = true;
       autoStart = true;
