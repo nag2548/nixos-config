@@ -3,14 +3,6 @@
     enable = true;
     policies = {
       DisableTelemetry = true;
-      ExtensionSettings = {
-        "send-as-alias@mkoester.github.io" = {
-          install_url = "https://addons.thunderbird.net/thunderbird/downloads/latest/send-as-alias/latest.xpi";
-          installation_mode = "force_installed";
-          updates_disabled = false;
-        };
-        "*".installation_mode = "blocked";
-      };
     };
     settings = {
       "general.useragent.override" = "";
@@ -39,6 +31,7 @@
       realName = "Nadine Grabmair";
       address = "nadine@grabmair.me";
       userName = "nadine@grabmair.me";
+      aliases = [ "login@grabmair.me" ];
       imap = {
         host = "127.0.0.1";
         port = 1143;
