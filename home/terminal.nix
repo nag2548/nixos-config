@@ -81,6 +81,7 @@
         set -as terminal-features 'xterm-kitty:extkeys'
         # tmux 3.5+: send keys to apps in CSI u format
         set -g extended-keys-format csi-u
+        set -g allow-passthrough on
       '';
     };
 
