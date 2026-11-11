@@ -110,7 +110,7 @@ packages) is the house formatter.
 - `home/config/` — raw config files for tools that don't have a nix option —
   `niri.kdl` is the only one right now.
 - `home/themes/` — wallpapers referenced by noctalia and the noctalia greeter
-  (`bg-minimal.jpg` is the one in use; `bg.png` is unused).
+  (`bg-new.jpg` is the one in use; `bg-minimal.jpg` and `bg.png` are unused).
 
 ## Gotchas
 
@@ -118,11 +118,13 @@ packages) is the house formatter.
   edit the host's `default.nix` instead. The `caligo` placeholder is an
   asserting module that fails loudly until replaced with a real one.
 - Two nixpkgs inputs exist: unstable `nixpkgs` (the default `pkgs`) and stable
-  `nixpkgs-stable` (26.05). The stable input is used _only_ in
-  `home/common.nix`, where `stable = inputs.nixpkgs-stable.legacyPackages...`
-  pins `calibre` and `audacity` (Audacity 4.0 does not build against Qt 6.12).
-  It is not exposed as `pkgs.stable` anywhere else — reach for
-  `inputs.nixpkgs-stable` only in the same `home/common.nix` style.
+  `nixpkgs-stable` (26.05). The stable input is currently **unused** — nothing
+  imports it, so `calibre` and `audacity` come from the unstable `pkgs` in
+  `home/common.nix`. The old pinning (`stable = inputs.nixpkgs-stable...` for
+  `calibre` and `audacity`, because Audacity 4.0 did not build against Qt 6.12)
+  was dropped in `8d5b279`. If a package needs the stable channel again, pin it
+  in `home/common.nix` the same way: take `inputs` as a module arg and use
+  `inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}`.
 - `modules/samba.nix` mounts `//192.168.100.31/documents` using sops-nix
   templates (`samba-truenas`) — credentials live in `secrets/secrets.yaml`,
   decrypted on demand into the nix store.
@@ -194,10 +196,14 @@ packages) is the house formatter.
   config, (2) `home/desktop/<session>.nix` for the home bundle, (3) wire it via
   `mkHost "<session>" ./hosts/<host>` in `flake.nix`. Pick a session name that
   matches the home bundle filename.
-- `noctalia-greeter.nixosModules.default` and `noctalia.homeModules.default` are
-  loaded for every host. They're no-ops unless the matching
-  `programs.noctalia-greeter.enable` / `programs.noctalia.enable` is set, so
-  non-niri hosts are unaffected.
+- `noctalia-greeter.nixosModules.default` is imported by
+  `modules/noctalia-greeter.nix`, which the niri and umbriel session modules
+  pull in; `noctalia.homeModules.default` is imported by
+  `home/desktop/noctalia.nix`, which the niri and umbriel home bundles pull in.
+  The KDE session (caligo) loads neither — it uses the SDDM `breeze` theme
+  instead. The greeter is switched on via
+  `services.displayManager.noctalia-greeter.enable`, the shell via
+  `programs.noctalia.enable`.
 - **A session needs its own Secret Service provider.** Noctalia stores its
   storage master key and calendar credentials through the Secret Service, and
   apps like nextcloud and the protonmail bridge use it too. `libsecret` is only
@@ -257,12 +263,14 @@ packages) is the house formatter.
   configurations stay untouched. Update the two hashes when maven moves again;
   the patch becomes a no-op once nvf fixes the hash upstream.
 - **opencode owns `~/.config/opencode/cli.json`.** opencode 2 writes that file
-  itself, so home-manager's `programs.opencode` must keep
-  `mutableSettings = true` — otherwise activation dies with
+  itself. `programs.opencode` in `home/terminal.nix` does not set
+  `mutableSettings = true`, so home-manager manages `cli.json` directly and
+  activation can fail with
   `Existing file
   '/home/nadine/.config/opencode/cli.json' would be clobbered`.
-  With mutable settings home-manager writes `opencode/home-manager-cli.json` and
-  exports `OPENCODE_CLI_CONFIG_CONTENT` instead, leaving the app's file alone.
+  Setting `mutableSettings = true` moves the declarative settings to
+  `opencode/home-manager-cli.json` and exports `OPENCODE_CLI_CONFIG_CONTENT`
+  instead, leaving the app's file alone.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If
