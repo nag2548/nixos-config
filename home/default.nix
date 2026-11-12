@@ -9,10 +9,10 @@
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     ./browsers
+    ./terminal
     ./common.nix
     ./fonts.nix
     ./git.nix
-    ./terminal.nix
     ./neovim.nix
     ./thunderbird.nix
     ./vscode.nix

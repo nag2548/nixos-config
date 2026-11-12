@@ -78,11 +78,11 @@ packages) is the house formatter.
   and installs into the user profile). `default.nix` is the importer and also
   sets the sops default file, age key path and `home.stateVersion`; it imports
   `./browsers` (shared), `./common.nix`, `./fonts.nix`, `./git.nix`,
-  `./terminal.nix`, `./neovim.nix`, `./thunderbird.nix`, `./vscode.nix`,
+  `./terminal`, `./neovim.nix`, `./thunderbird.nix`, `./vscode.nix`,
   `./vicinae.nix`, `./desktop` (shared cross-DE defaults) and
   `./desktop/${session}.nix` (per session bundle). Top-level files group by
   domain: `default.nix` (importer), `browsers/` (with a `firefox/` subdir),
-  `common.nix`, `fonts.nix`, `git.nix`, `neovim.nix`, `terminal.nix`,
+  `common.nix`, `fonts.nix`, `git.nix`, `neovim.nix`, `terminal/`,
   `thunderbird.nix`, `vicinae.nix`, `vscode.nix`. Desktop-specific stuff lives
   under `home/desktop/`.
 - `home/desktop/` — `default.nix` imports the shared `catppuccin.nix`,
@@ -245,9 +245,10 @@ packages) is the house formatter.
   numen that fixed
   [vicinaehq/vicinae#2040](https://github.com/vicinaehq/vicinae/issues/2040)).
   Do not "fix" this by pinning `package = pkgs.vicinae` again.
-- `home/terminal.nix` configures several terminals (kitty, foot, zellij) plus
-  zsh, starship and tmux; the tmux `resurrect`/`continuum` plugins capture
-  `~vi ~lazygit ~opencode` processes.
+- `home/terminal/` holds the terminal bundle: `default.nix` configures several
+  terminals (kitty, foot, zellij) plus zsh, starship and tmux; the tmux
+  `resurrect`/`continuum` plugins capture `~vi ~lazygit ~opencode` processes.
+  `opencode.nix` holds the opencode settings.
 - `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup has
   hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
   overrides if you touch the formatter list.
@@ -263,14 +264,20 @@ packages) is the house formatter.
   configurations stay untouched. Update the two hashes when maven moves again;
   the patch becomes a no-op once nvf fixes the hash upstream.
 - **opencode owns `~/.config/opencode/cli.json`.** opencode 2 writes that file
-  itself. `programs.opencode` in `home/terminal.nix` does not set
-  `mutableSettings = true`, so home-manager manages `cli.json` directly and
-  activation can fail with
+  itself. `programs.opencode` in `home/terminal/opencode.nix` therefore sets
+  `mutableSettings = true`; without it home-manager manages `cli.json`
+  directly and activation fails with
   `Existing file
   '/home/nadine/.config/opencode/cli.json' would be clobbered`.
-  Setting `mutableSettings = true` moves the declarative settings to
-  `opencode/home-manager-cli.json` and exports `OPENCODE_CLI_CONFIG_CONTENT`
-  instead, leaving the app's file alone.
+  With `mutableSettings = true` the declarative settings land in
+  `opencode/home-manager-cli.json` and `OPENCODE_CLI_CONFIG_CONTENT` is
+  exported instead, leaving the app's file alone.
+- **opencode 2 splits the config in two layers.** `programs.opencode.settings`
+  is the global/project config (`opencode.json` schema: `model`, `agent`,
+  `mcp`, `permission`, …), `programs.opencode.cli` is the terminal client
+  config (`cli.json` schema: `attention`, `theme`, `session`, `tabs`, …).
+  Both schemas set `additionalProperties: false`, so a key in the wrong layer
+  is rejected. `session.thinking` is a `cli` key, not a `settings` key.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If

@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ./opencode.nix
+  ];
+
   programs = {
     zsh = {
       enable = true;
@@ -129,13 +133,6 @@
         scrollback = {
           lines = 10000;
         };
-      };
-    };
-
-    opencode = {
-      enable = true;
-      cli = {
-        attention.notifications = true;
       };
     };
 
