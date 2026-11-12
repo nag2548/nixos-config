@@ -14,6 +14,9 @@
     unzip
     inetutils
     rsync
+    texliveMedium
+    xdotool
+    libnotify
 
     jetbrains.idea
     (protonmail-bridge-gui.overrideAttrs (old: {

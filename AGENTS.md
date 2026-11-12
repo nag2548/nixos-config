@@ -252,6 +252,15 @@ packages) is the house formatter.
 - `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup has
   hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
   overrides if you touch the formatter list.
+- **LaTeX support spans three places.** `home/neovim.nix` enables nvf's
+  `languages.tex` (treesitter `latex`/`bibtex` grammars, texlab LSP, `tex-fmt`
+  formatting), loads VimTeX and cmp-vimtex via `startPlugins` (vimscript, so
+  they cannot be lazy-loaded through lua), and enables `snippets.luasnip` with
+  the `luasnip-latex-snippets-nvim` provider. VimTeX options live in
+  `settings.vim.globals`. `home/common.nix` installs `texliveMedium`
+  (scheme-medium): only the medium scheme ships `latexmk`, which VimTeX drives.
+  Nixpkgs deprecated `texlive.combine` and `texliveSmall.withPackages` does
+  not evaluate, so use the prebuilt scheme envs.
 - **nvf's `jls` package ships a stale maven hash.** nvf packages `jls` itself
   (`flake/pkgs/by-name/jls/package.nix`) with a `mvnHash` computed with maven
   3.9.x. Nixpkgs bumped maven to 3.10.0 (`4fc430b3c222`, 2026-10-21), which

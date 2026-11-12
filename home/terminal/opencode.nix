@@ -8,6 +8,7 @@
     };
     settings = {
       update = "disable";
+      plugins = [ "opencode-notifications" ];
     };
   };
 }
