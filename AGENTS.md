@@ -278,6 +278,8 @@ packages) is the house formatter.
   config (`cli.json` schema: `attention`, `theme`, `session`, `tabs`, …).
   Both schemas set `additionalProperties: false`, so a key in the wrong layer
   is rejected. `session.thinking` is a `cli` key, not a `settings` key.
+- **`settings.update = "disable"`** keeps opencode from trying to install
+  updates into the read-only nix store.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If

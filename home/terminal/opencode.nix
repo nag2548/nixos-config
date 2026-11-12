@@ -6,5 +6,8 @@
       attention.notifications = true;
       session.thinking = "show";
     };
+    settings = {
+      update = "disable";
+    };
   };
 }
