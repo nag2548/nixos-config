@@ -257,10 +257,16 @@ packages) is the house formatter.
   formatting), loads VimTeX and cmp-vimtex via `startPlugins` (vimscript, so
   they cannot be lazy-loaded through lua), and enables `snippets.luasnip` with
   the `luasnip-latex-snippets-nvim` provider. VimTeX options live in
-  `settings.vim.globals`. `home/common.nix` installs `texliveMedium`
-  (scheme-medium): only the medium scheme ships `latexmk`, which VimTeX drives.
-  Nixpkgs deprecated `texlive.combine` and `texliveSmall.withPackages` does
-  not evaluate, so use the prebuilt scheme envs.
+  `settings.vim.globals`. `home/common.nix` installs
+  `texlive.withPackages (ps: [ ps.scheme-medium ... ])`: only the medium scheme
+  ships `latexmk`, which VimTeX drives, but scheme-medium covers neither
+  `collection-latexextra` nor `collection-bibtexextra`, so plain
+  `texliveMedium` misses `lipsum`, `biblatex`, `csquotes`, `dirtytalk`,
+  `enumitem` and `titlesec` (LaTeX then dies with "File `lipsum.sty' not
+  found"). Add those packages — and `biber` for biblatex — on top of
+  `ps.scheme-medium`. Nixpkgs deprecated `texlive.combine` and
+  `texliveSmall.withPackages` does not evaluate, so use the prebuilt scheme
+  envs as the base.
 - **nvf's `jls` package ships a stale maven hash.** nvf packages `jls` itself
   (`flake/pkgs/by-name/jls/package.nix`) with a `mvnHash` computed with maven
   3.9.x. Nixpkgs bumped maven to 3.10.0 (`4fc430b3c222`, 2026-10-21), which
@@ -289,6 +295,27 @@ packages) is the house formatter.
   is rejected. `session.thinking` is a `cli` key, not a `settings` key.
 - **`settings.update = "disable"`** keeps opencode from trying to install
   updates into the read-only nix store.
+- **opencode 2 plugins need the v2 export shape.** A plugin's default export
+  must be an object with an `id` and an `effect`/`setup` function — a bare
+  function is the v1 API and opencode 2 rejects it with
+  `Plugin must export a default definition with an id and an effect or setup
+  function` (`PluginModule.LoadError` in `~/.local/share/opencode/log/opencode.log`).
+  `opencode-notifications` (npm) is v1-only and never loads; the repo uses
+  `@mohak34/opencode-notifier`, which ships both shapes.
+- **The caveman plugin lives in `~/.config/opencode/plugins/caveman`** and is
+  found by opencode's plugin auto-discovery. Do not also list it in
+  `~/.config/opencode/opencode.jsonc` — that file's legacy `plugin` key is
+  deprecated in favour of `plugins`, and listing the directory there makes
+  opencode load the plugin twice. `~/.config/opencode/opencode.jsonc` is
+  app-owned; keep it free of plugin entries.
+- **The notifier needs `notify-send` (`libnotify`) for plain popups** and a
+  sound player (`paplay`, `aplay`) for its bundled `.wav` files; `xdotool` is
+  used for terminal focus detection and for the click-to-focus action. On
+  umbriel (Wayland, no X11 window manager) `xdotool getactivewindow` fails, so
+  focus-based suppression does not work and every event notifies.
+- **opencode's own `opencode.notifications` plugin is a TUI plugin.** It
+  notifies through the terminal's escape sequences (kitty OSC 99), which tmux
+  drops. That is why the D-Bus based notifier is needed for tmux sessions.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If

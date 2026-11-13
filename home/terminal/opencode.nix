@@ -8,7 +8,7 @@
     };
     settings = {
       update = "disable";
-      plugins = [ "opencode-notifications" ];
+      plugins = [ "@mohak34/opencode-notifier" ];
     };
   };
 }
