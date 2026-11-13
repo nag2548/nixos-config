@@ -116,7 +116,12 @@
       };
       flake = "$HOME/.schnee";
     };
-    zathura.enable = true;
+    zathura = {
+      enable = true;
+      extraConfig = ''
+        set recolor false
+      '';
+    };
     fzf.enable = true;
     bat.enable = true;
     ripgrep.enable = true;
