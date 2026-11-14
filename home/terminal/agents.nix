@@ -135,9 +135,26 @@ in
       plugins.caveman = caveman;
       skills = grillSkills;
       mutableSettings = true;
-      settings.statusLine = {
-        type = "command";
-        command = lib.getExe claudeStatusline;
+      settings = {
+        statusLine = {
+          type = "command";
+          command = lib.getExe claudeStatusline;
+        };
+        hooks =
+          let
+            notify = msg: {
+              hooks = [
+                {
+                  type = "command";
+                  command = ''${lib.getExe' pkgs.libnotify "notify-send"} "Claude Code" "${msg}"'';
+                }
+              ];
+            };
+          in
+          {
+            Notification = [ (notify "Needs your input") ];
+            Stop = [ (notify "Session finished") ];
+          };
       };
     };
   };
