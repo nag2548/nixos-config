@@ -255,7 +255,8 @@ packages) is the house formatter.
 - `home/terminal/` holds the terminal bundle: `default.nix` configures several
   terminals (kitty, foot, zellij) plus zsh, starship and tmux; the tmux
   `resurrect`/`continuum` plugins capture `~vi ~lazygit ~opencode` processes.
-  `opencode.nix` holds the opencode settings.
+  `agents.nix` holds the coding-agent harnesses: opencode settings and Claude
+  Code (with the caveman plugin).
 - `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup has
   hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
   overrides if you touch the formatter list.
@@ -300,7 +301,7 @@ packages) is the house formatter.
   configurations stay untouched. Update the two hashes when maven moves again;
   the patch becomes a no-op once nvf fixes the hash upstream.
 - **opencode owns `~/.config/opencode/cli.json`.** opencode 2 writes that file
-  itself. `programs.opencode` in `home/terminal/opencode.nix` therefore sets
+  itself. `programs.opencode` in `home/terminal/agents.nix` therefore sets
   `mutableSettings = true`; without it home-manager manages `cli.json`
   directly and activation fails with
   `Existing file
@@ -337,6 +338,34 @@ packages) is the house formatter.
 - **opencode's own `opencode.notifications` plugin is a TUI plugin.** It
   notifies through the terminal's escape sequences (kitty OSC 99), which tmux
   drops. That is why the D-Bus based notifier is needed for tmux sessions.
+- **Claude Code's caveman plugin is pinned in `home/terminal/agents.nix`**, not
+  as a flake input. `pkgs.fetchFromGitHub` fetches
+  [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) and
+  `programs.claude-code.plugins.caveman` loads the whole repo as a plugin
+  (skills, `cavecrew-*` agents and the hooks that auto-activate caveman mode).
+  The hooks need `node` on PATH (`nodejs` in `home/common.nix`) and exit
+  silently without it. `nix flake update` does not touch the pin. To bump it:
+  1. `nix flake prefetch github:JuliusBrussee/caveman --json | nix run nixpkgs#jq -- -r '.locked.rev, .hash'`
+     (append `/<tag-or-sha>` to the ref to pin something other than the
+     default branch's head). The prefetch hash is the same NAR hash
+     `fetchFromGitHub` expects.
+  2. Paste both into `rev` and `hash`, then build the home generation:
+     `nix build --no-link .#nixosConfigurations.$(hostname).config.home-manager.users.nadine.home.activationPackage`.
+  3. `rebuild` and start a new Claude Code session; the installed version is
+     in `~/.claude/skills/caveman/.claude-plugin/plugin.json`.
+
+  Alternative: change `rev`, set `hash = lib.fakeHash;` and copy the `got:`
+  hash from the build error. Always change `rev` and `hash` together — with
+  the old hash left in place, nix reuses the cached old source and the build
+  "succeeds" without updating anything.
+- **Claude Code's `settings.json` is merged, not linked.**
+  `programs.claude-code` in `home/terminal/agents.nix` sets
+  `mutableSettings = true`: Claude Code writes `~/.claude/settings.json`
+  itself (theme, `/config`), so activation merges the declared `settings`
+  into that writable file. Removing a declared key does not remove it from the
+  file. The status line is a `writeShellApplication` (`claude-statusline`,
+  `dir (git branch) | model | context % used`) fed JSON on stdin. Round
+  numbers in jq, not with `printf '%.0f'`: the German locale rejects `42.6`.
 - **Never search `/nix/store`** with `find`, `ls`, `grep`, `rg`, or anything
   recursive. The store has tens of thousands of paths and scans take forever.
   Use `nix path-info`, `nix eval`, or open the specific source file directly. If

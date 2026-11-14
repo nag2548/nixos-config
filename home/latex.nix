@@ -1,11 +1,5 @@
-# LaTeX baseline: a global TeX Live plus the neovim (nvf) setup around
-# VimTeX, texlab, tex-fmt and LaTeX snippets. Project-specific TeX packages
-# belong in the project's own flake (see templates/latex); its devShell puts
-# its own TeX Live first on PATH through direnv.
 { pkgs, ... }:
 {
-  # scheme-medium is the smallest scheme that ships latexmk, which VimTeX
-  # drives. Enough for one-off documents outside a project shell.
   home.packages = [ pkgs.texliveMedium ];
 
   programs.nvf.settings.vim = {
@@ -47,7 +41,6 @@
 
     autocomplete.nvim-cmp.sources.vimtex = "[VimTeX]";
 
-    # treesitter latex/bibtex grammars, texlab LSP and tex-fmt formatting.
     languages.tex.enable = true;
   };
 }
