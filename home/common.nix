@@ -20,12 +20,24 @@
       ps: with ps; [
         scheme-medium
         biblatex
+        biblatex-ieee
         biber
         csquotes
         dirtytalk
         enumitem
         lipsum
         titlesec
+        curve
+        silence
+        fontawesome5
+        simpleicons
+        relsize
+        comment
+        cochineal
+        fontaxes
+        cabin
+        inconsolata
+        upquote
       ]
     ))
     xdotool
