@@ -325,7 +325,11 @@ packages) is the house formatter.
   `opencode-notifications` (npm) is v1-only and never loads; the repo uses
   `@mohak34/opencode-notifier`, which ships both shapes.
 - **The caveman plugin lives in `~/.config/opencode/plugins/caveman`** and is
-  found by opencode's plugin auto-discovery. Do not also list it in
+  found by opencode's plugin auto-discovery. It is nix-managed from the same
+  pin as Claude Code: the `cavemanOpencode` derivation in
+  `home/terminal/agents.nix` reproduces the layout of caveman's opencode
+  installer. `~/.config/opencode/AGENTS.md` is not managed. Do not also list
+  the plugin in
   `~/.config/opencode/opencode.jsonc` — that file's legacy `plugin` key is
   deprecated in favour of `plugins`, and listing the directory there makes
   opencode load the plugin twice. `~/.config/opencode/opencode.jsonc` is
@@ -358,6 +362,11 @@ packages) is the house formatter.
   hash from the build error. Always change `rev` and `hash` together — with
   the old hash left in place, nix reuses the cached old source and the build
   "succeeds" without updating anything.
+- **Selected skills from `mattpocock/skills` are pinned in
+  `home/terminal/agents.nix`** (`mattpocockSkills`) and installed into both
+  harnesses via `programs.<harness>.skills`. Skills are picked individually,
+  including the skills they delegate to, instead of loading the whole repo as a
+  plugin. Bump `rev` and `hash` together (same prefetch command as caveman).
 - **Claude Code's `settings.json` is merged, not linked.**
   `programs.claude-code` in `home/terminal/agents.nix` sets
   `mutableSettings = true`: Claude Code writes `~/.claude/settings.json`
