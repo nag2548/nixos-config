@@ -14,6 +14,7 @@
     ./fonts.nix
     ./git.nix
     ./neovim.nix
+    ./latex.nix
     ./thunderbird.nix
     ./vscode.nix
     ./vicinae.nix

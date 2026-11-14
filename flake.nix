@@ -108,5 +108,10 @@
         galanthus = mkHost "umbriel" ./hosts/galanthus;
         caligo = mkHost "kde" ./hosts/caligo;
       };
+
+      templates.latex = {
+        path = ./templates/latex;
+        description = "LaTeX project with a pinned TeX Live devShell and nix build";
+      };
     };
 }

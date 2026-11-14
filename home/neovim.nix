@@ -30,19 +30,10 @@ in
     settings.vim = {
       startPlugins = [
         pkgs.vimPlugins.vim-tmux-navigator
-        pkgs.vimPlugins.vimtex
-        pkgs.vimPlugins.cmp-vimtex
       ];
       viAlias = true;
       vimAlias = true;
       searchCase = "smart";
-
-      globals = {
-        vimtex_compiler_method = "latexmk";
-        vimtex_python_method = "python3";
-        vimtex_view_method = "zathura";
-        vimtex_view_zathura_check_libsynctex = 0;
-      };
 
       theme = {
         enable = true;
@@ -253,11 +244,6 @@ in
         "de"
       ];
 
-      snippets.luasnip = {
-        enable = true;
-        providers = [ pkgs.vimPlugins.luasnip-latex-snippets-nvim ];
-      };
-
       treesitter = {
         context.enable = true;
         grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
@@ -283,10 +269,7 @@ in
         profile = "fzf-native";
       };
       autopairs.nvim-autopairs.enable = true;
-      autocomplete.nvim-cmp = {
-        enable = true;
-        sources.vimtex = "[VimTeX]";
-      };
+      autocomplete.nvim-cmp.enable = true;
       visuals.nvim-web-devicons.enable = true;
 
       debugger.nvim-dap = {
@@ -336,7 +319,6 @@ in
         rust.enable = true;
         sql.enable = true;
         svelte.enable = true;
-        tex.enable = true;
         typescript.enable = true;
         xml.enable = true;
         yaml.enable = true;

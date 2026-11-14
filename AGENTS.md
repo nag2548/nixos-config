@@ -78,11 +78,12 @@ packages) is the house formatter.
   and installs into the user profile). `default.nix` is the importer and also
   sets the sops default file, age key path and `home.stateVersion`; it imports
   `./browsers` (shared), `./common.nix`, `./fonts.nix`, `./git.nix`,
-  `./terminal`, `./neovim.nix`, `./thunderbird.nix`, `./vscode.nix`,
+  `./terminal`, `./neovim.nix`, `./latex.nix`, `./thunderbird.nix`,
+  `./vscode.nix`,
   `./vicinae.nix`, `./desktop` (shared cross-DE defaults) and
   `./desktop/${session}.nix` (per session bundle). Top-level files group by
   domain: `default.nix` (importer), `browsers/` (with a `firefox/` subdir),
-  `common.nix`, `fonts.nix`, `git.nix`, `neovim.nix`, `terminal/`,
+  `common.nix`, `fonts.nix`, `git.nix`, `latex.nix`, `neovim.nix`, `terminal/`,
   `thunderbird.nix`, `vicinae.nix`, `vscode.nix`. Desktop-specific stuff lives
   under `home/desktop/`.
 - `home/desktop/` — `default.nix` imports the shared `catppuccin.nix`,
@@ -111,6 +112,12 @@ packages) is the house formatter.
   `niri.kdl` is the only one right now.
 - `home/themes/` — wallpapers referenced by noctalia and the noctalia greeter
   (`bg-new.jpg` is the one in use; `bg-minimal.jpg` and `bg.png` are unused).
+- `templates/latex/` — flake template for LaTeX projects, exposed as
+  `templates.latex` in `flake.nix`. Start a project with
+  `nix flake init -t ~/.schnee#latex`. It ships `flake.nix` (project TeX Live
+  devShell + `packages.default` that builds `main.pdf` with latexmk),
+  `.envrc` (`use flake`), `.latexmkrc` (pdflatex, output in `build/`),
+  `main.tex` and `.gitignore`.
 
 ## Gotchas
 
@@ -252,21 +259,35 @@ packages) is the house formatter.
 - `home/neovim.nix` uses the `nvf` input. Its `conform-nvim` formatter setup has
   hand-tuned timeouts and `require_cwd = false` for sqlfluff — keep those
   overrides if you touch the formatter list.
-- **LaTeX support spans three places.** `home/neovim.nix` enables nvf's
-  `languages.tex` (treesitter `latex`/`bibtex` grammars, texlab LSP, `tex-fmt`
-  formatting), loads VimTeX and cmp-vimtex via `startPlugins` (vimscript, so
-  they cannot be lazy-loaded through lua), and enables `snippets.luasnip` with
-  the `luasnip-latex-snippets-nvim` provider. VimTeX options live in
-  `settings.vim.globals`. `home/common.nix` installs
-  `texlive.withPackages (ps: [ ps.scheme-medium ... ])`: only the medium scheme
-  ships `latexmk`, which VimTeX drives, but scheme-medium covers neither
-  `collection-latexextra` nor `collection-bibtexextra`, so plain
-  `texliveMedium` misses `lipsum`, `biblatex`, `csquotes`, `dirtytalk`,
-  `enumitem` and `titlesec` (LaTeX then dies with "File `lipsum.sty' not
-  found"). Add those packages — and `biber` for biblatex — on top of
-  `ps.scheme-medium`. Nixpkgs deprecated `texlive.combine` and
+- **LaTeX: global baseline, project packages per project.** `home/latex.nix`
+  holds the global part: plain `texliveMedium` (the smallest scheme that ships
+  `latexmk`, which VimTeX drives) and the nvf side — `languages.tex`
+  (treesitter `latex`/`bibtex` grammars, texlab LSP, `tex-fmt` formatting),
+  VimTeX and cmp-vimtex in `startPlugins` (vimscript, so they cannot be
+  lazy-loaded through lua), VimTeX options in `settings.vim.globals`, and
+  LuaSnip with the LaTeX snippets. Do not add project-specific TeX packages
+  (`biblatex`, `lipsum`, fonts, …) globally: put them in the project's own
+  flake (`templates/latex`). direnv (`use flake`, with `nix-direnv` enabled in
+  `home/common.nix`) puts the project's TeX Live first on PATH, so start nvim
+  from the project dir. scheme-medium covers neither `collection-latexextra`
+  nor `collection-bibtexextra` ("File `lipsum.sty' not found"); add those
+  packages — and `biber` for biblatex — on top of `ps.scheme-medium` in the
+  project flake. Nixpkgs deprecated `texlive.combine` and
   `texliveSmall.withPackages` does not evaluate, so use the prebuilt scheme
-  envs as the base.
+  envs as the base. zathura stays in `home/common.nix`: it is a general PDF
+  viewer, not only the VimTeX viewer.
+- **The LaTeX snippets are a lazy plugin, not a LuaSnip provider.** nvf loads
+  LuaSnip lazily (opt), and `luasnip-latex-snippets-nvim` declares `luasnip`
+  as a dependency. As a provider (start plugin) mnw puts that dependency into
+  start as well and warns
+  `both startAttrs."luasnip" and optAttrs."luasnip" are defined`. So the
+  snippets live in `lazy.plugins` with `ft = "tex"` and a `before` hook that
+  loads LuaSnip, and the dependency is stripped with
+  `pkg // { dependencies = [ ]; }`. Do not use `overrideAttrs` for that: it
+  rebuilds the plugin and its `nvimRequireCheck` fails without luasnip.
+  `snippets.luasnip.providers = [ ]` keeps nvf's default `friendly-snippets`
+  out. `snippets.luasnip.setupOpts.enable_autosnippets = true` is required:
+  most of the plugin's snippets (157 of 176) are autosnippets.
 - **nvf's `jls` package ships a stale maven hash.** nvf packages `jls` itself
   (`flake/pkgs/by-name/jls/package.nix`) with a `mvnHash` computed with maven
   3.9.x. Nixpkgs bumped maven to 3.10.0 (`4fc430b3c222`, 2026-10-21), which

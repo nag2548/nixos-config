@@ -14,32 +14,6 @@
     unzip
     inetutils
     rsync
-    # scheme-medium lacks collection-latexextra and collection-bibtexextra,
-    # so add the LaTeX packages the CV template needs on top of it.
-    (texlive.withPackages (
-      ps: with ps; [
-        scheme-medium
-        biblatex
-        biblatex-ieee
-        biber
-        csquotes
-        dirtytalk
-        enumitem
-        lipsum
-        titlesec
-        curve
-        silence
-        fontawesome5
-        simpleicons
-        relsize
-        comment
-        cochineal
-        fontaxes
-        cabin
-        inconsolata
-        upquote
-      ]
-    ))
     xdotool
     libnotify
 
@@ -132,6 +106,8 @@
     direnv = {
       enable = true;
       enableZshIntegration = true;
+      # Caches `use flake` devShells and roots them against GC.
+      nix-direnv.enable = true;
     };
     nh = {
       enable = true;
