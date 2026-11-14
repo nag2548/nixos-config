@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ./opencode.nix
+    ./agents.nix
   ];
 
   programs = {
