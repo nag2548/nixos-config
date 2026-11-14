@@ -135,26 +135,26 @@
       };
       notification = {
         history_retention_hours = 8;
-        filter = {
-          "filter" = {
-            allow_permanent = false;
-            bypass_dnd = false;
-            enabled = true;
-            match = "signal";
-            play_sound = false;
-            save_history = true;
-            show_toast = false;
-          };
-          "filter-2" = {
-            allow_permanent = false;
-            bypass_dnd = false;
-            enabled = true;
-            match = "telegram";
-            play_sound = false;
-            save_history = true;
-            show_toast = false;
-          };
-        };
+        # filter = {
+        #   "filter" = {
+        #     allow_permanent = false;
+        #     bypass_dnd = false;
+        #     enabled = true;
+        #     match = "signal";
+        #     play_sound = false;
+        #     save_history = true;
+        #     show_toast = false;
+        #   };
+        #   "filter-2" = {
+        #     allow_permanent = false;
+        #     bypass_dnd = false;
+        #     enabled = true;
+        #     match = "telegram";
+        #     play_sound = false;
+        #     save_history = true;
+        #     show_toast = false;
+        #   };
+        # };
       };
     };
   };
