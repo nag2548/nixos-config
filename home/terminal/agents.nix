@@ -152,7 +152,9 @@ in
             };
           in
           {
-            Notification = [ (notify "Needs your input") ];
+            Notification = [
+              ((notify "Needs your input") // { matcher = "permission_prompt|elicitation_dialog"; })
+            ];
             Stop = [ (notify "Session finished") ];
           };
       };
