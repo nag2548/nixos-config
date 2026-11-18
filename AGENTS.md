@@ -172,11 +172,13 @@ packages) is the house formatter.
 - `window-modify-width-*` and `window-modify-height-*` take a **fraction** delta
   (-0.9 to 0.9), not a percentage. Niri's `Mod+Minus` was -10%, so it maps to
   `window-modify-width-left -0.1`.
-- `home/config/niri.kdl` still binds `Mod+Print`/`Mod+Shift+Print`/
-  `Mod+Alt+Print` to the removed `nshot` wrapper (deleted in
-  `chore: remove custom screenshot wrapper`). The wrapper no longer exists —
-  niri's built-in `Print`/`Ctrl+Print`/`Alt+Print` actions are the live path.
-  Clean this up when the niri session is next touched.
+- `home/config/niri.kdl` mirrors the umbriel config where niri has an
+  equivalent: outputs, layout/border/shadow/corner values, cursor, autostart,
+  the shared keybinds (launchers via vicinae, lock `Mod+Ctrl+Q`, quit
+  `Mod+Escape`, screenshots and media keys via `noctalia msg`) and the
+  floating window rules. Umbriel-only features (scratchpads, submaps, pinned
+  windows, blur) have no niri counterpart. Keep both files in sync when
+  changing either.
 - The `umbriel` flake input must **not** follow our nixpkgs — the binary cache
   (`umbriel.cachix.org`) only matches the umbriel flake's own locked nixpkgs.
   The `cachix` branch ships that lock (`3ec636362e18`), and a fresh

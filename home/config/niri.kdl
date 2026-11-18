@@ -72,6 +72,7 @@ gestures {
 cursor {
     xcursor-theme "catppuccin-mocha-dark-cursors"
     xcursor-size 24
+    hide-when-typing
 }
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
@@ -107,11 +108,12 @@ position x=1280 y=0
 }
 output "DP-2" {
     mode "2560x1440@165.080"
+    position x=1920 y=0
     focus-at-startup
 }
 output "HDMI-A-1" {
     mode "1920x1080@60.000"
-    position x=0 y=0
+    position x=0 y=360
 }
 // Place the regular wallpaper on the backdrop.
 layer-rule {
@@ -234,13 +236,13 @@ layout {
         // You can change how shadows look. The values below are in logical
         // pixels and match the CSS box-shadow properties.
         // Softness controls the shadow blur radius.
-        softness 30
+        softness 10
         // Spread expands the shadow.
-        spread 5
+        spread 0
         // Offset moves the shadow relative to the window.
-        offset x=0 y=5
+        offset x=2 y=2
         // You can also change the shadow color and opacity.
-        color "#0007"
+        color "#00000080"
     }
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
     // You can think of them as a kind of outer gaps. They are set in logical pixels.
@@ -260,6 +262,7 @@ layout {
 // See the binds section below for more spawn examples.
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "noctalia"
+spawn-at-startup "1password" "--silent"
 spawn-at-startup "niriusd"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -315,27 +318,54 @@ window-rule {
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    // match app-id="^org\\.keepassxc\\.KeePassXC$"
-    // match app-id="^org\\.gnome\\.World\\.Secrets$"
     match app-id="^com\\.onepassword\\.OnePassword$"
     block-out-from "screen-capture"
- // Use this instead if you want them visible on third-party screenshot tools.
-// block-out-from "screencast"
 }
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 10
     clip-to-geometry true
 }
 window-rule {
     match app-id="dev.noctalia.Noctalia"
     open-floating true
     default-column-width {
-        fixed 1080
+        fixed 1020
     }
     default-window-height {
-        fixed 920
+        fixed 900
+    }
+}
+window-rule {
+    match app-id="^(signal|com\\.github\\.dagmoller\\.whatsapp-electron|org\\.telegram\\.desktop)$"
+    open-floating true
+    block-out-from "screen-capture"
+    default-column-width {
+        proportion 0.5
+    }
+    default-window-height {
+        proportion 0.8
+    }
+}
+window-rule {
+    match app-id="^com\\.onepassword\\.OnePassword$"
+    open-floating true
+    default-column-width {
+        proportion 0.5
+    }
+    default-window-height {
+        proportion 0.6
+    }
+}
+window-rule {
+    match app-id="^org\\.gnome\\.Nautilus$"
+    open-floating true
+    default-column-width {
+        proportion 0.5
+    }
+    default-window-height {
+        proportion 0.6
     }
 }
 debug {
@@ -357,22 +387,26 @@ binds {
     // `niri msg action do-something`.
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
+    Mod+Slash {
+        show-hotkey-overlay
+    }
     Mod+Shift+Slash {
         show-hotkey-overlay
     }
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T hotkey-overlay-title="Open a Terminal: foot" {
-        spawn-sh "nirius focus-or-spawn -a foot footclient"
+    Mod+T hotkey-overlay-title="Open a Terminal: kitty" {
+        spawn-sh "vicinae vicinae://launch/applications/kitty"
     }
     Mod+B hotkey-overlay-title="Open a Browser: firefox" {
-        spawn-sh "nirius focus-or-spawn -a firefox firefox"
+        spawn-sh "vicinae vicinae://launch/applications/firefox"
+    }
+    Mod+Shift+Space hotkey-overlay-title="1Password Quick Access" {
+        spawn "1password" "--quick-access"
     }
     Mod+N hotkey-overlay-title="Open Sone: tidal" {
         spawn-sh "nirius focus-or-spawn -a sone sone"
     }
-    // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen" {
+    Mod+Ctrl+Q hotkey-overlay-title="Lock the Screen" {
         spawn-sh "noctalia msg session lock"
     }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -391,19 +425,19 @@ binds {
     // Example media keys mapping using playerctl.
     // This will work with any MPRIS-enabled media player.
     XF86AudioPlay allow-when-locked=true {
-        spawn-sh "playerctl play-pause"
-    }
-    XF86AudioPause allow-when-locked=true {
-        spawn-sh "playerctl play-pause"
-    }
-    XF86AudioStop allow-when-locked=true {
-        spawn-sh "playerctl stop"
+        spawn-sh "noctalia msg media toggle"
     }
     XF86AudioPrev allow-when-locked=true {
-        spawn-sh "playerctl previous"
+        spawn-sh "noctalia msg media previous"
+    }
+    XF86AudioPause allow-when-locked=true {
+        spawn-sh "noctalia msg media pause"
+    }
+    XF86AudioStop allow-when-locked=true {
+        spawn-sh "noctalia msg media stop"
     }
     XF86AudioNext allow-when-locked=true {
-        spawn-sh "playerctl next"
+        spawn-sh "noctalia msg media next"
     }
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
@@ -418,10 +452,10 @@ binds {
         focus-column-left
     }
     Mod+Down {
-        focus-window-down
+        focus-window-or-workspace-down
     }
     Mod+Up {
-        focus-window-up
+        focus-window-or-workspace-up
     }
     Mod+Right {
         focus-column-right
@@ -442,10 +476,10 @@ binds {
         move-column-left
     }
     Mod+Ctrl+Down {
-        move-window-down
+        move-window-down-or-to-workspace-down
     }
     Mod+Ctrl+Up {
-        move-window-up
+        move-window-up-or-to-workspace-up
     }
     Mod+Ctrl+Right {
         move-column-right
@@ -466,6 +500,18 @@ binds {
     // through to the next workspace when there is no window above or below.
     // Mod+Ctrl+J and Mod+Ctrl+K use move-window-{down,up}-or-to-workspace-{down,up}
     // for the same behavior when moving windows.
+    Mod+Alt+H {
+        swap-window-left
+    }
+    Mod+Alt+L {
+        swap-window-right
+    }
+    Mod+Alt+Left {
+        swap-window-left
+    }
+    Mod+Alt+Right {
+        swap-window-right
+    }
     Mod+Home {
         focus-column-first
     }
@@ -782,23 +828,22 @@ binds {
     // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
     // Mod+Shift+Space { switch-layout "prev"; }
     Print {
-        screenshot
+        spawn-sh "noctalia msg screenshot-fullscreen"
+    }
+    Mod+Print {
+        spawn-sh "noctalia msg screenshot-region"
+    }
+    Mod+Shift+Print {
+        spawn-sh "noctalia msg screenshot-annotate"
+    }
+    Mod+Alt+Print {
+        spawn-sh "noctalia msg screenshot-window"
     }
     Ctrl+Print {
         screenshot-screen
     }
     Alt+Print {
         screenshot-window
-    }
-    // Screenshot pipeline: see nshot (Nix-managed wrapper around grim + slurp + swappy).
-    Mod+Print {
-        spawn-sh "nshot region"
-    }
-    Mod+Shift+Print {
-        spawn-sh "nshot region-copy"
-    }
-    Mod+Alt+Print {
-        spawn-sh "nshot window"
     }
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
@@ -808,10 +853,13 @@ binds {
     //
     // The allow-inhibiting=false property can be applied to other binds as well,
     // which ensures niri always processes them, even when an inhibitor is active.
-    Mod+Escape allow-inhibiting=false {
+    Mod+Shift+Escape allow-inhibiting=false {
         toggle-keyboard-shortcuts-inhibit
     }
     // The quit action will show a confirmation dialog to avoid accidental exits.
+    Mod+Escape {
+        quit
+    }
     Mod+Shift+E {
         quit
     }
@@ -838,19 +886,19 @@ binds {
     }
     // Niri has a built-in window switcher you might want to try it to see which one you prefer.
     // Audio & Brightness
-    XF86AudioRaiseVolume {
+    XF86AudioRaiseVolume allow-when-locked=true {
         spawn-sh "noctalia msg volume-up"
     }
-    XF86AudioLowerVolume {
+    XF86AudioLowerVolume allow-when-locked=true {
         spawn-sh "noctalia msg volume-down"
     }
-    XF86AudioMute {
+    XF86AudioMute allow-when-locked=true {
         spawn-sh "noctalia msg volume-mute"
     }
-    XF86MonBrightnessUp {
+    XF86MonBrightnessUp allow-when-locked=true {
         spawn-sh "noctalia msg brightness-up"
     }
-    XF86MonBrightnessDown {
+    XF86MonBrightnessDown allow-when-locked=true {
         spawn-sh "noctalia msg brightness-down"
     }
     Mod+V {
