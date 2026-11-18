@@ -104,7 +104,7 @@
     in
     {
       nixosConfigurations = {
-        tenebrae = mkHost "umbriel" ./hosts/tenebrae;
+        tenebrae = mkHost "niri" ./hosts/tenebrae;
         galanthus = mkHost "umbriel" ./hosts/galanthus;
         caligo = mkHost "kde" ./hosts/caligo;
       };
