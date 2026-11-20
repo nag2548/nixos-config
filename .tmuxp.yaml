@@ -1,0 +1,17 @@
+session_name: nixos-config
+start_directory: ./
+windows:
+  - window_name: dev
+    # nvim left 65% (top 78%, terminal below), agent right 35%.
+    # Custom layout string: tmux rescales it to the real window size.
+    layout: "4c1d,200x50,0,0{130x50,0,0[130x39,0,0,0,130x10,0,40,1],69x50,131,0,2}"
+    focus: true
+    panes:
+      - shell_command:
+          - nvim
+      - shell_command: []
+      - shell_command:
+          - claude
+  - window_name: git
+    panes:
+      - lazygit

@@ -3,6 +3,9 @@
     ./agents.nix
   ];
 
+  # Per-repo tmux sessions: `td` loads the repo's .tmuxp.yaml.
+  home.packages = [ pkgs.tmuxp ];
+
   programs = {
     zsh = {
       enable = true;
@@ -13,6 +16,7 @@
 
       shellAliases = {
         rebuild = "nh os switch";
+        td = "tmuxp load -y .";
       };
 
       history = {
