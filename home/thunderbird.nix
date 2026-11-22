@@ -9,7 +9,9 @@
       "privacy.donottrackheader.enabled" = true;
       "calendar.alarms.playsound" = false;
       "calendar.week.start" = 1;
-      "calendar.view.visiblehours" = 14;
+      "calendar.view.daystarthour" = 6;
+      "calendar.view.dayendhour" = 24;
+      "calendar.view.visiblehours" = 18;
       "mail.chat.play_sound" = false;
       "mail.shell.checkDefaultClient" = false;
       "mail.dark-reader.enabled" = false;
