@@ -29,6 +29,7 @@
     defaultSopsFile = ../secrets/secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
     secrets.nextcloud-password = { };
+    secrets.radicale-shared-password = { };
   };
 
   # This value determines the home Manager release that your

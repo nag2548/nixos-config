@@ -72,7 +72,29 @@
       };
       thunderbird = {
         enable = true;
-        color = "#a6e3a1";
+        color = "#cba6f7";
+      };
+    };
+    "shared" = {
+      remote = {
+        type = "caldav";
+        url = "https://calendar.peeraten.net/shared/calendar/";
+        userName = "shared";
+      };
+      thunderbird = {
+        enable = true;
+        color = "#fab387";
+      };
+    };
+    "holidays" = {
+      remote = {
+        type = "http";
+        url = "https://www.feiertage-deutschland.de/kalender-download/ics/feiertage-deutschland.ics";
+      };
+      thunderbird = {
+        enable = true;
+        color = "#f38ba8";
+        readOnly = true;
       };
     };
   };

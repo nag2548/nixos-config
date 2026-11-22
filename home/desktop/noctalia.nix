@@ -86,6 +86,7 @@
       };
       calendar = {
         enabled = true;
+        refresh_minutes = 5;
         account = {
           nextcloud_personal = {
             type = "caldav";
@@ -96,6 +97,18 @@
             calendars = [ ];
             credential_source = "file";
             password_file = config.sops.secrets.nextcloud-password.path;
+            color = "#cba6f7";
+          };
+          shared = {
+            type = "caldav";
+            name = "Shared";
+            provider = "custom";
+            server_url = "https://calendar.peeraten.net/shared/calendar/";
+            username = "shared";
+            calendars = [ ];
+            credential_source = "file";
+            password_file = config.sops.secrets.radicale-shared-password.path;
+            color = "#fab387";
           };
           holidays = {
             name = "German Holidays";
