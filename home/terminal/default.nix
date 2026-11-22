@@ -64,24 +64,24 @@
         better-mouse-mode
         cpu
         battery
-        {
-          plugin = resurrect;
-          extraConfig = ''
-            set -g @resurrect-strategy-nvim 'session'
-            set -g @resurrect-strategy-vim 'session'
-            set -g @resurrect-capture-pane-contents 'on'
-            set -g @resurrect-pane-contents-area 'visible'
-            set -g @resurrect-processes '~vi ~lazygit ~opencode'
-            set -g @resurrect-save-command-strategy 'linux_procfs'
-          '';
-        }
-        {
-          plugin = continuum;
-          extraConfig = ''
-            set -g @continuum-restore 'on'
-            set -g @continuum-save-interval '5'
-          '';
-        }
+        # {
+        #   plugin = resurrect;
+        #   extraConfig = ''
+        #     set -g @resurrect-strategy-nvim 'session'
+        #     set -g @resurrect-strategy-vim 'session'
+        #     set -g @resurrect-capture-pane-contents 'on'
+        #     set -g @resurrect-pane-contents-area 'visible'
+        #     set -g @resurrect-processes '~vi ~lazygit ~opencode'
+        #     set -g @resurrect-save-command-strategy 'linux_procfs'
+        #   '';
+        # }
+        # {
+        #   plugin = continuum;
+        #   extraConfig = ''
+        #     set -g @continuum-restore 'on'
+        #     set -g @continuum-save-interval '5'
+        #   '';
+        # }
       ];
 
       extraConfig = ''
