@@ -5,8 +5,18 @@
       DisableTelemetry = true;
     };
     settings = {
-      "general.useragent.override" = "";
-      "privacy.donottrackheader.enabled" = true;
+      "intl.regional_prefs.use_os_locales" = true;
+      "mail.mdn.report.enabled" = false;
+      "mail.mdn.report.not_in_to_cc" = 2;
+      "mail.mdn.report.outside_domain" = 2;
+      "mail.mdn.report.other" = 2;
+      "network.cookie.cookieBehavior" = 5;
+      "mailnews.start_page.enabled" = false;
+      "mail.provider.enabled" = false;
+      "mailnews.auto_config.fetchFromISP.enabled" = false;
+      "datareporting.healthreport.uploadEnabled" = false;
+      "datareporting.policy.dataSubmissionEnabled" = false;
+      "mail.collect_email_address_outgoing" = false;
       "calendar.alarms.playsound" = false;
       "calendar.week.start" = 1;
       "calendar.view.daystarthour" = 6;
@@ -15,7 +25,7 @@
       "mail.chat.play_sound" = false;
       "mail.shell.checkDefaultClient" = false;
       "mail.dark-reader.enabled" = false;
-      "mailnews.message_display.disable_remote_image" = false;
+      "mailnews.message_display.disable_remote_image" = true;
     };
     languagePacks = [
       "en-US"
@@ -92,6 +102,7 @@
       remote = {
         type = "http";
         url = "https://www.feiertage-deutschland.de/kalender-download/ics/feiertage-deutschland.ics";
+        userName = "";
       };
       thunderbird = {
         enable = true;
