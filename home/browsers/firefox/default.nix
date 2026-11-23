@@ -34,6 +34,10 @@
                 name = "GitHub";
                 url = "https://github.com/";
               }
+              {
+                name = "Claude";
+                url = "https://claude.ai/";
+              }
             ];
           }
         ];
