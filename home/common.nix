@@ -11,6 +11,10 @@
     isd
     lazygit
     lazydocker
+    kubectl
+    kind
+    kubernetes-helm
+    k9s
     unzip
     inetutils
     rsync
