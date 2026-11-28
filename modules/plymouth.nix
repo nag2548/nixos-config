@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
-  colorfulLoop = pkgs.adi1090x-plymouth-themes.override {
-    selected_themes = [ "colorful_loop" ];
+  pixels = pkgs.adi1090x-plymouth-themes.override {
+    selected_themes = [ "pixels" ];
   };
 
   logoBlock = pkgs.writeText "logo_block" ''
@@ -13,38 +13,38 @@ let
     logo_sprite.SetY(Math.Min(preferred_y, max_y));
   '';
 
-  colorfulLoopLogo = pkgs.stdenvNoCC.mkDerivation {
-    name = "colorful_loop_logo-plymouth-theme";
+  pixelsLogo = pkgs.stdenvNoCC.mkDerivation {
+    name = "pixels_logo-plymouth-theme";
 
     nativeBuildInputs = [ pkgs.resvg ];
 
     logoSvg = pkgs.fetchurl {
-      url = "https://brand.nixos.org/logos/nixos-logo-white-flat-white-regular-horizontal-recommended.svg";
-      sha256 = "sha256-+dHxXl6D8kdzHE6uQQ4Z1kpr5vZ04ttQOE/QMrSiQhY=";
+      url = "https://brand.nixos.org/logos/nixos-logo-rainbow-gradient-white-regular-horizontal-recommended.svg";
+      sha256 = "sha256-vHWMyfoqjW1I0GIPuQcomHBY0OlWyQALrJCZuVQxKAU=";
     };
 
     dontUnpack = true;
 
     buildCommand = ''
-      themeDir="$out/share/plymouth/themes/colorful_loop_logo"
+      themeDir="$out/share/plymouth/themes/pixels_logo"
       mkdir -p "$themeDir"
 
-      cat >"$themeDir/colorful_loop_logo.plymouth" <<EOF
+      cat >"$themeDir/pixels_logo.plymouth" <<EOF
       [Plymouth Theme]
-      Name=colorful_loop_logo
-      Description=colorful loop with a static NixOS logo below the spinner
+      Name=pixels_logo
+      Description=pixels with a static NixOS logo below the animation
       ModuleName=script
 
       [script]
       ImageDir=$themeDir
-      ScriptFile=$themeDir/colorful_loop_logo.script
+      ScriptFile=$themeDir/pixels_logo.script
       EOF
 
       sed "/Plymouth\.SetRefreshFunction (refresh_callback);/r ${logoBlock}" \
-        ${colorfulLoop}/share/plymouth/themes/colorful_loop/colorful_loop.script \
-        > "$themeDir/colorful_loop_logo.script"
+        ${pixels}/share/plymouth/themes/pixels/pixels.script \
+        > "$themeDir/pixels_logo.script"
 
-      for f in ${colorfulLoop}/share/plymouth/themes/colorful_loop/progress-*.png; do
+      for f in ${pixels}/share/plymouth/themes/pixels/progress-*.png; do
         ln -s "$f" "$themeDir/"
       done
 
@@ -56,8 +56,8 @@ in
   boot = {
     plymouth = {
       enable = true;
-      theme = lib.mkForce "colorful_loop_logo";
-      themePackages = [ colorfulLoopLogo ];
+      theme = lib.mkForce "pixels_logo";
+      themePackages = [ pixelsLogo ];
     };
 
     # Enable "Silent boot"
